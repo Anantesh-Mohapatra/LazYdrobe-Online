@@ -47,8 +47,6 @@ After starting, the app should open automatically in your browser at http://loca
 ## Project Structure
 Here's an overview of the project directory structure:
 
-perl
-Copy code
 lazydrobe/
 ├── public/
 │   └── index.html               # Main HTML file for the React app
