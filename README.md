@@ -45,7 +45,14 @@ yarn install
 ```
 This will install all required packages, including react, react-router-dom, and react-modal.
 
-### 4. Start the Application
+### 4. Create a .env file in the project root directory
+Add the following fields:
+- REACT_APP_VISUAL_CROSSING_API_KEY
+- REACT_APP_OpenAI_API_Key
+- REACT_APP_ebay_API_KEY
+- REACT_APP_DATABASE_URL
+
+### 5. Start the Application
 Start the development server:
 
 #### Using npm
@@ -67,13 +74,20 @@ lazydrobe/
 ├── public/
 │   └── index.html               # Main HTML file for the React app
 ├── src/
-│   ├── components/              # All React components and their CSS files
+│   ├── styling/                 # All React components' CSS files
+│   ├── components/              # All React components
+│   │   ├── Login.js             # Login page component
+│   │   ├── Home.js              # Home page component
 │   │   ├── Navbar.js            # Navigation bar component
 │   │   ├── Footer.js            # Footer component
 │   │   ├── Wardrobe.js          # Main wardrobe screen
 │   │   ├── WardrobeItem.js      # Individual wardrobe item component
 │   │   ├── WardrobeModal.js     # Modal component for adding/editing wardrobe items
+│   │   ├── ECommerce.js         # Main shopping screen
+│   │   ├── ECommerceItem.js     # Individual ecommerce item component
+│   │   ├── ECommerceModal.js    # Modal component for adding/editing ecommerce items
 │   │   ├── OutfitSuggestions.js # Outfit suggestion screen
+│   │   ├── FiveDayWeather.jsx   # Weather component
 │   ├── App.js                   # Main app component with routes
 │   ├── index.js                 # Entry point to render the app
 │   └── App.css                  # Unified styling for all components
@@ -85,17 +99,23 @@ lazydrobe/
 ## Key Components
 The following core components were identified in the wireframe and are implemented in this prototype:
 
+ - Login (Login.js): Displays the login screen for the app.  
+ - Home (Home.js): Displays the home screen for the app.  
  - Navbar (Navbar.js): Displays the navigation links for the app.  
  - Footer (Footer.js): Shows copyright information.  
  - Wardrobe (Wardrobe.js): Displays wardrobe items with filtering functionality.  
  - WardrobeItem (WardrobeItem.js): Represents individual wardrobe items.  
- - WardrobeModal (WardrobeModal.js): Modal for adding/editing wardrobe items.  
+ - WardrobeModal (WardrobeModal.js): Modal for adding/editing wardrobe items.
+ - ECommerce (ECommerce.js): Displays ecommerce items with filtering functionality.  
+ - ECommerceItem (ECommerceItem.js): Represents individual ecommerce items.  
+ - ECommerceModal (ECommerceModal.js): Modal for adding/editing ecommerce items. 
+ - OutfitSuggestions (OutfitSuggestions.js): Displays outfit recommendations based on weather.  
  - OutfitSuggestions (OutfitSuggestions.js): Displays outfit recommendations based on weather.  
 
 These components are designed based on our wireframe's hierarchy and interaction flows.  
 
 ## Styling
-All component styles have been combined into App.css, located in the src folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
+All component styles have their own css files, located in the src/components/styling folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
 
 ## Mock Data
 To simulate future API integration, we have implemented mock data. This mock data structure will mirror the real data from the backend API, which will eventually be implemented with FastAPI.
