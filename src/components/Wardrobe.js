@@ -1,7 +1,7 @@
 // Wardrobe.js
 import React, { useState } from 'react';
 import WardrobeItem from './WardrobeItem';
-import '../Application.css';
+import '../App.css';
 
 const Wardrobe = ({ items }) => {
   const [filter, setFilter] = useState('');
