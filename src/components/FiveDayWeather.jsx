@@ -5,7 +5,6 @@ const FiveDayWeather = () => {
   const [location, setLocation] = useState('');
   const [locationInput, setLocationInput] = useState('');
   const apiKey = process.env.REACT_APP_VISUAL_CROSSING_API_KEY;
-  console.log("API Key:", apiKey);
 
   useEffect(() => {
     if (location) {
