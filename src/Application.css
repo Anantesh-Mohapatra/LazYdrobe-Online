@@ -1,9 +1,15 @@
 /* Global styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  background-color: #f9f9f9; /* Light background for better contrast */
 }
 
 /* Navbar styles */
@@ -17,6 +23,11 @@ body {
 .navbar a {
   color: white;
   text-decoration: none;
+  padding: 5px 10px;
+}
+
+.navbar a:hover {
+  color: #ddd; /* Lighten color on hover for accessibility */
 }
 
 .active-link {
@@ -30,6 +41,9 @@ body {
   color: white;
   text-align: center;
   padding: 10px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 /* Wardrobe styles */
@@ -37,9 +51,17 @@ body {
   padding: 20px;
 }
 
+.wardrobe input[type="text"] {
+  padding: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+}
+
 .wardrobe-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
 }
 
@@ -48,16 +70,26 @@ body {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .wardrobe-item img {
   max-width: 100%;
   height: auto;
   margin-bottom: 10px;
+  border-radius: 4px;
 }
 
 .wardrobe-item h3 {
   font-size: 1.2em;
+  margin: 0 0 5px;
+}
+
+.wardrobe-item p {
+  font-size: 0.9em;
+  color: #555;
   margin: 0;
 }
 
@@ -69,10 +101,26 @@ body {
 .outfit-list {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .outfit-card {
-  margin: 10px;
+  flex: 1 1 150px;
   padding: 10px;
   border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.outfit-card h3 {
+  margin: 0 0 5px;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.outfit-card p {
+  font-size: 0.9em;
+  color: #666;
+  margin: 0;
 }
