@@ -64,9 +64,8 @@ lazydrobe/
 │   └── App.css                  # Unified styling for all components
 ├── .gitignore                   # Excludes unnecessary files from Git
 ├── README.md                    # General project overview and instructions
-├── frontend.md                  # Front-end setup guide (this file)
 ├── package.json                 # Lists dependencies and scripts
-└── package-lock.json            # Locks dependencies to specific versions
+├── package-lock.json            # Locks dependencies to specific versions
 ```
 ## Key Components
 The following core components were identified in the wireframe and are implemented in this prototype:
