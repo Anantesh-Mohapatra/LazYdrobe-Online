@@ -2,6 +2,7 @@
 import React from 'react';
 import '../App.css';
 import './Login.css';
+import Footer from './Footer';
 
 const Login = ({ setIsLoggedIn }) => {
   const handleLogin = () => {
@@ -22,6 +23,7 @@ const Login = ({ setIsLoggedIn }) => {
 
           <button onClick={handleLogin}>Login</button>
         </form>
+        <p>© 2024 LazYdrobe | All rights reserved.</p>
       </div>
     </div> 
   );
