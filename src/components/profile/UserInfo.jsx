@@ -8,14 +8,7 @@ const UserInfo = ({ initialUserInfo = {} }) => {
     ...initialUserInfo, // Prefill if initialUserInfo is provided
   });
 
-  useEffect(() => {
-    if (initialUserInfo) {
-      setUserInfo((prevInfo) => ({
-        ...prevInfo,
-        ...initialUserInfo,
-      }));
-    }
-  }, [initialUserInfo]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -5,6 +5,11 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Wardrobe from './components/Wardrobe';
 import OutfitSuggestions from './components/OutfitSuggestions';
+import FiveDayWeather from './components/FiveDayWeather';
+import HelloUser from './components/profile/HelloUser';
+import UserInfo from './components/profile/UserInfo';
+import UserFashionPreferences from './components/profile/UserFashionPreferences';
+
 
 function App() {
   return (
@@ -16,8 +21,19 @@ function App() {
             <Wardrobe items={[]} /> {/* Replace with actual items */}
           </Route>
           <Route path="/outfits">
-            <OutfitSuggestions outfits={[]} /> {/* Replace with actual outfits */}
+            <div>
+              <FiveDayWeather />
+              <OutfitSuggestions outfits={[]} /> {/* Replace with actual outfits */}
+            </div>
           </Route>
+          <Route path="/profile">
+            <div>
+              <HelloUser />
+              <UserInfo />
+              <UserFashionPreferences />
+            </div>
+          </Route>
+
           <Route path="/">
             <h1>Welcome to LazyDrobe!</h1>
           </Route>

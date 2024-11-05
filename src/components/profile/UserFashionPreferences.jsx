@@ -8,15 +8,6 @@ const UserFashionPreferences = ({ initialPreferences = {} }) => {
     ...initialPreferences, // Prefill if initialPreferences is provided
   });
 
-  useEffect(() => {
-    if (initialPreferences) {
-      setPreferences((prevPreferences) => ({
-        ...prevPreferences,
-        ...initialPreferences,
-      }));
-    }
-  }, [initialPreferences]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPreferences((prevPreferences) => ({
