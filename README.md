@@ -71,13 +71,14 @@ lazydrobe/
 ## Key Components
 The following core components were identified in the wireframe and are implemented in this prototype:
 
-Navbar (Navbar.js): Displays the navigation links for the app.
-Footer (Footer.js): Shows copyright information.
-Wardrobe (Wardrobe.js): Displays wardrobe items with filtering functionality.
-WardrobeItem (WardrobeItem.js): Represents individual wardrobe items.
-WardrobeModal (WardrobeModal.js): Modal for adding/editing wardrobe items.
-OutfitSuggestions (OutfitSuggestions.js): Displays outfit recommendations based on weather.
-These components are designed based on our wireframe's hierarchy and interaction flows.
+ - Navbar (Navbar.js): Displays the navigation links for the app.  
+ - Footer (Footer.js): Shows copyright information.  
+ - Wardrobe (Wardrobe.js): Displays wardrobe items with filtering functionality.  
+ - WardrobeItem (WardrobeItem.js): Represents individual wardrobe items.  
+ - WardrobeModal (WardrobeModal.js): Modal for adding/editing wardrobe items.  
+ - OutfitSuggestions (OutfitSuggestions.js): Displays outfit recommendations based on weather.  
+
+These components are designed based on our wireframe's hierarchy and interaction flows.  
 
 ## Styling
 All component styles have been combined into App.css, located in the src folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
