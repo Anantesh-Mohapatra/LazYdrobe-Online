@@ -1,0 +1,27 @@
+/* WardrobeItem styles */
+.wardrobe-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wardrobe-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.wardrobe-item h3 {
+  font-size: 1.2em;
+  margin: 0 0 5px;
+}
+
+.wardrobe-item p {
+  font-size: 0.9em;
+  color: #555;
+  margin: 0;
+}

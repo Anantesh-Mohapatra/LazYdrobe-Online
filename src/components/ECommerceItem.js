@@ -1,6 +1,7 @@
 // ECommerceItem.js
 import React from 'react';
 import '../App.css';
+import './styling/ECommerceItem.css';
 
 const ECommerceItem = ({ item }) => {
   return (

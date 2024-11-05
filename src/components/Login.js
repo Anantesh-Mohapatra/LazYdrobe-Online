@@ -1,8 +1,7 @@
 // Login.js
 import React from 'react';
 import '../App.css';
-import './Login.css';
-import Footer from './Footer';
+import './styling/Login.css';
 
 const Login = ({ setIsLoggedIn }) => {
   const handleLogin = () => {

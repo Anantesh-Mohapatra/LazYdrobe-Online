@@ -1,0 +1,18 @@
+/* ECommerce styles */
+.ecommerce {
+    padding: 20px;
+  }
+  
+  .ecommerce input[type="text"] {
+    padding: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 16px;
+  }
+  
+  .ecommerce-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }

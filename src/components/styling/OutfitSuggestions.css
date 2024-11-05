@@ -1,0 +1,31 @@
+/* OutfitSuggestions styles */
+.outfit-suggestions {
+  padding: 20px;
+}
+
+.outfit-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.outfit-card {
+  flex: 1 1 150px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.outfit-card h3 {
+  margin: 0 0 5px;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.outfit-card p {
+  font-size: 0.9em;
+  color: #666;
+  margin: 0;
+}
