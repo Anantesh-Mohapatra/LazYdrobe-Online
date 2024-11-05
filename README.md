@@ -4,6 +4,10 @@ This guide provides instructions on how to set up, run, and understand the front
 ## Objective
 The current goal is to develop the front-end architecture of LazyDrobe. This prototype includes major components and layout styling, using mock data to simulate an API. These components are designed to be flexible and scalable, preparing for future API integration.
 
+## Wireframe
+
+![LazYdrobe Wireframe](wireframe.png)
+
 ## Prerequisites
 Before running this code, ensure you have the following installed:
 
@@ -16,32 +20,43 @@ Follow these steps to set up and run the front-end code on your local machine.
 ### 1. Clone the Repository
 Clone the repository to your local machine:
 
+```
 git clone https://github.com/username/lazydrobe.git
+```
 Note: Replace username with your GitHub username if you forked the repository.
 
 ### 2. Navigate into the Project Directory
 Change to the project’s directory:
-
+```
 cd lazydrobe
+```
 ### 3. Install Dependencies
 Install the necessary packages using npm or yarn:
 
 
 #### Using npm
+```
 npm install
+```
 
 #### OR using yarn
+```
 yarn install
+```
 This will install all required packages, including react, react-router-dom, and react-modal.
 
 ### 4. Start the Application
 Start the development server:
 
 #### Using npm
+```
 npm start
+```
 
 #### OR using yarn
+```
 yarn start
+```
 After starting, the app should open automatically in your browser at http://localhost:3000. If it doesn’t, open the link manually.
 
 ## Project Structure
