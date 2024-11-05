@@ -11,6 +11,7 @@ import UserInfo from './components/profile/UserInfo';
 import UserFashionPreferences from './components/profile/UserFashionPreferences';
 import Login from './components/Login';
 import Home from './components/Home';
+import ECommerce from './components/ECommerce';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,6 +28,9 @@ function App() {
               <Switch>
                 <Route path="/wardrobe">
                   <Wardrobe items={[ /* Mock wardrobe items can be added here */ ]} />
+                </Route>
+                <Route path="/shopping">
+                  <ECommerce items={[ /* Mock ecommerce items can be added here */ ]} />
                 </Route>
                 <Route path="/outfits">
                   <div>
