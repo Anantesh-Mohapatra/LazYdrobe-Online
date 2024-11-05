@@ -47,6 +47,7 @@ After starting, the app should open automatically in your browser at http://loca
 ## Project Structure
 Here's an overview of the project directory structure:
 
+```
 lazydrobe/
 ├── public/
 │   └── index.html               # Main HTML file for the React app
@@ -66,7 +67,7 @@ lazydrobe/
 ├── frontend.md                  # Front-end setup guide (this file)
 ├── package.json                 # Lists dependencies and scripts
 └── package-lock.json            # Locks dependencies to specific versions
-
+```
 ## Key Components
 The following core components were identified in the wireframe and are implemented in this prototype:
 
