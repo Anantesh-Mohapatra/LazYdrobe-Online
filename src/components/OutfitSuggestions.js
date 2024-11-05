@@ -1,6 +1,6 @@
 // OutfitSuggestions.js
 import React from 'react';
-import './OutfitSuggestions.css';
+import '../Application.css';
 
 const OutfitSuggestions = ({ outfits }) => {
   return (

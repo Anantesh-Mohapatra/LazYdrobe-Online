@@ -1,6 +1,6 @@
 // WardrobeItem.js
 import React from 'react';
-import './WardrobeItem.css';
+import '../Application.css';
 
 const WardrobeItem = ({ item }) => {
   return (
