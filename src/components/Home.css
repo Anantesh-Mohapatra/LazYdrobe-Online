@@ -5,3 +5,23 @@
   background-color: #f9f9f9;
   font-family: Arial, sans-serif;
 }
+
+.home {
+  text-align: center;
+}
+
+.home hr.rounded {
+  width: 90%;
+  border-top: 8px solid #c8fdf2;
+  border-radius: 5px;
+}
+
+.home h1 {
+  font-size: 7vmin;
+  font-weight: bold;
+}
+
+.intro-text {
+  font-size: 5vim;
+  color: #333;
+}
