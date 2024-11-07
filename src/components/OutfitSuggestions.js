@@ -4,6 +4,7 @@ import '../App.css';
 import './styling/OutfitSuggestions.css';
 
 const OutfitSuggestions = ({ outfits }) => {
+  console.log("Outfit Suggestions:", outfits);
   return (
     <div className="outfit-suggestions">
       <h2>Outfit Suggestions</h2>

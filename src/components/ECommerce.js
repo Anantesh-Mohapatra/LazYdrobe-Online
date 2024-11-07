@@ -5,6 +5,7 @@ import '../App.css';
 import './styling/ECommerce.css';
 
 const ECommerce = ({ items }) => {
+  console.log("ECommerce Items:", items);
   const [filter, setFilter] = useState('');
 
   const filteredItems = items.filter(item => 

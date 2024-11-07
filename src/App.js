@@ -14,7 +14,7 @@ import Home from './components/Home';
 import ECommerce from './components/ECommerce';
 
 // Import mock data
-import { wardrobeItems, ecommerceItems, outfitSuggestions } from './mockData';
+import { users, wardrobeItems, ecommerceItems, weatherData, outfitSuggestions, fashionTrends } from './mockData';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,7 +43,8 @@ function App() {
                 </Route>
                 <Route path="/profile">
                   <div className="profile-section">
-                    <HelloUser />
+                    {/* Pass user object as a prop to HelloUser */}
+                    <HelloUser user={users[0]} /> {/* Pass the first user as a sample */}
                     <UserInfo />
                     <UserFashionPreferences />
                   </div>
