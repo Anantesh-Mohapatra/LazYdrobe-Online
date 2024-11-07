@@ -37,6 +37,9 @@ Install the necessary packages using npm or yarn:
 #### Using npm
 ```
 npm install
+npm install react
+npm install react-router-dom
+npm install react-modal
 ```
 
 #### OR using yarn
@@ -48,6 +51,7 @@ This will install all required packages, including react, react-router-dom, and 
 ### 4. Create a .env file in the project root directory
 Add the following fields:
 - REACT_APP_VISUAL_CROSSING_API_KEY
+  The following is not currently being used in the front end portion
 - REACT_APP_OpenAI_API_Key
 - REACT_APP_ebay_API_KEY
 - REACT_APP_DATABASE_URL
@@ -110,7 +114,6 @@ The following core components were identified in the wireframe and are implement
  - ECommerceItem (ECommerceItem.js): Represents individual ecommerce items.  
  - ECommerceModal (ECommerceModal.js): Modal for adding/editing ecommerce items. 
  - OutfitSuggestions (OutfitSuggestions.js): Displays outfit recommendations based on weather.  
- - OutfitSuggestions (OutfitSuggestions.js): Displays outfit recommendations based on weather.  
 
 These components are designed based on our wireframe's hierarchy and interaction flows.  
 
@@ -120,14 +123,30 @@ All component styles have their own css files, located in the src/components/sty
 ## Mock Data
 To simulate future API integration, we have implemented mock data. This mock data structure will mirror the real data from the backend API, which will eventually be implemented with FastAPI.
 
-Example of Mock Data (located within each component for now):
-
-
-const mockItems = [
-  { id: 1, name: "T-Shirt", category: "Tops", image: "link_to_image" },
-  { id: 2, name: "Jeans", category: "Bottoms", image: "link_to_image" }
-];
-The mockItems array in each component is currently used to display data in the wardrobe and outfit suggestions screens.
+Example of Mock Data (located within mockData.js for now):
+```
+const outfitSuggestions = [
+    {
+      outfit_id: 1,
+      user_id: 1,
+      clothings: [1, 2], // Currently refers to wardrobeItems by item_id
+      occasion: { type: "casual", season: "winter" },
+      for_weather: "cold",
+      date_suggested: "2024-03-01T08:30:00",
+      source_url: "https://example.com/outfit1"
+    },
+    {
+      outfit_id: 2,
+      user_id: 2,
+      clothings: [2],
+      occasion: { type: "formal", season: "fall" },
+      for_weather: "cool",
+      date_suggested: "2024-03-02T09:00:00",
+      source_url: "https://example.com/outfit2"
+    }
+  ];
+```
+The mock data is currently used to display data in the wardrobe, shopping, and outfit suggestions screens.
 
 ## Available Scripts
 In the project directory, you can run:
@@ -160,7 +179,7 @@ Development Server: If the app doesn’t load in the browser, confirm that the d
 
 File Organization and Component Structuring: AI provided guidance on how to organize files in a clean and maintainable folder structure, which helped establish a coherent naming convention and improve the readability of the codebase.
 
-Debugging and Code Enhancements: AI was used to troubleshoot minor issues in JavaScript files, including logic bugs and syntax errors in 2-3 key components, ensuring the code adheres to best practices in terms of readability and maintainability.
+Debugging and Code Enhancements: AI was used to troubleshoot minor issues in JavaScript files, including logic bugs and syntax errors, ensuring the code adheres to best practices in terms of readability and maintainability.
 
 Performance Suggestions: AI analyzed component re-renders and recommended ways to reduce unnecessary rendering, particularly in larger components such as Wardrobe and ECommerce, thereby enhancing the overall app performance.
 
