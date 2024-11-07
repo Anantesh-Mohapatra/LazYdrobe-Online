@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance';
 import { useHistory } from 'react-router-dom';
+import '../App.css';
+import './styling/Register.css';
 
 function Register() {
   const [formData, setFormData] = useState({
