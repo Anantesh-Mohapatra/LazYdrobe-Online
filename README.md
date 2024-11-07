@@ -147,9 +147,21 @@ Technical Choices:
 
 React: Selected for its component-based structure, which aligns with our wireframe and layout needs.
 react-router-dom: Chosen for client-side routing between different sections of the app.
-react-modal: Used to create modal dialogs for adding or editing wardrobe items.
+React-modal: This is used to create modal dialogs for adding or editing wardrobe items.
 AI Usage: AI was used to assist with file organization, 2-3 javascript file code glitches, format and ensure best practices were followed in component breakdown and mock data handling.
 
 ## Troubleshooting
-Dependency Issues: If you encounter issues during npm install, ensure you have the latest version of Node.js and npm installed.
+Dependency Issues: If you encounter issues during the npm install, ensure you have the latest version of Node.js and npm installed.
 Development Server: If the app doesn’t load in the browser, confirm that the development server is running on http://localhost:3000 and that no other app is using this port.
+
+## AI Usage
+
+#### AI tools were integrated throughout the development process to streamline the structure, efficiency, and maintainability of the project. Here’s how AI contributed specifically:
+
+File Organization and Component Structuring: AI provided guidance on how to organize files in a clean and maintainable folder structure, which helped establish a coherent naming convention and improve the readability of the codebase.
+
+Debugging and Code Enhancements: AI was used to troubleshoot minor issues in JavaScript files, including logic bugs and syntax errors in 2-3 key components, ensuring the code adheres to best practices in terms of readability and maintainability.
+
+Performance Suggestions: AI analyzed component re-renders and recommended ways to reduce unnecessary rendering, particularly in larger components such as Wardrobe and ECommerce, thereby enhancing the overall app performance.
+
+Best Practices in React: AI reinforced the best practices for React components, such as the proper use of hooks and context, ensuring a high standard for component reuse and state management.
