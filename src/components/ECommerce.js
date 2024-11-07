@@ -8,7 +8,7 @@ const ECommerce = ({ items }) => {
   const [filter, setFilter] = useState('');
 
   const filteredItems = items.filter(item => 
-    item.category.toLowerCase().includes(filter.toLowerCase())
+    item.category ? item.category.toLowerCase().includes(filter.toLowerCase()) : false
   );
 
   return (
@@ -26,6 +26,11 @@ const ECommerce = ({ items }) => {
       </div>
     </div>
   );
+};
+
+// Set default props to prevent undefined items
+ECommerce.defaultProps = {
+  items: []
 };
 
 export default ECommerce;

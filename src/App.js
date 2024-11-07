@@ -1,4 +1,4 @@
-// Application.js
+// App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -13,13 +13,16 @@ import Login from './components/Login';
 import Home from './components/Home';
 import ECommerce from './components/ECommerce';
 
+// Import mock data
+import { wardrobeItems, ecommerceItems, outfitSuggestions } from './mockData';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Router>
       <div className="app-container">
-        {!isLoggedIn  ? (
+        {!isLoggedIn ? (
           <Login setIsLoggedIn={setIsLoggedIn} />
         ) : (
           <>
@@ -27,15 +30,15 @@ function App() {
             <main className="main-content">
               <Switch>
                 <Route path="/wardrobe">
-                  <Wardrobe items={[ /* Mock wardrobe items can be added here */ ]} />
+                  <Wardrobe items={wardrobeItems} />
                 </Route>
                 <Route path="/shopping">
-                  <ECommerce items={[ /* Mock ecommerce items can be added here */ ]} />
+                  <ECommerce items={ecommerceItems} />
                 </Route>
                 <Route path="/outfits">
                   <div>
                     <FiveDayWeather />
-                    <OutfitSuggestions outfits={[ /* Mock outfit data can go here */ ]} />
+                    <OutfitSuggestions outfits={outfitSuggestions} />
                   </div>
                 </Route>
                 <Route path="/profile">
@@ -46,7 +49,7 @@ function App() {
                   </div>
                 </Route>
                 <Route path="/">
-                  <Home/>
+                  <Home />
                 </Route>
               </Switch>
             </main>
@@ -57,5 +60,9 @@ function App() {
     </Router>
   );
 }
+
+console.log(wardrobeItems);
+console.log(ecommerceItems);
+console.log(outfitSuggestions);
 
 export default App;
