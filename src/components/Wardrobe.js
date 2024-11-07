@@ -8,6 +8,7 @@ const Wardrobe = ({ items }) => {
   console.log("Wardrobe Items:", items);
   const [filter, setFilter] = useState('');
 
+  // Filter wardrobe items based on the `clothing_type`
   const filteredItems = items.filter(item => 
     item.clothing_type.toLowerCase().includes(filter.toLowerCase())
   );
@@ -22,6 +23,7 @@ const Wardrobe = ({ items }) => {
       />
       <div className="wardrobe-grid">
         {filteredItems.map(item => (
+          // Using item_id as key to avoid warnings
           <WardrobeItem key={item.item_id} item={item} />
         ))}
       </div>

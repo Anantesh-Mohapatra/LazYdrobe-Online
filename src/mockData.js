@@ -23,52 +23,70 @@ export const users = [
   ];
   
   // Mock data for wardrobe_items
+  export const ecommerceItems = [
+    {
+      product_id: 186668741135,
+      suggested_item_type: "Coats, Jackets & Vests",
+      product_name: "Men's warm standing collar jacket, casual outdoor parka, street coat Winter Tact",
+      price: 36.38,
+      product_url: "https://www.ebay.com/itm/Mens-warm-standing-collar-jacket-casual-outdoor-parka-street-coat-Winter-Tact-/186668741135?var=694698933195",
+      image_url: "https://i.ebayimg.com/thumbs/images/g/pk0AAOSw5s1m14oW/s-l140.jpg"
+    },
+    {
+      product_id: 204999601171,
+      suggested_item_type: "Coats, Jackets & Vests",
+      product_name: "A New Day Women's Button Up Winter Water-Resistant Trench Coat Jacket, Tan, S",
+      price: 16.99,
+      product_url: "https://www.ebay.com/itm/New-Day-Womens-Button-Up-Winter-Water-Resistant-Trench-Coat-Jacket-Tan-S-/204999601171",
+      image_url: "https://i.ebayimg.com/thumbs/images/g/81gAAOSw0Ctm6u0~/s-l140.jpg"
+    },
+    {
+      product_id: 155488229926,
+      suggested_item_type: "Coats, Jackets & Vests",
+      product_name: "New Mens Carhartt Duck Detroit Jacket Work Coat CT103828 - Pick Size and Color",
+      price: 109.95,
+      product_url: "https://www.ebay.com/itm/New-Mens-Carhartt-Duck-Detroit-Jacket-Work-Coat-CT103828-Pick-Size-and-Color-/155488229926?var=457516791957",
+      image_url: "https://i.ebayimg.com/thumbs/images/g/bxMAAOSwkIdkLGV3/s-l140.jpg"
+    }
+  ];
+  
+  // Mock data for wardrobe_items linking to ecommerce products
   export const wardrobeItems = [
     {
       item_id: 1,
       user_id: 1,
-      product_id: 101,
+      product_id: 186668741135, // Links to the eCommerce product
       clothing_type: "Jacket",
       for_weather: "cold",
       color: { primary: "black", secondary: "grey" },
       size: "M",
       tags: ["outdoor", "winter"],
-      image_url: "path/to/jacket.jpg",
+      image_url: "https://i.ebayimg.com/thumbs/images/g/pk0AAOSw5s1m14oW/s-l140.jpg",
       date_added: "2024-03-01T08:15:00"
     },
     {
       item_id: 2,
       user_id: 1,
-      product_id: null, // Not linked to an eCommerce product
-      clothing_type: "Sweater",
-      for_weather: "cool",
-      color: { primary: "blue" },
-      size: "L",
-      tags: ["cozy", "warm"],
-      image_url: "path/to/sweater.jpg",
+      product_id: 204999601171, // Links to the eCommerce product
+      clothing_type: "Coat",
+      for_weather: "winter",
+      color: { primary: "tan" },
+      size: "S",
+      tags: ["water-resistant", "trench"],
+      image_url: "https://i.ebayimg.com/thumbs/images/g/81gAAOSw0Ctm6u0~/s-l140.jpg",
       date_added: "2024-03-05T09:20:30"
-    }
-  ];
-  
-  // Mock data for ecommerce_products
-  export const ecommerceItems = [
-    {
-      product_id: 101,
-      product_name: "Coat",
-      suggested_item_type: "outerwear",
-      price: 120.0,
-      product_url: "https://example.com/product/coat",
-      image_url: "path/to/coat.jpg",
-      date_suggested: "2024-02-15T11:00:00"
     },
     {
-      product_id: 102,
-      product_name: "Scarf",
-      suggested_item_type: "accessory",
-      price: 20.0,
-      product_url: "https://example.com/product/scarf",
-      image_url: "path/to/scarf.jpg",
-      date_suggested: "2024-02-18T14:30:00"
+      item_id: 3,
+      user_id: 1,
+      product_id: 155488229926, // Links to the eCommerce product
+      clothing_type: "Work Jacket",
+      for_weather: "fall",
+      color: { primary: "brown" },
+      size: "L",
+      tags: ["workwear", "durable"],
+      image_url: "https://i.ebayimg.com/thumbs/images/g/bxMAAOSwkIdkLGV3/s-l140.jpg",
+      date_added: "2024-03-10T10:00:00"
     }
   ];
   
