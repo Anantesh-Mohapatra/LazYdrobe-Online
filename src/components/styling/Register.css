@@ -1,0 +1,52 @@
+/* Register styles */
+.register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  .register {
+    width: 70%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .register h1 {
+    font-size: 6.5vmin;
+    font-weight: bold;
+  }
+  
+  .register form {
+    width: 100%;
+    margin: auto;
+  }
+  
+  .register label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  .register input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 1rem;
+  }
+  
+  .link {
+    color: #007BFF;
+    cursor: pointer;
+  }
+  

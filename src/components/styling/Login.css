@@ -1,4 +1,21 @@
-/* Login styles */
+/* Common button styles */
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #c8fdf2; /* Match the background color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition */
+  margin-top: 1rem; /* Space above buttons */
+}
+
+.button:hover {
+  background-color: #c8f2fd; /* Change color on hover */
+}
+
+/* Existing Login styles */
 .login-page {
   display: flex;
   justify-content: center;
@@ -10,7 +27,7 @@
 
 .login {
   width: 70%;
-  height: 60%;
+  max-width: 400px; /* Ensure a maximum width */
   text-align: center;
 }
 
@@ -19,8 +36,8 @@
   font-weight: bold;
 }
 
-.login form{
-  width: 50%;
+.login form {
+  width: 100%; /* Ensure full width */
   margin: auto;
 }
 
@@ -40,16 +57,7 @@
   font-size: 1rem;
 }
 
-.login button {
-  width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-  background-color: #c8fdf2;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.login button:hover {
-  background-color: #c8f2fd;
+.error {
+  color: red; /* Error message color */
+  margin-top: 1rem; /* Spacing for error messages */
 }
