@@ -22,33 +22,38 @@ export const users = [
     }
   ];
   
-  // Mock data for wardrobe_items
-  export const ecommerceItems = [
+
+// Mock data for ecommerce_products
+export const ecommerceItems = [
     {
-      product_id: 186668741135,
+      product_id: 156460922232,
       suggested_item_type: "Coats, Jackets & Vests",
-      product_name: "Men's warm standing collar jacket, casual outdoor parka, street coat Winter Tact",
-      price: 36.38,
-      product_url: "https://www.ebay.com/itm/Mens-warm-standing-collar-jacket-casual-outdoor-parka-street-coat-Winter-Tact-/186668741135?var=694698933195",
-      image_url: "https://i.ebayimg.com/thumbs/images/g/pk0AAOSw5s1m14oW/s-l140.jpg"
+      product_name: "Calvin Klein Wool Coat Womens 6",
+      price: 16.95,
+      product_url: "https://www.ebay.com/itm/Calvin-Klein-Wool-Coat-Womens-6-/156460922232",
+      image_url: "https://i.ebayimg.com/thumbs/images/g/GAoAAOSwHnpd8Vpo/s-l140.jpg",
+      date_suggested: "2024-02-20T10:00:00"
     },
     {
-      product_id: 204999601171,
+      product_id: 395047190185,
       suggested_item_type: "Coats, Jackets & Vests",
-      product_name: "A New Day Women's Button Up Winter Water-Resistant Trench Coat Jacket, Tan, S",
-      price: 16.99,
-      product_url: "https://www.ebay.com/itm/New-Day-Womens-Button-Up-Winter-Water-Resistant-Trench-Coat-Jacket-Tan-S-/204999601171",
-      image_url: "https://i.ebayimg.com/thumbs/images/g/81gAAOSw0Ctm6u0~/s-l140.jpg"
+      product_name: "Women's Casual Thicken Wool Blend Stand Collar Single Breasted Pea Coat - CHARTOU",
+      price: 37.99,
+      product_url: "https://www.ebay.com/itm/Womens-Casual-Thicken-Wool-Blend-Stand-Collar-Single-Breasted-Pea-Coat-CHARTOU-/395047190185",
+      image_url: "https://i.ebayimg.com/thumbs/images/g/4~UAAOSwlHBlcO-Y/s-l140.jpg",
+      date_suggested: "2024-02-22T15:00:00"
     },
     {
-      product_id: 155488229926,
+      product_id: 172875575111,
       suggested_item_type: "Coats, Jackets & Vests",
-      product_name: "New Mens Carhartt Duck Detroit Jacket Work Coat CT103828 - Pick Size and Color",
-      price: 109.95,
-      product_url: "https://www.ebay.com/itm/New-Mens-Carhartt-Duck-Detroit-Jacket-Work-Coat-CT103828-Pick-Size-and-Color-/155488229926?var=457516791957",
-      image_url: "https://i.ebayimg.com/thumbs/images/g/bxMAAOSwkIdkLGV3/s-l140.jpg"
+      product_name: "Mens Heavy Weight MA-1 Flight Bomber Jacket Full Zip Outerwear Coat Colors NWT",
+      price: 34.99,
+      product_url: "https://www.ebay.com/itm/Mens-Heavy-Weight-MA-1-Flight-Bomber-Jacket-Full-Zip-Outerwear-Coat-Colors-NWT-/172875575111",
+      image_url: "https://i.ebayimg.com/thumbs/images/g/bQUAAOSwMDZjH4-B/s-l140.jpg",
+      date_suggested: "2024-03-01T12:00:00"
     }
   ];
+  
   
   // Mock data for wardrobe_items linking to ecommerce products
   export const wardrobeItems = [

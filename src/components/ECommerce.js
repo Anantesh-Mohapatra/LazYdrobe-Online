@@ -1,4 +1,3 @@
-// ECommerce.js
 import React, { useState } from 'react';
 import ECommerceItem from './ECommerceItem';
 import '../App.css';
@@ -9,7 +8,9 @@ const ECommerce = ({ items }) => {
   const [filter, setFilter] = useState('');
 
   const filteredItems = items.filter(item => 
-    item.category ? item.category.toLowerCase().includes(filter.toLowerCase()) : false
+    item.suggested_item_type 
+      ? item.suggested_item_type.toLowerCase().includes(filter.toLowerCase()) 
+      : false
   );
 
   return (
@@ -22,7 +23,7 @@ const ECommerce = ({ items }) => {
       />
       <div className="ecommerce-grid">
         {filteredItems.map(item => (
-          <ECommerceItem key={item.id} item={item} />
+          <ECommerceItem key={item.product_id} item={item} />
         ))}
       </div>
     </div>

@@ -10,9 +10,12 @@ const OutfitSuggestions = ({ outfits }) => {
       <h2>Outfit Suggestions</h2>
       <div className="outfit-list">
         {outfits.map(outfit => (
-          <div key={outfit.id} className="outfit-card">
-            <h3>{outfit.name}</h3>
-            <p>Weather: {outfit.weather}</p>
+          // Use outfit_id as the unique key
+          <div key={outfit.outfit_id} className="outfit-card">
+            {/* Use the correct properties based on mock data */}
+            <h3>{outfit.occasion.type} Outfit</h3>
+            <p>Weather: {outfit.for_weather}</p>
+            <p>Clothings: {outfit.clothings.join(", ")}</p>
           </div>
         ))}
       </div>
