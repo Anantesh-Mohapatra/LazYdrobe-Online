@@ -58,10 +58,7 @@ function App() {
                       <ECommerce items={ecommerceItems} />
                     </Route>
                     <Route path="/outfits">
-                      <div>
-                        <FiveDayWeather />
-                        <OutfitSuggestions outfits={outfitSuggestions} />
-                      </div>
+                      <OutfitSuggestions outfits={outfitSuggestions} />
                     </Route>
                     <Route path="/profile">
                       <div className="profile-section">

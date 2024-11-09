@@ -1,7 +1,8 @@
-// Home.js
+// src/components/Home.js
 import React from 'react';
 import '../App.css';
 import './styling/Home.css';
+import FiveDayWeather from './FiveDayWeather'; // Import the component
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
           <br/>
           Simply upload items in your wardrobe so that we can suggest future outfits based on the weather conditions and the current fashion trend for you while providing clothing suggestions to fill in the gaps in your wardrobe.
         </p>
+        <FiveDayWeather /> {/* Add the weather component here */}
       </div>
     </div>
   );
