@@ -1,18 +1,27 @@
 /* Wardrobe's styles */
 .wardrobe {
-    padding: 20px;
-  }
-  
-  .wardrobe input[type="text"] {
-    padding: 5px;
-    margin-bottom: 15px;
-    width: 100%;
-    max-width: 300px;
-    font-size: 16px;
-  }
-  
-  .wardrobe-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-  }
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding doesn't affect layout */
+}
+
+.wardrobe input[type="text"] {
+  padding: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures padding is part of width */
+}
+
+/* Grid layout for wardrobe items */
+.wardrobe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px; /* Improved spacing between items */
+}
+
+/* Optional: Add focus styles for better UX */
+.wardrobe input[type="text"]:focus {
+  outline: 2px solid #007bff; /* Highlight input field on focus */
+  outline-offset: 2px;
+}
