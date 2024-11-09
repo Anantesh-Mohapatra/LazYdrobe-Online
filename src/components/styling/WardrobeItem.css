@@ -6,6 +6,7 @@
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Ensures padding and border are included in width/height */
 }
 
 .wardrobe-item img {
@@ -13,6 +14,7 @@
   height: auto;
   margin-bottom: 10px;
   border-radius: 4px;
+  object-fit: cover; /* Ensures images maintain aspect ratio and fill the space */
 }
 
 .wardrobe-item h3 {
@@ -24,4 +26,10 @@
   font-size: 0.9em;
   color: #555;
   margin: 0;
+}
+
+/* Optional: Focus styles for accessibility */
+.wardrobe-item:focus {
+  outline: 2px solid #007bff; /* Adds a focus outline for keyboard navigation */
+  outline-offset: 2px;
 }
