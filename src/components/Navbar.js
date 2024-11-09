@@ -1,4 +1,3 @@
-// Navbar.js
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
@@ -6,19 +5,20 @@ import './styling/Navbar.css';
 
 const Navbar = ({ setIsLoggedIn }) => {
   const handleLogout = () => {
-    // Add more logout working later
+    // Add logout functionality here
     setIsLoggedIn(false);
   };
+
   return (
     <nav className="navbar">
-      <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
-      <NavLink to="/wardrobe" activeClassName="active-link">Wardrobe</NavLink>
-      <NavLink to="/shopping" activeClassName="active-link">Shopping</NavLink>
-      <NavLink to="/outfits" activeClassName="active-link">Outfit Suggestions</NavLink>
-      {/* <NavLink to="/weather" activeClassName="active-link">Weather</NavLink> */}
-      <NavLink to="/profile" activeClassName="active-link">Profile</NavLink>
-      <NavLink to="/" onClick={handleLogout} activeClassName="active-link">Logout</NavLink>
-      </nav>
+      <NavLink exact to="/" className={({ isActive }) => (isActive ? 'active-link' : '')}>Home</NavLink>
+      <NavLink to="/wardrobe" className={({ isActive }) => (isActive ? 'active-link' : '')}>Wardrobe</NavLink>
+      <NavLink to="/shopping" className={({ isActive }) => (isActive ? 'active-link' : '')}>Shopping</NavLink>
+      <NavLink to="/outfits" className={({ isActive }) => (isActive ? 'active-link' : '')}>Outfit Suggestions</NavLink>
+      {/* <NavLink to="/weather" className={({ isActive }) => (isActive ? 'active-link' : '')}>Weather</NavLink> */}
+      <NavLink to="/profile" className={({ isActive }) => (isActive ? 'active-link' : '')}>Profile</NavLink>
+      <NavLink to="/" onClick={handleLogout} className={({ isActive }) => (isActive ? 'active-link' : '')}>Logout</NavLink>
+    </nav>
   );
 };
 
