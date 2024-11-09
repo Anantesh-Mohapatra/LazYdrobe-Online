@@ -34,6 +34,11 @@ function Register() {
     }
   };
 
+  const handleLoginRedirect = () => {
+    history.push('/login'); // Use history to redirect to the login page
+  };
+
+
   return (
     <div className="register-page">
       <div className="register">
@@ -73,8 +78,11 @@ function Register() {
             minLength={6}
           />
 
-          <button type="submit" className="button">
+          <button type="submit" className="button" onClick={handleSubmit}>
             Register
+          </button>
+          <button type="submit" className="button" onClick={handleLoginRedirect}>
+            Already have an account?
           </button>
         </form>
         <p>© 2024 LazYdrobe | All rights reserved.</p>
