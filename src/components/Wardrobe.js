@@ -1,5 +1,5 @@
-// Wardrobe.js
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import WardrobeItem from './WardrobeItem';
 import '../App.css';
 import './styling/Wardrobe.css';
@@ -31,9 +31,18 @@ const Wardrobe = ({ items }) => {
   );
 };
 
-// Set default props to avoid undefined errors
+// Default props to handle missing `items` prop
 Wardrobe.defaultProps = {
   items: []
+};
+
+// Prop types for validation
+Wardrobe.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    item_id: PropTypes.string.isRequired,
+    clothing_type: PropTypes.string.isRequired,
+    // Add other expected properties here if needed
+  })).isRequired
 };
 
 export default Wardrobe;
