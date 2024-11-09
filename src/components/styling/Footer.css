@@ -7,4 +7,13 @@
   position: relative;
   bottom: 0;
   width: 100%;
+  /* Ensures footer stays at the bottom of the page if content is shorter */
+  margin-top: auto;
+}
+
+/* Optional: Make sure body takes full height for proper footer positioning */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
