@@ -7,16 +7,16 @@
 }
 
 .navbar a {
-color: white;
-text-decoration: none;
-padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
 }
 
 .navbar a:hover {
-color: #ddd; /* Lighten color on hover for accessibility */
+    color: #ddd; /* Lighten color on hover for accessibility */
 }
 
-.active-link {
-font-weight: bold;
-color: yellow;
+.navbar .active {
+    font-weight: bold;
+    color: yellow;
 }
