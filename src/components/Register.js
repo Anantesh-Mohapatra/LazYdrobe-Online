@@ -22,6 +22,11 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    if (!formData.username || !formData.email || !formData.password) {
+      setError('Please fill in all fields.');
+      return;
+    }
     try {
       const response = await axios.post('/users/', formData);
       history.push('/login'); // Redirect to login after successful registration

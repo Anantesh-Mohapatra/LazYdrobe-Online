@@ -47,6 +47,7 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
     <div className="login-page">
       <div className="login">
         <h1>Welcome to LazYdrobe</h1>
+        {error && <p className="error">{error}</p>}
         <form onSubmit={handleLogin}>
           <label>Email</label> {/* Changed from Username to Email */}
           <input 
@@ -70,7 +71,6 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        {error && <p className="error">{error}</p>}
         <button className="button" onClick={handleRegisterRedirect}>
           Create a New Account
         </button>
