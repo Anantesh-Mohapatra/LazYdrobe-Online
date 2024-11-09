@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance';
 import { useHistory } from 'react-router-dom';
-import './styling/Register.css'; // Ensure you have the styles linked here
+import './styling/Register.css'; 
 
 function Register() {
   const [formData, setFormData] = useState({
