@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance';
 import { useHistory } from 'react-router-dom';
+import './styling/Register.css'; // Ensure you have the styles linked here
 
 function Register() {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    // Add other fields if necessary
   });
   const [error, setError] = useState(null);
   const history = useHistory();
@@ -24,7 +24,6 @@ function Register() {
     e.preventDefault();
     try {
       const response = await axios.post('/users/', formData);
-      // Optionally, handle the response (e.g., show a success message or redirect)
       history.push('/login'); // Redirect to login after successful registration
     } catch (err) {
       if (err.response && err.response.data && err.response.data.detail) {
@@ -36,46 +35,50 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
+    <div className="register-page">
+      <div className="register">
+        <h1>Create a New Account</h1>
+        {error && <p className="error">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <label>Username</label>
           <input
             type="text"
             name="username"
+            placeholder="Enter your username"
             value={formData.username}
             onChange={handleChange}
             required
             minLength={3}
             maxLength={50}
           />
-        </div>
-        <div>
-          <label>Email:</label>
+
+          <label>Email</label>
           <input
             type="email"
             name="email"
+            placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
             required
           />
-        </div>
-        <div>
-          <label>Password:</label>
+
+          <label>Password</label>
           <input
             type="password"
             name="password"
+            placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
             required
             minLength={6}
           />
-        </div>
-        {/* Add other fields as necessary */}
-        <button type="submit">Register</button>
-      </form>
+
+          <button type="submit" className="button">
+            Register
+          </button>
+        </form>
+        <p>© 2024 LazYdrobe | All rights reserved.</p>
+      </div>
     </div>
   );
 }
