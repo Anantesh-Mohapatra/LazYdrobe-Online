@@ -1,15 +1,20 @@
-// WardrobeItem.js
 import React from 'react';
 import '../App.css';
 import './styling/WardrobeItem.css';
 
 const WardrobeItem = ({ item }) => {
+  // Ensure that item properties exist before rendering
+  const clothingType = item.clothing_type || 'Unknown Clothing Type';
+  const color = item.color?.primary || 'Unknown Color';
+  const size = item.size || 'Unknown Size';
+  const imageUrl = item.image_url || '/default-image.png'; // Provide a default image if image_url is missing
+
   return (
     <div className="wardrobe-item">
-      <img src={item.image_url} alt={item.clothing_type} />
-      <h3>{item.clothing_type}</h3>
-      <p>Color: {item.color.primary}</p>
-      <p>Size: {item.size}</p>
+      <img src={imageUrl} alt={clothingType} />
+      <h3>{clothingType}</h3>
+      <p>Color: {color}</p>
+      <p>Size: {size}</p>
     </div>
   );
 };
