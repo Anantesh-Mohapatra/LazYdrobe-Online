@@ -35,6 +35,7 @@ const FiveDayWeather = () => {
       const response = await axios.post('/weather/', weatherRequest);
       console.log(response);
       setForecast(response.data);
+      console.log(response.data);
     } catch (err) {
       console.error('Error fetching weather data:', err);
       setError(err.response?.data?.detail || err.message || 'Unable to retrieve weather data.');
@@ -72,15 +73,21 @@ const FiveDayWeather = () => {
                 
                 {day.weather_icon ? (
                   <img
-                    src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/refs/heads/main/PNG/1st%20Set%20-%20Color/${day.icon}.png`}
+                    src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/refs/heads/main/PNG/1st%20Set%20-%20Color/${day.weather_icon}.png`}
                     alt={day.weather_icon}
                     style={{ width: '40px', height: '40px' }}
                   />
                 ) : (
-                  <p>No icon available</p> 
+                  <p>{day.weather_icon} icon not available</p> 
                 )}
                 <div>
-                  {Math.round(day.temp_min)}° / {Math.round(day.temp_max)}°F
+                  <p>Temperature: {day.temp_min}°F - {day.temp_max}°F</p>
+                  <p>Feels Like: {day.feels_min}°F - {day.feels_max}°F</p>
+                  <p>Wind Speed: {day.wind_speed} mph</p>
+                  <p>Humidity: {day.humidity}%</p>
+                  <p>Precipitation: {day.precipitation} inches</p>
+                  <p>Precipitation Probability: {day.precipitation_probability}%</p>
+                  <p>Special Conditions: {day.special_condition}%</p>
                 </div>
               </div>
             ))}
