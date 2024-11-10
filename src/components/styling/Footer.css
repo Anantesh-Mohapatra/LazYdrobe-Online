@@ -7,8 +7,7 @@
   position: relative;
   bottom: 0;
   width: 100%;
-  /* Ensures footer stays at the bottom of the page if content is shorter */
-  margin-top: auto;
+  margin-top: 3vh;
 }
 
 /* Optional: Make sure body takes full height for proper footer positioning */

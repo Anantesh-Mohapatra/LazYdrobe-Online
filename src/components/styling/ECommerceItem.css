@@ -1,27 +1,29 @@
 /* ECommerceItem styles */
 .ecommerce-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Ensures padding and border are included in width/height */
+}
   
-  .ecommerce-item img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
-  
-  .ecommerce-item h3 {
-    font-size: 1.2em;
-    margin: 0 0 5px;
-  }
-  
-  .ecommerce-item p {
-    font-size: 0.9em;
-    color: #555;
-    margin: 0;
-  }
+.ecommerce-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  object-fit: cover; /* Ensures images maintain aspect ratio and fill the space */
+}
+
+.ecommerce-item h3 {
+  font-size: 1.2em;
+  margin: 0 0 5px;
+}
+
+.ecommerce-item p {
+  font-size: 0.9em;
+  color: #555;
+  margin: 0;
+}

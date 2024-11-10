@@ -11,11 +11,7 @@
   margin-top: 1rem; /* Space above buttons */
 }
 
-.button:hover {
-  background-color: #c8f2fd; /* Change color on hover */
-}
-
-/* Existing Login styles */
+ /* Existing Login styles */
 .login-page {
   display: flex;
   justify-content: center;

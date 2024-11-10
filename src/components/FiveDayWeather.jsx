@@ -33,6 +33,7 @@ const FiveDayWeather = () => {
         location_part2: locationPart2 || null,
       };
       const response = await axios.post('/weather/', weatherRequest);
+      console.log(response);
       setForecast(response.data);
     } catch (err) {
       console.error('Error fetching weather data:', err);
@@ -60,7 +61,7 @@ const FiveDayWeather = () => {
         {error && <p className='error'>{error}</p>}
 
         {forecast.length > 0 ? (
-          <div>
+          <div className='forecast-component'> 
             {forecast.map((day, index) => (
               <div key={index} className='day'>
                 <div>
@@ -68,11 +69,15 @@ const FiveDayWeather = () => {
                     weekday: 'short',
                   })}
                 </div>
-                {day.special_condition && (
+                
+                {day.weather_icon ? (
                   <img
-                    src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/1st%20Set%20-%20Color/${encodeURIComponent(day.special_condition)}.png`}
-                    alt={day.special_condition}
+                    src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/refs/heads/main/PNG/1st%20Set%20-%20Color/${day.icon}.png`}
+                    alt={day.weather_icon}
+                    style={{ width: '40px', height: '40px' }}
                   />
+                ) : (
+                  <p>No icon available</p> 
                 )}
                 <div>
                   {Math.round(day.temp_min)}° / {Math.round(day.temp_max)}°F
