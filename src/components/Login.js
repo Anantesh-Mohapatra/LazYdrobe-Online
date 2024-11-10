@@ -1,44 +1,61 @@
 // src/components/Login.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import './styling/Login.css';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'; // Import useHistory for navigation
+import { useHistory } from 'react-router-dom';
 
 const Login = ({ setIsLoggedIn, fetchUserData }) => {
-  const [email, setEmail] = useState(''); // Renamed from username to email
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const history = useHistory(); // Initialize useHistory
+  const history = useHistory();
+
+  // Ref to track if the component is mounted
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    // Cleanup function to set isMounted to false when component unmounts
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    
+
     try {
       // Send POST request to /login with email and password
       const response = await axios.post('/login', { email, password });
       if (response.data) {
-        setIsLoggedIn(true);
-        fetchUserData(response.data.user_id);
-        history.push('/profile'); // Redirect to profile page after successful login
+        if (isMounted.current) { // Check if component is still mounted
+          setIsLoggedIn(true);
+          fetchUserData(response.data.user_id);
+          history.push('/'); // Redirect to Home page after successful login
+        }
       }
     } catch (err) {
-      // Handle errors returned from the backend
-      if (err.response && err.response.data && err.response.data.detail) {
-        setError(err.response.data.detail);
-      } else {
-        setError('Login failed. Please check your credentials.');
+      if (isMounted.current) { // Check if component is still mounted
+        // Handle errors returned from the backend
+        if (err.response && err.response.data && err.response.data.detail) {
+          setError(err.response.data.detail);
+        } else {
+          setError('Login failed. Please check your credentials.');
+        }
       }
     } finally {
-      setLoading(false);
+      if (isMounted.current) { // Check if component is still mounted
+        setLoading(false);
+      }
     }
   };
 
-  const handleRegisterRedirect = () => {
+  const handleRegisterRedirect = (e) => {
+    e.preventDefault(); // Prevent form submission
     history.push('/register'); // Use history to redirect to the register page
   };
 
@@ -48,13 +65,13 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
         <h1>Welcome to LazYdrobe</h1>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleLogin}>
-          <label>Email</label> {/* Changed from Username to Email */}
+          <label>Email</label>
           <input 
             type="email" 
             placeholder="Enter your email" 
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
-            required // Added required attribute
+            required
           />
 
           <label>Password</label>
@@ -63,13 +80,13 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
             placeholder="Enter your password" 
             value={password} 
             onChange={(e) => setPassword(e.target.value)} 
-            required // Added required attribute
+            required
           />
 
           <button type="submit" className="button" disabled={loading}> 
             {loading ? 'Logging in...' : 'Login'}
           </button>
-          <button className="button" onClick={handleRegisterRedirect}>
+          <button type="button" className="button" onClick={handleRegisterRedirect}>
             Create a New Account
           </button>
         </form>

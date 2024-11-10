@@ -1,14 +1,14 @@
-// HelloUser.jsx
-import React from 'react';
+// // src/components/profile/HelloUser.js
 
-const HelloUser = ({ user }) => {
-  console.log("User Data:", user);
+// import React from 'react';
 
-  return (
-    <div style={{ padding: '10px', fontSize: '20px', fontWeight: 'bold', textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
-      Hello, {user ? user.username : 'New User'}!
-    </div>
-  );
-};
+// const HelloUser = ({ user }) => {
+//   return (
+//     <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+//       <h2>Hello, {user.username}!</h2>
+//       <p>Welcome back to LazYdrobe.</p>
+//     </div>
+//   );
+// };
 
-export default HelloUser;
+// export default HelloUser;

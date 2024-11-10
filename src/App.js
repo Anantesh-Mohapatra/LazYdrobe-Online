@@ -1,15 +1,14 @@
 // src/App.js
 
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Wardrobe from './components/Wardrobe';
 import OutfitSuggestions from './components/OutfitSuggestions';
 import FiveDayWeather from './components/FiveDayWeather';
 import HelloUser from './components/profile/HelloUser';
-import UserInfo from './components/profile/UserInfo';
-import UserFashionPreferences from './components/profile/UserFashionPreferences';
+import Profile from './components/profile/Profile'; // 
 import Login from './components/Login';
 import Register from './components/Register'; 
 import Home from './components/Home';
@@ -31,7 +30,39 @@ function App() {
       setUserInfo(response.data);
       setError(null);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.detail || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+      return;
+    }
+    setLoading(true);
+    try {
+      await axios.delete(`/users/${userInfo.user_id}`);
+      setIsLoggedIn(false);
+      setUserInfo(null);
+      setError(null);
+      alert("Your account has been successfully deleted.");
+    } catch (err) {
+      setError(err.response?.data?.detail || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateUser = async (updatedData) => {
+    setLoading(true);
+    try {
+      const response = await axios.put(`/users/${userInfo.user_id}`, updatedData);
+      setUserInfo(response.data);
+      setError(null);
+      alert("Your profile has been updated successfully.");
+    } catch (err) {
+      setError(err.response?.data?.detail || err.message);
     } finally {
       setLoading(false);
     }
@@ -68,14 +99,16 @@ function App() {
                         {loading ? (
                           <p>Loading...</p>
                         ) : error ? (
-                          <p>Error: {error}</p>
+                          <p style={{ color: 'red' }}>Error: {error}</p>
                         ) : (
-                          userInfo && ( // Ensure userInfo is not null
-                            <>
-                              <HelloUser user={userInfo} />
-                              <UserInfo initialUserInfo={userInfo} />
-                              <UserFashionPreferences initialPreferences={userInfo.preferences || []} /> 
-                            </>
+                          userInfo && (
+                            <Profile 
+                              userInfo={userInfo} 
+                              onUpdate={handleUpdateUser} 
+                              onDelete={handleDeleteAccount} 
+                              loading={loading} 
+                              error={error} 
+                            />
                           )
                         )}
                       </div>
@@ -83,6 +116,8 @@ function App() {
                     <Route path="/" exact>
                       <Home />
                     </Route>
+                    {/* Redirect any unknown routes to home */}
+                    <Redirect to="/" />
                   </Switch>
                 </main>
                 <Footer />

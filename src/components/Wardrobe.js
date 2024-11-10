@@ -39,7 +39,7 @@ Wardrobe.defaultProps = {
 // Prop types for validation
 Wardrobe.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
-    item_id: PropTypes.string.isRequired,
+    item_id: PropTypes.number.isRequired,
     clothing_type: PropTypes.string.isRequired,
     // Add other expected properties here if needed
   })).isRequired
