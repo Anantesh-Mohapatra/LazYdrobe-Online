@@ -35,7 +35,7 @@ const FiveDayWeather = () => {
       const response = await axios.post('/weather/', weatherRequest);
       console.log(response);
       setForecast(response.data);
-      console.log(response.data);
+      console.log(forecast);
     } catch (err) {
       console.error('Error fetching weather data:', err);
       setError(err.response?.data?.detail || err.message || 'Unable to retrieve weather data.');
@@ -81,13 +81,25 @@ const FiveDayWeather = () => {
                   <p>{day.weather_icon} icon not available</p> 
                 )}
                 <div>
-                  <p>Temperature: {day.temp_min}°F - {day.temp_max}°F</p>
-                  <p>Feels Like: {day.feels_min}°F - {day.feels_max}°F</p>
-                  <p>Wind Speed: {day.wind_speed} mph</p>
-                  <p>Humidity: {day.humidity}%</p>
-                  <p>Precipitation: {day.precipitation} inches</p>
-                  <p>Precipitation Probability: {day.precipitation_probability}%</p>
-                  <p>Special Conditions: {day.special_condition}%</p>
+                  <p>
+                    <p className="label">Temperature:</p>
+                    <div className="data">{day.temp_min}°F - {day.temp_max}°F</div>
+                    <p className="label">Feels Like:</p>
+                    <div className="data">{day.feels_min}°F - {day.feels_max}°F</div>
+                  </p>
+
+                  <div>
+                    <p className="label">Wind Speed:</p>
+                    <div className="data">{day.wind_speed} mph</div>
+                    <p className="label">Humidity:</p>
+                    <div className="data">{day.humidity}%</div>
+                    <p className="label">Precipitation:</p>
+                    <div className="data">{day.precipitation} inches</div>
+                    <p className="label">Precipitation Probability:</p>
+                    <div className="data">{day.precipitation_probability}%</div>
+                    <p className="label">Special Conditions:</p>
+                    <div className="data">{day.special_condition}</div>
+                  </div>
                 </div>
               </div>
             ))}
