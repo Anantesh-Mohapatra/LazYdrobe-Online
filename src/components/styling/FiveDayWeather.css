@@ -1,0 +1,47 @@
+.five-day-component {
+    padding: 20px;
+    background-color: #e0f7fa;
+}   
+
+.component {
+    display: 'flex';
+    flex-direction: 'column';
+    align-items: 'center';
+    padding: '10px';
+    background: '#c8f2fd';
+    border-radius: '10px';
+    text-align: 'center';
+}
+
+.input {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    width: 250px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 8px;
+}
+
+.error {
+    color: red; 
+}
+
+img {
+    width: 40px;
+    height: 40px;
+}
+
+.forecast-component {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.day {
+    text-align: center;
+}
