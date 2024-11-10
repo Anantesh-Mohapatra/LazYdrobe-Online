@@ -26,8 +26,7 @@
 }
 
 .login {
-  width: 70%;
-  max-width: 400px; /* Ensure a maximum width */
+  width: 100%;
   text-align: center;
 }
 
@@ -37,7 +36,8 @@
 }
 
 .login form {
-  width: 100%; /* Ensure full width */
+  width: 45%;
+  max-width: 300px;
   margin: auto;
 }
 

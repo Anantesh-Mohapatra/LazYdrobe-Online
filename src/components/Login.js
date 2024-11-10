@@ -17,11 +17,10 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
+    
     try {
       // Send POST request to /login with email and password
       const response = await axios.post('/login', { email, password });
-      
       if (response.data) {
         setIsLoggedIn(true);
         fetchUserData(response.data.user_id);
@@ -70,10 +69,10 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
           <button type="submit" className="button" disabled={loading}> 
             {loading ? 'Logging in...' : 'Login'}
           </button>
+          <button className="button" onClick={handleRegisterRedirect}>
+            Create a New Account
+          </button>
         </form>
-        <button className="button" onClick={handleRegisterRedirect}>
-          Create a New Account
-        </button>
         <p>© 2024 LazYdrobe | All rights reserved.</p>
       </div>
     </div> 

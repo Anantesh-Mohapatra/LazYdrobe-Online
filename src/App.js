@@ -29,6 +29,7 @@ function App() {
     try {
       const response = await axios.get(`/users/${userId}`); 
       setUserInfo(response.data);
+      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -44,10 +45,12 @@ function App() {
             <Register />
           </Route>
           <Route path="/">
+            {/* If not logged in */}
             {!isLoggedIn ? (
-              <Login setIsLoggedIn={setIsLoggedIn} fetchUserData={fetchUserData} />
+                <Login setIsLoggedIn={setIsLoggedIn} fetchUserData={fetchUserData} />
             ) : (
               <>
+                {/* When logged in, display app functions */}
                 <Navbar setIsLoggedIn={setIsLoggedIn} />
                 <main className="main-content">
                   <Switch>

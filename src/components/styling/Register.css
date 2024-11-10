@@ -9,8 +9,7 @@
   }
   
   .register {
-    width: 70%;
-    max-width: 400px;
+    width: 100%;
     text-align: center;
   }
   
@@ -20,7 +19,8 @@
   }
   
   .register form {
-    width: 100%;
+    width: 45%;
+    max-width: 300px;
     margin: auto;
   }
   
