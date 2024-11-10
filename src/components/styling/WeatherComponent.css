@@ -1,0 +1,71 @@
+.weather-component {
+    border: '1px solid #ccc';
+    padding: '20px';
+    border-radius: '8px';
+    max-width: '500px';
+    margin: '20px auto';
+    text-align: 'center';
+    font-family: 'Arial, sans-serif';
+    box-shadow: '0 4px 8px rgba(0, 0, 0, 0.1)';
+}
+
+form {
+    margin-bottom: '20px';
+}
+
+.input-group {
+    margin-bottom: '10px';
+}
+
+label {
+    margin-right: '10px';
+    font-weight: 'bold';
+}
+
+input {
+    padding: '8px';
+    width: '60%';
+    border-radius: '4px';
+    border: '1px solid #ccc';
+    text-transform: 'uppercase'; /* Automatically capitalize country codes */
+}
+
+button {
+    padding: '10px 20px';
+    border-radius: '4px';
+    border: 'none';
+    background-color: '#c8f2fd';
+    color: '#fff';
+    font-weight: 'bold';
+    cursor: 'pointer';
+}
+
+.error {
+    color: 'red';
+    margin-bottom: '20px';
+}
+
+.weather-info {
+    border-top: '1px solid #eee';
+    padding-top: '20px';
+}
+  
+.icon-container {
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+    margin-bottom: '10px';
+}
+
+.icon {
+    width: '50px';
+    height: '50px';
+    margin-right: '10px';
+}
+
+.condition {
+    font-size: '24px';
+    margin: 0;
+}
+
+

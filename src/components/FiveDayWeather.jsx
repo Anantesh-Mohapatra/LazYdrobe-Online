@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance'; // Ensure axiosInstance.js is correctly set up
+import '../App.css';
+import './styling/FiveDayWeather.css';
 
 const FiveDayWeather = () => {
   const [forecast, setForecast] = useState([]);
@@ -41,37 +43,26 @@ const FiveDayWeather = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '10px',
-          background: '#e0f7fa',
-          borderRadius: '10px',
-          textAlign: 'center',
-        }}
-      >
-        <div style={{ marginBottom: '20px' }}>
+    <div className='five-day-component'>
+      <div className='component'>
+        <div className='input'>
           <input
             type="text"
             value={locationInput}
             onChange={handleLocationChange}
             placeholder="Enter location (e.g., New York, US)"
-            style={{ padding: '8px', width: '250px', marginRight: '10px' }}
           />
-          <button onClick={handleFetchWeather} style={{ padding: '8px' }} disabled={loading}>
+          <button onClick={handleFetchWeather} disabled={loading}>
             {loading ? 'Fetching...' : 'Get Weather'}
           </button>
         </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className='error'>{error}</p>}
 
         {forecast.length > 0 ? (
-          <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+          <div>
             {forecast.map((day, index) => (
-              <div key={index} style={{ textAlign: 'center' }}>
+              <div key={index} className='day'>
                 <div>
                   {new Date(day.date).toLocaleDateString('en-US', {
                     weekday: 'short',
@@ -81,7 +72,6 @@ const FiveDayWeather = () => {
                   <img
                     src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/1st%20Set%20-%20Color/${encodeURIComponent(day.special_condition)}.png`}
                     alt={day.special_condition}
-                    style={{ width: '40px', height: '40px' }}
                   />
                 )}
                 <div>
