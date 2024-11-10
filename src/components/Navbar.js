@@ -13,9 +13,7 @@ const Navbar = ({ setIsLoggedIn }) => {
     <nav className="navbar">
       <NavLink exact to="/" className={({ isActive }) => (isActive ? 'active-link' : '')}>Home</NavLink>
       <NavLink to="/wardrobe" className={({ isActive }) => (isActive ? 'active-link' : '')}>Wardrobe</NavLink>
-      <NavLink to="/shopping" className={({ isActive }) => (isActive ? 'active-link' : '')}>Shopping</NavLink>
       <NavLink to="/outfits" className={({ isActive }) => (isActive ? 'active-link' : '')}>Outfit Suggestions</NavLink>
-      {/* <NavLink to="/weather" className={({ isActive }) => (isActive ? 'active-link' : '')}>Weather</NavLink> */}
       <NavLink to="/profile" className={({ isActive }) => (isActive ? 'active-link' : '')}>Profile</NavLink>
       <NavLink to="/" onClick={handleLogout} className={({ isActive }) => (isActive ? 'active-link' : '')}>Logout</NavLink>
     </nav>
