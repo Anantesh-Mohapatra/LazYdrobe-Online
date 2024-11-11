@@ -53,6 +53,10 @@
   font-size: 1rem;
 }
 
+.login button:hover {
+  background-color: #c8f2fd;
+}
+
 .error {
   color: red; /* Error message color */
   margin-top: 1rem; /* Spacing for error messages */

@@ -1,6 +1,6 @@
 // src/components/OutfitSuggestions.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';
 import './styling/OutfitSuggestions.css';
@@ -18,6 +18,23 @@ const OutfitSuggestions = ({ outfits }) => {
   const handleCloseModal = () => {
     setSelectedItem(null);
   };
+
+  // Closes pop up when pressing esc
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        handleCloseModal();
+      }
+    };
+
+    if (selectedItem) {
+      window.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [selectedItem]);
 
   return (
     <div className="outfit-suggestions">
