@@ -280,10 +280,6 @@ The mock data is currently used to display data in the wardrobe, shopping, and o
 In the project directory, you can run:
 
 - `npm start`: Runs the app in development mode.
-- `npm run build`: Builds the app for production to the `build` folder.
-- `npm test`: Launches the test runner.
-- `npm run eject`: Ejects the app from Create React App configuration. **Use with caution**.
-
 ---
 
 ## Documentation and Development Process
