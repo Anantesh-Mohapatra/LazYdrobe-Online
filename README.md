@@ -230,7 +230,7 @@ const fetchUserData = async (userId) => {
     setLoading(false);
   }
 };
-
+```
 ### Displaying Loading States
 
 **Frontend:**
