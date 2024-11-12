@@ -78,9 +78,12 @@ lazydrobe/
 ├── public/
 │   └── index.html               # Main HTML file for the React app
 ├── src/
-│   ├── styling/                 # All React components' CSS files
 │   ├── components/              # All React components
+│   │   ├── profile/             # Profile components
+│   │   │   ├── Profile.js       # Profile page component
+│   │   ├── styling/             # All React components' CSS files
 │   │   ├── Login.js             # Login page component
+│   │   ├── Register.js          # Register page component
 │   │   ├── Home.js              # Home page component
 │   │   ├── Navbar.js            # Navigation bar component
 │   │   ├── Footer.js            # Footer component
@@ -148,6 +151,9 @@ The frontend interacts with the backend API to perform CRUD operations and fetch
 - **POST** `/weather/`: Fetch weather data for a given location.
 
 ### Handling API Calls
+
+#### Authentication
+- Upon successful login, the user's authentication token (if implemented) is stored in local storage or a global context, enabling authenticated requests.
 
 #### CRUD Operations
 - **Create**: Forms allow users to add new wardrobe items or e-commerce products.
@@ -230,7 +236,7 @@ const fetchUserData = async (userId) => {
     setLoading(false);
   }
 };
-```
+
 ### Displaying Loading States
 
 **Frontend:**
@@ -280,6 +286,10 @@ The mock data is currently used to display data in the wardrobe, shopping, and o
 In the project directory, you can run:
 
 - `npm start`: Runs the app in development mode.
+- `npm run build`: Builds the app for production to the `build` folder.
+- `npm test`: Launches the test runner.
+- `npm run eject`: Ejects the app from Create React App configuration. **Use with caution**.
+
 ---
 
 ## Documentation and Development Process
@@ -317,10 +327,10 @@ Based on our wireframe, we have broken down the interface into discrete, reusabl
 
 AI tools were integrated throughout the development process to streamline the structure, efficiency, and maintainability of the project. Here’s how AI contributed specifically:
 
-- **File Organization and Component Structuring**: AI provided guidance on how to organize files in a clean and maintainable folder structure which helped establish a coherent naming convention and improve the readability of the codebase.
+- **File Organization and Component Structuring**: AI provided guidance on how to organize files in a clean and maintainable folder structure, which helped establish a coherent naming convention and improve the readability of the codebase.
 
-- **Debugging and Code Enhancements**: AI was used to troubleshoot minor issues in JavaScript files including logic bugs and syntax errors ensuring the code adheres to best practices in terms of readability and maintainability.
+- **Debugging and Code Enhancements**: AI was used to troubleshoot minor issues in JavaScript files, including logic bugs and syntax errors, ensuring the code adheres to best practices in terms of readability and maintainability.
 
 - **Performance Suggestions**: AI analyzed component re-renders and recommended ways to reduce unnecessary rendering, particularly in larger components such as `Wardrobe` and `ECommerce`, thereby enhancing the overall app performance.
 
-- **Best Practices in React**: AI reinforced the best practices for React components such as the proper use of hooks and context ensuring a high standard for component reuse and state management.
+- **Best Practices in React**: AI reinforced the best practices for React components, such as the proper use of hooks and context, ensuring a high standard for component reuse and state management.

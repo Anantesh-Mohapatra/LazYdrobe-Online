@@ -33,7 +33,6 @@ const FiveDayWeather = () => {
         location_part2: locationPart2 || null,
       };
       const response = await axios.post('/weather/', weatherRequest);
-      console.log(response);
       setForecast(response.data);
       console.log(forecast);
     } catch (err) {
