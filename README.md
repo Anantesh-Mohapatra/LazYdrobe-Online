@@ -103,22 +103,152 @@ lazydrobe/
 ## Key Components
 The following core components were identified in the wireframe and are implemented in this prototype:
 
- - Login (Login.js): Displays the login screen for the app.  
- - Home (Home.js): Displays the home screen for the app.  
- - Navbar (Navbar.js): Displays the navigation links for the app.  
- - Footer (Footer.js): Shows copyright information.  
- - Wardrobe (Wardrobe.js): Displays wardrobe items with filtering functionality.  
- - WardrobeItem (WardrobeItem.js): Represents individual wardrobe items.  
- - WardrobeModal (WardrobeModal.js): Modal for adding/editing wardrobe items.
- - ECommerce (ECommerce.js): Displays ecommerce items with filtering functionality.  
- - ECommerceItem (ECommerceItem.js): Represents individual ecommerce items.  
- - ECommerceModal (ECommerceModal.js): Modal for adding/editing ecommerce items. 
- - OutfitSuggestions (OutfitSuggestions.js): Displays outfit recommendations based on weather.  
+ - **Login** (`Login.js`): Displays the login screen for the app.  
+ - **Home** (`Home.js`): Displays the home screen for the app.  
+ - **Navbar** (`Navbar.js`): Displays the navigation links for the app.  
+ - **Footer** (`Footer.js`): Shows copyright information.  
+ - **Wardrobe** (`Wardrobe.js`): Displays wardrobe items with filtering functionality.  
+   - **WardrobeItem** (`WardrobeItem.js`): Represents individual wardrobe items.  
+   - **WardrobeModal** (`WardrobeModal.js`): Modal for adding/editing wardrobe items.
+ - **ECommerce** (`ECommerce.js`): Displays e-commerce items with filtering functionality.  
+   - **ECommerceItem** (`ECommerceItem.js`): Represents individual e-commerce items.  
+   - **ECommerceModal** (`ECommerceModal.js`): Modal for adding/editing e-commerce items.
+ - **OutfitSuggestions** (`OutfitSuggestions.js`): Displays outfit recommendations based on weather.  
+ - **FiveDayWeather** (`FiveDayWeather.jsx`): Shows a five-day weather forecast.
+ - **HelloUser** (`HelloUser.js`): Greets the user upon login.
+ - **Profile** (`Profile.js`): Allows users to view and edit their profile information.
 
-These components are designed based on our wireframe's hierarchy and interaction flows.  
+These components are designed based on the hierarchy and interaction flows from the wireframe.
 
 ## Styling
 All component styles have their own css files, located in the src/components/styling folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
+
+## API Integration
+
+The frontend interacts with the backend API to perform CRUD operations and fetch data. Axios is used for making HTTP requests.
+
+### Endpoints Used
+
+#### User Authentication
+- **POST** `/users/`: Register a new user.
+- **POST** `/login`: Authenticate a user.
+- **GET** `/users/{user_id}`: Retrieve user information.
+- **PUT** `/users/{user_id}`: Update user information.
+- **DELETE** `/users/{user_id}`: Delete a user account.
+
+#### Wardrobe Management
+- **GET** `/clothing_items/`: Retrieve all clothing items.
+- **GET** `/clothing_items/{item_id}`: Retrieve a specific clothing item by ID.
+- **POST** `/clothing_items/`: Create a new clothing item.
+- **PUT** `/clothing_items/{item_id}`: Update an existing clothing item.
+- **DELETE** `/clothing_items/{item_id}`: Delete a clothing item.
+
+#### Weather Data
+- **GET** `/weather/{location}`: Retrieve weather data for a specific location.
+- **POST** `/weather/`: Fetch weather data for a given location.
+
+### Handling API Calls
+
+#### Authentication
+- Upon successful login, the user's authentication token (if implemented) is stored in local storage or a global context, enabling authenticated requests.
+
+#### CRUD Operations
+- **Create**: Forms allow users to add new wardrobe items or e-commerce products.
+- **Read**: Data such as wardrobe items, outfit suggestions, and weather data are fetched and displayed.
+- **Update**: Forms and modals enable users to edit existing items.
+- **Delete**: Buttons trigger item deletion with confirmation prompts.
+
+#### Error Handling
+- Capture and display error messages returned from the API.
+- Use React's state management to handle errors gracefully, providing a smoother user experience.
+
+#### Loading States
+- Display loading indicators while API requests are in progress to enhance user experience and inform users of background operations.
+
+### Example API Call: Fetch User Data
+
+```javascript
+import axios from 'axios';
+
+const fetchUserData = async (userId) => {
+  setLoading(true);
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`);
+    setUserInfo(response.data);
+    setError(null);
+  } catch (err) {
+    setError(err.response?.data?.detail || err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+```
+### User Interaction
+
+#### Examples of User Interactions Triggering API Calls:
+
+1. **Form Submission to Create New Data**
+   - **Component**: `WardrobeModal.js`
+   - **Action**: User fills out a form to add a new wardrobe item and submits it.
+   - **API Call**: `POST /clothing_items/`
+
+2. **Button Click to Fetch and Display Data**
+   - **Component**: `OutfitSuggestions.js`
+   - **Action**: User clicks a button to generate outfit suggestions based on current weather.
+   - **API Call**: `GET /outfits/` or `POST /weather/`
+
+3. **Search Functionality to Query the Database**
+   - **Component**: `Wardrobe.js`
+   - **Action**: User enters a search term to filter wardrobe items.
+   - **API Call**: `GET /clothing_items/?search=term`
+
+#### Implementation Details:
+- **Forms**: Utilize controlled components to handle user input and manage form submissions.
+- **Buttons**: Attach event handlers to buttons to trigger API calls.
+- **Search Bars**: Implement debounce functionality to optimize search requests.
+
+### Error Handling and Loading States
+
+#### Handling Errors:
+
+**Frontend:**
+- Use `try-catch` blocks around API calls to handle potential errors.
+- Set error states (e.g., `error`) to store and display error messages to users.
+
+**Example:**
+
+```javascript
+import axios from 'axios';
+import { useState } from 'react';
+
+const fetchUserData = async (userId) => {
+  setLoading(true);
+  setError(null); // Clear any previous errors
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`);
+    setUserInfo(response.data);
+  } catch (err) {
+    setError(err.response?.data?.detail || "An unexpected error occurred.");
+  } finally {
+    setLoading(false);
+  }
+};
+
+### Displaying Loading States
+
+**Frontend:**
+- Manage loading states (e.g., `loading`) using React's `useState` hook.
+- Display loading indicators (e.g., spinners or messages) when `loading` is set to `true` to inform users that a process is underway.
+
+**Example:**
+
+```javascript
+{loading ? (
+  <p>Loading...</p>
+) : (
+  <div>{/* Render data here */}</div>
+)}
+```
 
 ## Mock Data
 To simulate future API integration, we have implemented mock data. This mock data structure will mirror the real data from the backend API, which will eventually be implemented with FastAPI.
@@ -149,38 +279,55 @@ const outfitSuggestions = [
 The mock data is currently used to display data in the wardrobe, shopping, and outfit suggestions screens.
 
 ## Available Scripts
+
 In the project directory, you can run:
 
-npm start: Runs the app in development mode.
-npm run build: Builds the app for production to the build folder.
-npm test: Launches the test runner.
+- `npm start`: Runs the app in development mode.
+- `npm run build`: Builds the app for production to the `build` folder.
+- `npm test`: Launches the test runner.
+- `npm run eject`: Ejects the app from Create React App configuration. **Use with caution**.
+
+---
 
 ## Documentation and Development Process
-Project Description: LazyDrobe is a wardrobe management app designed to help users organize clothing, receive outfit suggestions, and shop for recommended items.
 
-Component Breakdown: Each component is kept separate to maintain a clear hierarchy and separation of concerns. Components are kept simple to allow for rapid iteration and easy integration with the backend API in the next phase.
+### Project Description
 
-Design Decisions: Based on our wireframe, we have broken down the interface into discrete, reusable components (e.g., Navbar, Footer, WardrobeItem) to ensure a scalable structure. Styling has been kept minimal to focus on functionality and layout.
+**LazYdrobe** is a wardrobe management app designed to help users organize clothing, receive outfit suggestions based on weather and fashion trends, and shop for recommended items to fill wardrobe gaps.
 
-Technical Choices:
+### Component Breakdown
 
-React: Selected for its component-based structure, which aligns with our wireframe and layout needs.
-react-router-dom: Chosen for client-side routing between different sections of the app.
-React-modal: This is used to create modal dialogs for adding or editing wardrobe items.
-AI Usage: AI was used to assist with file organization, 2-3 javascript file code glitches, format and ensure best practices were followed in component breakdown and mock data handling.
+Each component is kept separate to maintain a clear hierarchy and separation of concerns. Components are kept simple to allow for rapid iteration and easy integration with the backend API in the next phase.
+
+### Design Decisions
+
+Based on our wireframe, we have broken down the interface into discrete, reusable components (e.g., `Navbar`, `Footer`, `WardrobeItem`) to ensure a scalable structure. Styling has been kept minimal to focus on functionality and layout.
+
+### Technical Choices
+
+- **React**: Selected for its component-based structure, which aligns with our wireframe and layout needs.
+- **React Router DOM**: Chosen for client-side routing between different sections of the app.
+- **React Modal**: Used to create modal dialogs for adding or editing wardrobe items.
+- **Axios**: Utilized for handling HTTP requests to the backend API.
+
+---
 
 ## Troubleshooting
-Dependency Issues: If you encounter issues during the npm install, ensure you have the latest version of Node.js and npm installed.
-Development Server: If the app doesn’t load in the browser, confirm that the development server is running on http://localhost:3000 and that no other app is using this port.
+
+- **Dependency Issues**: If you encounter issues during `npm install`, ensure you have the latest version of Node.js and npm installed.
+- **Development Server**: If the app doesn’t load in the browser, confirm that the development server is running on [http://localhost:3000](http://localhost:3000) and that no other app is using this port.
+- **API Integration Issues**: Ensure that the backend server is running and that the `REACT_APP_BACKEND_URL` is correctly set in the `.env` file.
+
+---
 
 ## AI Usage
 
-#### AI tools were integrated throughout the development process to streamline the structure, efficiency, and maintainability of the project. Here’s how AI contributed specifically:
+AI tools were integrated throughout the development process to streamline the structure, efficiency, and maintainability of the project. Here’s how AI contributed specifically:
 
-File Organization and Component Structuring: AI provided guidance on how to organize files in a clean and maintainable folder structure, which helped establish a coherent naming convention and improve the readability of the codebase.
+- **File Organization and Component Structuring**: AI provided guidance on how to organize files in a clean and maintainable folder structure, which helped establish a coherent naming convention and improve the readability of the codebase.
 
-Debugging and Code Enhancements: AI was used to troubleshoot minor issues in JavaScript files, including logic bugs and syntax errors, ensuring the code adheres to best practices in terms of readability and maintainability.
+- **Debugging and Code Enhancements**: AI was used to troubleshoot minor issues in JavaScript files, including logic bugs and syntax errors, ensuring the code adheres to best practices in terms of readability and maintainability.
 
-Performance Suggestions: AI analyzed component re-renders and recommended ways to reduce unnecessary rendering, particularly in larger components such as Wardrobe and ECommerce, thereby enhancing the overall app performance.
+- **Performance Suggestions**: AI analyzed component re-renders and recommended ways to reduce unnecessary rendering, particularly in larger components such as `Wardrobe` and `ECommerce`, thereby enhancing the overall app performance.
 
-Best Practices in React: AI reinforced the best practices for React components, such as the proper use of hooks and context, ensuring a high standard for component reuse and state management.
+- **Best Practices in React**: AI reinforced the best practices for React components, such as the proper use of hooks and context, ensuring a high standard for component reuse and state management.

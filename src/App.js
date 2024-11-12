@@ -12,7 +12,6 @@ import Profile from './components/profile/Profile';
 import Login from './components/Login';
 import Register from './components/Register'; 
 import Home from './components/Home';
-// import ECommerce from './components/ECommerce'; // Removed
 import axios from 'axios';
 
 import { users, wardrobeItems, ecommerceItems, weatherData, outfitSuggestions, fashionTrends } from './mockData';
