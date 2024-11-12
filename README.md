@@ -149,9 +149,6 @@ The frontend interacts with the backend API to perform CRUD operations and fetch
 
 ### Handling API Calls
 
-#### Authentication
-- Upon successful login, the user's authentication token (if implemented) is stored in local storage or a global context, enabling authenticated requests.
-
 #### CRUD Operations
 - **Create**: Forms allow users to add new wardrobe items or e-commerce products.
 - **Read**: Data such as wardrobe items, outfit suggestions, and weather data are fetched and displayed.
