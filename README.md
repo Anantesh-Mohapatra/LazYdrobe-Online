@@ -317,10 +317,10 @@ Based on our wireframe, we have broken down the interface into discrete, reusabl
 
 AI tools were integrated throughout the development process to streamline the structure, efficiency, and maintainability of the project. Here’s how AI contributed specifically:
 
-- **File Organization and Component Structuring**: AI provided guidance on how to organize files in a clean and maintainable folder structure, which helped establish a coherent naming convention and improve the readability of the codebase.
+- **File Organization and Component Structuring**: AI provided guidance on how to organize files in a clean and maintainable folder structure which helped establish a coherent naming convention and improve the readability of the codebase.
 
-- **Debugging and Code Enhancements**: AI was used to troubleshoot minor issues in JavaScript files, including logic bugs and syntax errors, ensuring the code adheres to best practices in terms of readability and maintainability.
+- **Debugging and Code Enhancements**: AI was used to troubleshoot minor issues in JavaScript files including logic bugs and syntax errors ensuring the code adheres to best practices in terms of readability and maintainability.
 
 - **Performance Suggestions**: AI analyzed component re-renders and recommended ways to reduce unnecessary rendering, particularly in larger components such as `Wardrobe` and `ECommerce`, thereby enhancing the overall app performance.
 
-- **Best Practices in React**: AI reinforced the best practices for React components, such as the proper use of hooks and context, ensuring a high standard for component reuse and state management.
+- **Best Practices in React**: AI reinforced the best practices for React components such as the proper use of hooks and context ensuring a high standard for component reuse and state management.
