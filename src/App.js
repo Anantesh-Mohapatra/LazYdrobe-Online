@@ -6,8 +6,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Wardrobe from './components/Wardrobe';
 import OutfitSuggestions from './components/OutfitSuggestions';
-import FiveDayWeather from './components/FiveDayWeather';
-import HelloUser from './components/profile/HelloUser';
 import Profile from './components/profile/Profile';
 import Login from './components/Login';
 import Register from './components/Register'; 

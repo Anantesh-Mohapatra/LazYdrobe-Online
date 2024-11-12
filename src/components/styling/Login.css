@@ -9,6 +9,7 @@
   cursor: pointer;
   transition: background-color 0.3s; /* Smooth transition */
   margin-top: 1rem; /* Space above buttons */
+  color: #000000;
 }
 
  /* Existing Login styles */

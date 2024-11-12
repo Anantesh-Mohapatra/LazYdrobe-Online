@@ -1,6 +1,6 @@
 // src/components/profile/Profile.js
-
 import React, { useState } from 'react';
+import './Profile.css';
 
 const Profile = ({ userInfo, onUpdate, onDelete, loading, error }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,48 +34,28 @@ const Profile = ({ userInfo, onUpdate, onDelete, loading, error }) => {
   };
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      border: '1px solid #ddd', 
-      borderRadius: '8px', 
-      maxWidth: '500px', 
-      margin: '20px auto',
-      backgroundColor: '#f9f9f9'
-    }}>
+    <div className="profile-container">
       <h3>Profile</h3>
       {loading && <p>Processing...</p>}
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+      {error && <p className="error-text">Error: {error}</p>}
       {!isEditing ? (
         <>
           <p><strong>Gender:</strong> {userInfo.gender || 'Not specified'}</p>
           <p><strong>Fashion Preferences:</strong> {userInfo.preferences && userInfo.preferences.length > 0 ? userInfo.preferences.join(', ') : 'Not specified'}</p>
-          <button 
-            onClick={() => setIsEditing(true)} 
-            style={{ 
-              padding: '8px 16px', 
-              backgroundColor: '#1890ff', 
-              color: '#fff', 
-              border: 'none', 
-              borderRadius: '4px', 
-              cursor: 'pointer',
-              marginRight: '10px'
-            }}
-          >
-            Edit Profile
-          </button>
-          <button 
-            onClick={onDelete} 
-            style={{ 
-              padding: '8px 16px', 
-              backgroundColor: '#ff4d4f', 
-              color: '#fff', 
-              border: 'none', 
-              borderRadius: '4px', 
-              cursor: 'pointer' 
-            }}
-          >
-            Delete Account
-          </button>
+          <div className="button-group">
+            <button 
+              onClick={() => setIsEditing(true)} 
+              className="edit-button"
+            >
+              Edit Profile
+            </button>
+            <button 
+              onClick={onDelete} 
+              className="delete-button"
+            >
+              Delete Account
+            </button>
+          </div>
         </>
       ) : (
         <form onSubmit={handleSubmit}>
@@ -87,14 +67,7 @@ const Profile = ({ userInfo, onUpdate, onDelete, loading, error }) => {
               value={formData.gender}
               onChange={handleChange}
               placeholder="e.g., Female"
-              style={{ 
-                display: 'block', 
-                margin: '8px 0', 
-                padding: '8px', 
-                width: '100%', 
-                border: '1px solid #ccc',
-                borderRadius: '4px'
-              }}
+              className="input-field"
               required
             />
           </label>
@@ -106,43 +79,21 @@ const Profile = ({ userInfo, onUpdate, onDelete, loading, error }) => {
               value={formData.preferences}
               onChange={handleChange}
               placeholder="e.g., Casual, Formal"
-              style={{ 
-                display: 'block', 
-                margin: '8px 0', 
-                padding: '8px', 
-                width: '100%', 
-                border: '1px solid #ccc',
-                borderRadius: '4px' 
-              }}
+              className="input-field"
               required
             />
           </label>
-          <div style={{ marginTop: '10px' }}>
+          <div className="button-group">
             <button 
               type="submit" 
-              style={{ 
-                padding: '8px 16px', 
-                backgroundColor: '#52c41a', 
-                color: '#fff', 
-                border: 'none', 
-                borderRadius: '4px', 
-                cursor: 'pointer',
-                marginRight: '10px'
-              }}
+              className="save-button"
             >
               Save
             </button>
             <button 
               type="button" 
               onClick={handleCancel} 
-              style={{ 
-                padding: '8px 16px', 
-                backgroundColor: '#f5222d', 
-                color: '#fff', 
-                border: 'none', 
-                borderRadius: '4px', 
-                cursor: 'pointer' 
-              }}
+              className="cancel-button"
             >
               Cancel
             </button>

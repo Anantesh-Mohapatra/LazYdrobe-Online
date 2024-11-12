@@ -1,6 +1,6 @@
 // FiveDayWeather.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../api/axiosInstance'; // Ensure axiosInstance.js is correctly set up
 import '../App.css';
 import './styling/FiveDayWeather.css';
@@ -44,6 +44,12 @@ const FiveDayWeather = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleFetchWeather();
+    }
+  };
+
   return (
     <div className='five-day-component'>
       <div className='component'>
@@ -52,6 +58,7 @@ const FiveDayWeather = () => {
             type="text"
             value={locationInput}
             onChange={handleLocationChange}
+            onKeyPress={handleKeyPress}
             placeholder="Enter location (e.g., New York, US)"
           />
           <button onClick={handleFetchWeather} disabled={loading}>
