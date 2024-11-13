@@ -1,4 +1,4 @@
-/* Profile style */
+/* Profile.css */
 
 .profile-container {
   padding: 20px;
@@ -57,4 +57,30 @@ button:hover {
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
+}
+
+.gender-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.gender-button {
+  padding: 8px 16px;
+  background-color: #d3d3d3;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #333;
+}
+
+.gender-button.active {
+  background-color: #1890ff;
+  color: #fff;
+}
+
+.other-input {
+  margin-left: 10px;
+  margin-top: 8px;
+  width: calc(100% - 20px);
 }
