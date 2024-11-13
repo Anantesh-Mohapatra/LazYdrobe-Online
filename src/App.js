@@ -12,13 +12,15 @@ import Register from './components/Register';
 import Home from './components/Home';
 import axios from 'axios';
 
-import { users, wardrobeItems, ecommerceItems, weatherData, outfitSuggestions, fashionTrends } from './mockData';
+import { wardrobeItems, ecommerceItems, weatherData, outfitSuggestions, fashionTrends } from './mockData';
+import WardrobeItem from './components/WardrobeItem';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [wardrobeItems, setWardrobeItems] = useState([]);
 
   const fetchUserData = async (userId) => {
     setLoading(true);
@@ -65,6 +67,43 @@ function App() {
     }
   };
 
+  const handleAddWardrobeItem = async(newWardrobeItem) => {
+    try {
+      const wardrobeItemToAdd = {
+        ...newWardrobeItem,
+        user_id: userInfo.user_id,
+        // Convert color and tags into JSON array 
+        color: Array.isArray(newWardrobeItem.color)
+          ? newWardrobeItem.color
+          : newWardrobeItem.color.split(',').map((c) => c.trim()),
+        tags: Array.isArray(newWardrobeItem.tags)
+          ? newWardrobeItem.tags
+          : newWardrobeItem.tags.split(',').map((tag) => tag.trim())
+      }
+      const response = await axios.post('/wardrobe_item/', wardrobeItemToAdd);
+
+      setWardrobeItems([...wardrobeItems, response.data]);
+      console.log(response)
+      return 0
+    } catch (err) {
+      console.error("Failed to add wardrobe item:", err);
+      return -1
+    }
+  }
+
+  const fetchWardrobeItems = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`/wardrobe_items/user/${userInfo.user_id}`);
+      setWardrobeItems(response.data);
+      setError(null);
+    } catch (err) {
+      setError(err.response?.data?.detail || err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <Router>
       <div className="app-container">
@@ -75,7 +114,9 @@ function App() {
           <Route path="/">
             {/* If not logged in */}
             {!isLoggedIn ? (
-                <Login setIsLoggedIn={setIsLoggedIn} fetchUserData={fetchUserData} />
+                <Login setIsLoggedIn={setIsLoggedIn} 
+                fetchUserData={fetchUserData} 
+                fetchWardrobeItems={fetchWardrobeItems}/>
             ) : (
               <>
                 {/* When logged in, display app functions */}
@@ -83,7 +124,10 @@ function App() {
                 <main className="main-content">
                   <Switch>
                     <Route path="/wardrobe">
-                      <Wardrobe items={wardrobeItems} />
+                      <Wardrobe 
+                        items={wardrobeItems} 
+                        onAdd={handleAddWardrobeItem}
+                      />
                     </Route>
                     {/* <Route path="/shopping">
                       <ECommerce items={ecommerceItems} />

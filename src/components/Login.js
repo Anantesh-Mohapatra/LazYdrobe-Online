@@ -6,7 +6,7 @@ import './styling/Login.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const Login = ({ setIsLoggedIn, fetchUserData }) => {
+const Login = ({ setIsLoggedIn, fetchUserData, fetchWardrobeItems }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -35,6 +35,7 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
         if (isMounted.current) { // Check if component is still mounted
           setIsLoggedIn(true);
           fetchUserData(response.data.user_id);
+          fetchWardrobeItems(response.data.user_id);
           history.push('/'); // Redirect to Home page after successful login
         }
       }

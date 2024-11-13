@@ -27,6 +27,11 @@ function Register() {
       setError('Please fill in all fields.');
       return;
     }
+    if(formData.password.length < 6)
+    {
+      setError('Password is too short, needs to be minimal length 6');
+      return;
+    }
     try {
       const response = await axios.post('/users/', formData);
       history.push('/login'); // Redirect to login after successful registration

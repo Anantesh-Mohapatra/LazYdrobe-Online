@@ -54,6 +54,15 @@
   color: #333333;
 }
 
+.add-button {
+    background-color: #007bff;
+    margin-right: 10px;
+}
+
+.clear-button {
+  background-color: #007bff;
+}
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -91,6 +100,11 @@ input {
   font-size: 1rem;
   box-sizing: border-box;
 }
+
+.modal-content .error {
+  color: red;
+}
+
 
 .register button:hover {
   background-color: #c8f2fd;

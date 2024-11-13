@@ -4,7 +4,7 @@ import WardrobeItem from './WardrobeItem';
 import '../App.css';
 import './styling/Wardrobe.css';
 
-const Wardrobe = ({ items }) => {
+const Wardrobe = ({ items, onAdd }) => {
   console.log("Wardrobe Items:", items);
   const [filter, setFilter] = useState('');
   const [addItem, setAddItem] = useState(null);
@@ -16,16 +16,28 @@ const Wardrobe = ({ items }) => {
     tags: '',
     image_url: ''
   });
+  const [error, setError] = useState(null);
 
   // Filter wardrobe items based on the `clothing_type`
   const filteredItems = items.filter(item => 
     item.clothing_type.toLowerCase().includes(filter.toLowerCase())
   );
 
+  const handleResetForm = () => {
+    setNewItem({
+      clothing_type: '',
+      for_weather: '',
+      color: '',
+      size: '',
+      tags: '',
+      image_url: ''
+    });
+  };
 
   // Handler to close the add item pop up
   const handleCloseAdd = () => {
     setAddItem(null);
+    handleResetForm();
   };
 
   // Closes pop up when pressing esc
@@ -53,8 +65,24 @@ const Wardrobe = ({ items }) => {
 
   // Handle submission and sending to db
   const handleAddItem = async () => {
-    // To do
-    console.log("Adding new item:", newItem);
+    if (
+      !newItem.clothing_type ||
+      !newItem.for_weather ||
+      !newItem.color ||
+      !newItem.size ||
+      !newItem.tags ||
+      !newItem.image_url
+    ) {
+      setError('Please fill in all fields.');
+      return;
+    }
+    else {
+      setError(null);
+    }
+    if (onAdd(newItem) == -1)
+    {
+      setError("Failed to add item")
+    }
   };
 
   return (
@@ -66,7 +94,7 @@ const Wardrobe = ({ items }) => {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
-        <button onClick={() => setAddItem(true)}>Add Item</button>
+        <button onClick={() => setAddItem(true)} className='add-button'>Add Item</button>
       </div>
       <div className="wardrobe-grid">
         {filteredItems.map(item => (
@@ -81,6 +109,7 @@ const Wardrobe = ({ items }) => {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-button" onClick={handleCloseAdd}>Close</button>
             <h2>Add New Wardrobe Item</h2>
+            {error && <p className="error">{error}</p>}
             <form>
               <label>Clothing Type</label>
               <input 
@@ -88,7 +117,7 @@ const Wardrobe = ({ items }) => {
                 name="clothing_type" 
                 value={newItem.clothing_type} 
                 onChange={handleChange} 
-                placeholder="Enter clothing type" 
+                placeholder="Enter clothing type (e.g., tshirt)" 
                 required 
               />
 
@@ -98,7 +127,7 @@ const Wardrobe = ({ items }) => {
                 name="for_weather" 
                 value={newItem.for_weather} 
                 onChange={handleChange} 
-                placeholder="Enter suitable weather" 
+                placeholder="Enter suitable weather (e.g., warm)" 
                 required 
               />
 
@@ -108,7 +137,7 @@ const Wardrobe = ({ items }) => {
                 name="color" 
                 value={newItem.color} 
                 onChange={handleChange} 
-                placeholder="Enter color" 
+                placeholder="Enter color (e.g., blue)" 
                 required 
               />
 
@@ -118,7 +147,7 @@ const Wardrobe = ({ items }) => {
                 name="size" 
                 value={newItem.size} 
                 onChange={handleChange} 
-                placeholder="Enter size" 
+                placeholder="Enter size (e.g., L)" 
                 required 
               />
 
@@ -128,7 +157,7 @@ const Wardrobe = ({ items }) => {
                 name="tags" 
                 value={newItem.tags} 
                 onChange={handleChange} 
-                placeholder="Enter tags" 
+                placeholder="Enter tags (e.g., casual, summer)" 
                 required 
               />
 
@@ -142,8 +171,9 @@ const Wardrobe = ({ items }) => {
                 required 
               />
             </form>
-            <button onClick={handleAddItem}>Add Item</button>
-          </div>
+            <button onClick={handleAddItem} className='add-button'>Add Item</button>
+            <button onClick={handleResetForm} className='clear-button'>Clear</button>
+            </div>
         </div>
       )}
     </div>

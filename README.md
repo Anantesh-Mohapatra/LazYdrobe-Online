@@ -21,14 +21,14 @@ Follow these steps to set up and run the front-end code on your local machine.
 Clone the repository to your local machine:
 
 ```
-git clone https://github.com/username/lazydrobe.git
+git clone https://github.com/Anantesh-Mohapatra/LazYdrobe-Online
 ```
 Note: Replace username with your GitHub username if you forked the repository.
 
 ### 2. Navigate into the Project Directory
 Change to the project’s directory:
 ```
-cd lazydrobe
+cd  path/to/LazYdrobe-Online
 ```
 ### 3. Install Dependencies
 Install the necessary packages using npm or yarn:
