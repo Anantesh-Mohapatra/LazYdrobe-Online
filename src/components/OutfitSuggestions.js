@@ -69,7 +69,7 @@ const OutfitSuggestions = ({ outfits }) => {
             <a href={selectedItem.product_url} target="_blank" rel="noopener noreferrer">
               <button className="buy-button">Proceed to Purchase</button>
             </a>
-            <button className="close-button" onClick={handleCloseModal}>Close</button>
+            <button className="close-button" onClick={handleCloseModal}>X</button>
           </div>
         </div>
       )}
