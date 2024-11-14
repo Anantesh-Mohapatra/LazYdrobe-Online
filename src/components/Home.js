@@ -17,7 +17,7 @@ const Home = ({ userInfo }) => {
         <hr className="rounded" />
         
         {/* Personalized Intro Text */}
-        <p className="intro-text">
+        <div className="intro-text">
           {userInfo ? (
             <>
               It's great to have you back, {userInfo.username}! Ready to organize your wardrobe and discover stylish outfits tailored just for you?
@@ -39,7 +39,7 @@ const Home = ({ userInfo }) => {
               Simply upload items in your wardrobe so that we can suggest future outfits based on the weather conditions and the current fashion trends for you while providing clothing suggestions to fill in the gaps in your wardrobe.
             </>
           )}
-        </p>
+        </div>
 
         {/* Weather Component */}
         <FiveDayWeather /> {/* Add the weather component here */}

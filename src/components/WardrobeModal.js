@@ -1,30 +1,163 @@
 // WardrobeModal.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import './styling/WardrobeModal.css';
 
 Modal.setAppElement('#root');
 
-const WardrobeModal = ({ isOpen, onRequestClose, onSubmit, item = {} }) => {
-  const [name, setName] = useState(item.name || '');
-  const [category, setCategory] = useState(item.category || '');
-  const [image, setImage] = useState(item.image || '');
+const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item = {} }) => {
+  const [clothing_type, setClothingType] = useState(item?.clothing_type || '');
+  const [for_weather, setForWeather] = useState(item?.for_weather || '');
+  const [color, setColor] = useState(item?.color || '');
+  const [size, setSize] = useState(item?.size || '');
+  const [tags, setTags] = useState(item?.tags || '');
+  const [image_url, setImageUrl] = useState(item?.image_url || '');
+  const [error, setError] = useState(null);
 
-  const handleSubmit = () => {
-    if (name && category) {
-      onSubmit({ ...item, name, category, image });
-      onRequestClose();
+  useEffect(() => {
+    // Reset form fields when modal is opened or closed, if `item` is null
+    if (!isOpen) {
+      handleClear();
+    } else if (item) {
+      setClothingType(item.clothing_type || '');
+      setForWeather(item.for_weather || '');
+      setColor(item.color || '');
+      setSize(item.size || '');
+      setTags(item.tags || '');
+      setImageUrl(item.image_url || '');
+    }
+  }, [isOpen, item]); 
+
+  const handleAdd = async () => {
+    if (clothing_type && for_weather && color && size && tags && image_url) {
+      const result = await onAdd({clothing_type, for_weather, color, size, tags, image_url});
+      
+      if (result == -1) {
+        setError('Failed to add item');
+      } else {
+        setError(null);
+        handleClose();
+      }
+    } else {
+      setError('Please fill in all fields.');
     }
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    if (clothing_type && for_weather && color && size && tags && image_url) {
+      const result = await onUpdate(item.item_id, {
+        clothing_type, for_weather, color, size, tags, image_url
+      });
+      
+      if (result === -1) {
+        setError('Failed to update item');
+      } else {
+        setError(null);
+        handleClose();
+      }
+    } else {
+      setError('Please fill in all fields.');
+    }
+  };
+  
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    
+    const result = await onDelete(item.item_id);
+    handleClose();
+  };
+  
+
+  const handleClear = () => {
+    console.log(item);
+    setClothingType('');
+    setForWeather('');
+    setColor('');
+    setSize('');
+    setTags('');
+    setImageUrl('');
+    setError(null);
+  };
+  
+  const handleClose = () => {
+    handleClear();
+    onRequestClose();
+  };
+
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Wardrobe Item Modal">
-      <h2>{item.id ? 'Edit' : 'Add'} Wardrobe Item</h2>
-      <form>
-        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="text" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
-        <input type="text" placeholder="Image URL" value={image} onChange={(e) => setImage(e.target.value)} />
-        <button type="button" onClick={handleSubmit}>Save</button>
-      </form>
+    <Modal isOpen={isOpen} onRequestClose={handleClose} contentLabel="Wardrobe Item Modal" className="modal-overlay">
+      <div className='modal-content'>
+        <button className="close-button" onClick={handleClose}>Close</button>
+        <h2>{item?.item_id ? 'Edit' : 'Add'} Wardrobe Item</h2>
+        {error && <p className="error">{error}</p>}
+        <form>
+          <label>Clothing Type</label>
+          <input 
+            type="text" 
+            value={clothing_type} 
+            onChange={(e) => setClothingType(e.target.value)} 
+            placeholder="Enter clothing type (e.g., tshirt)" 
+            required
+          />
+
+          <label>For Weather</label>
+          <input 
+            type="text" 
+            value={for_weather} 
+            onChange={(e) => setForWeather(e.target.value)} 
+            placeholder="Enter suitable weather (e.g., warm)" 
+            required
+          />
+
+          <label>Color</label>
+          <input 
+            type="text" 
+            value={color} 
+            onChange={(e) => setColor(e.target.value)} 
+            placeholder="Enter color (e.g., blue)" 
+            required
+          />
+
+          <label>Size</label>
+          <input 
+            type="text" 
+            value={size} 
+            onChange={(e) => setSize(e.target.value)} 
+            placeholder="Enter size (e.g., L)" 
+            required
+          />
+
+          <label>Any Other Tags</label>
+          <input 
+            type="text" 
+            value={tags} 
+            onChange={(e) => setTags(e.target.value)} 
+            placeholder="Enter tags (e.g., casual, summer)" 
+            required
+          />
+
+          <label>Image URL</label>
+          <input 
+            type="text" 
+            value={image_url} 
+            onChange={(e) => setImageUrl(e.target.value)} 
+            placeholder="Enter image URL" 
+            required
+          />
+
+          <div>
+            {item?.item_id ? (
+              <button type="button" className="edit-button" onClick={handleUpdate}>Edit</button>
+            ) : (
+              <button type="button" className="add-button" onClick={handleAdd}>Add</button>
+            )}<button type="button" className='clear-button' onClick={handleClear}>Clear</button>
+          </div>
+          {item?.item_id && (
+          <button type="button" className="delete-button" onClick={handleDelete}>Delete</button>
+        )}
+        </form>
+      </div>
     </Modal>
   );
 };
