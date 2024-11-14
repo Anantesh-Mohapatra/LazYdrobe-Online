@@ -40,7 +40,7 @@
   background-color: #007bff;
 }
 
-.delete-button {
+.modal-content .delete-button {
   margin-top: 10px;
   background-color: #ff4d4f;
 }
@@ -73,7 +73,7 @@ label {
   text-align: left;
 }
 
-input {
+.modal-content , input {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;

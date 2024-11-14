@@ -7,7 +7,7 @@ Modal.setAppElement('#root');
 
 const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item = {} }) => {
   const [clothing_type, setClothingType] = useState(item?.clothing_type || '');
-  const [for_weather, setForWeather] = useState(item?.for_weather || '');
+  const [for_weather, setForWeather] = useState(item?.for_weather || 'All year around');
   const [color, setColor] = useState(item?.color || '');
   const [size, setSize] = useState(item?.size || '');
   const [tags, setTags] = useState(item?.tags || '');
@@ -102,13 +102,18 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
           />
 
           <label>For Weather</label>
-          <input 
-            type="text" 
-            value={for_weather} 
-            onChange={(e) => setForWeather(e.target.value)} 
-            placeholder="Enter suitable weather (e.g., warm)" 
+          <select
+            value={for_weather}
+            onChange={(e) => setForWeather(e.target.value)}
             required
-          />
+          >
+            <option value="" disabled>Select weather suitability</option>
+            <option value="All Year Around">All Year Around</option>
+            <option value="Summer">Summer</option>
+            <option value="Winter">Winter</option>
+            <option value="Rainy">Rainy</option>
+            <option value="Other">Other</option>
+            </select>
 
           <label>Color</label>
           <input 

@@ -4,7 +4,7 @@
   box-sizing: border-box; /* Ensures padding doesn't affect layout */
 }
 
-.wardrobe input[type="text"] {
+.wardrobe .type-filter, .weather-filter {
   padding: 5px 10px; /* Adjust padding for better height alignment */
   margin-bottom: 15px;
   width: 100%;

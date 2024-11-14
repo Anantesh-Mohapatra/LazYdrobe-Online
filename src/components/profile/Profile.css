@@ -20,13 +20,20 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
+
 button:hover {
   opacity: 0.75;
 }
 
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
 .edit-button {
   background-color: #1890ff;
-  margin-right: 10px;
 }
 
 .delete-button {
@@ -35,7 +42,6 @@ button:hover {
 
 .save-button {
   background-color: #52c41a;
-  margin-right: 10px;
 }
 
 .cancel-button {
@@ -49,24 +55,6 @@ button:hover {
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-.button-group {
-  display: flex;
-  align-items: stretch; /* Make buttons the same height */
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.edit-button, .delete-button {
-  padding: 8px 30px; /* Add padding for a balanced look */
-  height: auto; /* Allow flexbox to control height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0; /* Ensure no external margins */
-  box-sizing: border-box; /* Include padding in height/width calculations */
 }
 
 .gender-buttons {

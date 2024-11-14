@@ -48,15 +48,8 @@ yarn install
 ```
 This will install all required packages, including react, react-router-dom, and react-modal.
 
-### 4. Create a .env file in the project root directory
-Add the following fields:
-- REACT_APP_VISUAL_CROSSING_API_KEY
-  The following is not currently being used in the front end portion
-- REACT_APP_OpenAI_API_Key
-- REACT_APP_ebay_API_KEY
-- REACT_APP_DATABASE_URL
 
-### 5. Start the Application
+### 4. Start the Application
 Start the development server:
 
 #### Using npm
@@ -76,32 +69,36 @@ Here's an overview of the project directory structure:
 ```
 lazydrobe/
 ├── public/
-│   └── index.html               # Main HTML file for the React app
-├── src/
-│   ├── components/              # All React components
-│   │   ├── profile/             # Profile components
-│   │   │   ├── Profile.js       # Profile page component
-│   │   ├── styling/             # All React components' CSS files
-│   │   ├── Login.js             # Login page component
-│   │   ├── Register.js          # Register page component
-│   │   ├── Home.js              # Home page component
-│   │   ├── Navbar.js            # Navigation bar component
-│   │   ├── Footer.js            # Footer component
-│   │   ├── Wardrobe.js          # Main wardrobe screen
-│   │   ├── WardrobeItem.js      # Individual wardrobe item component
-│   │   ├── WardrobeModal.js     # Modal component for adding/editing wardrobe items
-│   │   ├── ECommerce.js         # Main shopping screen
-│   │   ├── ECommerceItem.js     # Individual ecommerce item component
-│   │   ├── ECommerceModal.js    # Modal component for adding/editing ecommerce items
-│   │   ├── OutfitSuggestions.js # Outfit suggestion screen
-│   │   ├── FiveDayWeather.jsx   # Weather component
-│   ├── App.js                   # Main app component with routes
-│   ├── index.js                 # Entry point to render the app
-│   └── App.css                  # Unified styling for all components
-├── .gitignore                   # Excludes unnecessary files from Git
-├── README.md                    # General project overview and instructions
-├── package.json                 # Lists dependencies and scripts
-├── package-lock.json            # Locks dependencies to specific versions
+│   └── index.html                   # Main HTML file for the React app
+├── src/  
+│   ├── components/                  # All React components
+│   │   ├── profile/                 # Profile components
+│   │   │   ├── Profile.js           # Profile page component
+│   │   │   ├── ProfileEdit.js       # Profile page segment 
+│   │   │   ├── ProfileView.js       # Profile page segment
+│   │   │   ├── PergerencesIput.js   # Profile page segment
+│   │   │   ├── Profile.js           # Profile page component
+│   │   ├── styling/                 # All React components' CSS files
+│   │   ├── Login.js                 # Login page component
+│   │   ├── Register.js              # Register page component
+│   │   ├── Home.js                  # Home page component
+│   │   ├── Navbar.js                # Navigation bar component
+│   │   ├── Footer.js                # Footer component
+│   │   ├── Wardrobe.js              # Main wardrobe screen
+│   │   ├── WardrobeItem.js          # Individual wardrobe item component
+│   │   ├── WardrobeModal.js         # Modal component for adding/editing wardrobe items
+│   │   ├── ECommerce.js             # Main shopping screen
+│   │   ├── ECommerceItem.js         # Individual ecommerce item component
+│   │   ├── ECommerceModal.js        # Modal component for adding/editing ecommerce items
+│   │   ├── OutfitSuggestions.js     # Outfit suggestion screen
+│   │   ├── FiveDayWeather.jsx       # Weather component
+│   ├── App.js                       # Main app component with routes
+│   ├── index.js                     # Entry point to render the app
+│   └── App.css                      # Unified styling for all components
+├── .gitignore                       # Excludes unnecessary files from Git
+├── README.md                        # General project overview and instructions
+├── package.json                     # Lists dependencies and scripts
+├── package-lock.json                # Locks dependencies to specific versions
 ```
 ## Key Components
 The following core components were identified in the wireframe and are implemented in this prototype:

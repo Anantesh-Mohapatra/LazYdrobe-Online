@@ -7,12 +7,17 @@ import './styling/Wardrobe.css';
 
 const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
   const [filter, setFilter] = useState('');
+  const [weatherFilter, setWeatherFilter] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
   const [selectedItem, setSelectedItem] = useState(null);
-  const [error, setError] = useState(null);
+
+  const weatherOptions = ["Summer", "Winter", "Rainy", "All Year Around"];
 
   const filteredItems = items.filter(item =>
-    item.clothing_type.toLowerCase().includes(filter.toLowerCase())
+    item.clothing_type.toLowerCase().includes(filter.toLowerCase()) &&
+    (weatherFilter == '' || weatherFilter == item.for_weather ||
+      (weatherFilter == "Other" && !weatherOptions.includes(item.for_weather))
+    )
   );
 
   const openModal = (item) => {
@@ -28,15 +33,28 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
   return (
     <div className="wardrobe">
       <div className='on-top'>
-        <button onClick={() => setAddItem(true)} className='add-button'>Add Item</button>
+        <button onClick={() => openModal(null)} className='add-button'>Add Item</button>
         <input 
           type="text" 
           placeholder="Filter by clothing type" 
+          className="type-filter"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
-        <button onClick={() => openModal(null)} className='add-button'>Add Item</button>
+        <select 
+          value={weatherFilter} 
+          onChange={(e) => setWeatherFilter(e.target.value)}
+          className="weather-filter"
+        >
+          <option value="">Select weather filter</option>
+          <option value="All Year Around">All Year Around</option>
+          <option value="Summer">Summer</option>
+          <option value="Winter">Winter</option>
+          <option value="Rainy">Rainy</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
+      
       <div className="wardrobe-grid">
         {filteredItems.map(item => (
           <WardrobeItem 
