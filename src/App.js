@@ -121,8 +121,18 @@ function App() {
   const handleUpdateWardrobeItem = async (item_id, updatedItem) => {
     setLoading(true);
     try {
+      const wardrobeItemToEdit = {
+        ...updatedItem,
+        // Convert color and tags into JSON array 
+        color: Array.isArray(updatedItem.color)
+          ? updatedItem.color
+          : updatedItem.color.split(',').map((c) => c.trim()),
+        tags: Array.isArray(updatedItem.tags)
+          ? updatedItem.tags
+          : updatedItem.tags.split(',').map((tag) => tag.trim())
+      }
       console.log("Updating item: ", item_id);
-      const response = await axios.put(`/wardrobe_items/${item_id}`, updatedItem);
+      const response = await axios.put(`/wardrobe_items/${item_id}`, wardrobeItemToEdit);
 
       console.log("Update response:", response.data);
       
