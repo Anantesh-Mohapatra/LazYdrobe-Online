@@ -88,7 +88,7 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
   return (
     <Modal isOpen={isOpen} onRequestClose={handleClose} contentLabel="Wardrobe Item Modal" className="modal-overlay">
       <div className='modal-content'>
-        <button className="close-button" onClick={handleClose}>Close</button>
+        <button className="close-button" onClick={handleClose}>X</button>
         <h2>{item?.item_id ? 'Edit' : 'Add'} Wardrobe Item</h2>
         {error && <p className="error">{error}</p>}
         <form>
