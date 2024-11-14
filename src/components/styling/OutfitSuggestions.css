@@ -2,6 +2,7 @@
 
 .outfit-suggestions {
   padding: 20px;
+  background-color: #f5f5ff; /* Very light purple hint */
 }
 
 .outfit-suggestions h2 {

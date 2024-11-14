@@ -2,6 +2,7 @@
 .wardrobe {
   padding: 20px;
   box-sizing: border-box; /* Ensures padding doesn't affect layout */
+  background-color: #f5f5ff; /* Very light purple hint */
 }
 
 .wardrobe .type-filter, .weather-filter {

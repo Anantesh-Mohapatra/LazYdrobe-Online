@@ -6,7 +6,7 @@
   border-radius: 8px;
   max-width: 500px;
   margin: 20px auto;
-  background-color: #f9f9f9;
+  background-color: #f5f5ff; /* Very light purple hint */
 }
 
 .error-text {
