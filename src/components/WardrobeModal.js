@@ -108,11 +108,11 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
             required
           >
             <option value="" disabled>Select weather suitability</option>
+            <option value="Other">Other</option>
             <option value="All Year Around">All Year Around</option>
             <option value="Summer">Summer</option>
             <option value="Winter">Winter</option>
             <option value="Rainy">Rainy</option>
-            <option value="Other">Other</option>
             </select>
 
           <label>Color</label>
