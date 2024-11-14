@@ -28,6 +28,7 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
   return (
     <div className="wardrobe">
       <div className='on-top'>
+        <button onClick={() => setAddItem(true)} className='add-button'>Add Item</button>
         <input 
           type="text" 
           placeholder="Filter by clothing type" 

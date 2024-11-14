@@ -5,12 +5,13 @@
 }
 
 .wardrobe input[type="text"] {
-  padding: 5px;
+  padding: 5px 10px; /* Adjust padding for better height alignment */
   margin-bottom: 15px;
   width: 100%;
   max-width: 300px;
   font-size: 16px;
   box-sizing: border-box; /* Ensures padding is part of width */
+  height: 32px; /* Slightly adjust to match button height */
 }
 
 /* Grid layout for wardrobe items */
@@ -29,4 +30,5 @@
 .add-button {
   background-color: #007bff;
   margin-right: 10px;
+    
 }
