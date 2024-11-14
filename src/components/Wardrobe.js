@@ -87,21 +87,21 @@ const Wardrobe = ({ items, onAdd }) => {
 
   return (
     <div className="wardrobe">
-      <div className='on-top'>
-        <input 
-          type="text" 
-          placeholder="Filter by clothing type" 
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        />
-        <button onClick={() => setAddItem(true)} className='add-button'>Add Item</button>
-      </div>
-      <div className="wardrobe-grid">
-        {filteredItems.map(item => (
-          // Using item_id as key to avoid warnings
-          <WardrobeItem key={item.item_id} item={item} />
-        ))}
-      </div>
+    <div className='on-top'>
+      <button onClick={() => setAddItem(true)} className='add-button'>Add Item</button>
+      <input 
+        type="text" 
+        placeholder="Filter by clothing type" 
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      />
+    </div>
+    <div className="wardrobe-grid">
+      {filteredItems.map(item => (
+        // Using item_id as key to avoid warnings
+        <WardrobeItem key={item.item_id} item={item} />
+      ))}
+    </div>
 
       {/* Add item */}
       {addItem && (
