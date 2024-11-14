@@ -1,18 +1,23 @@
 /* Footer styles */
 .footer {
-  background-color: #333;
-  color: white;
+  background-color: #f5f5ff; /* Match the page background */
+  color: #6a0dad; /* Purple accent to match theme */
   text-align: center;
-  padding: 10px 0;
-  position: relative;
-  bottom: 0;
+  padding: 20px 0;
+  border-top: 1px solid #ddd; /* Border to separate from page content */
+  margin-top: 20px;
   width: 100%;
-  margin-top: 3vh;
+  position: static;
 }
 
-/* Optional: Make sure body takes full height for proper footer positioning */
+/* Ensure footer stays at the bottom of the content */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex: 1;
 }
