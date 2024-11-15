@@ -13,8 +13,12 @@ import Home from './components/Home';
 import axios from 'axios';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return JSON.parse(localStorage.getItem('isLoggedIn')) || false;
+  });
+  const [userInfo, setUserInfo] = useState(() => {
+    return JSON.parse(localStorage.getItem('userInfo')) || null;
+  });
   const [loading, setLoading] = useState(false);
 
   // Separate error states for different operations
@@ -28,16 +32,21 @@ function App() {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
-    if (!isLoggedIn && !userInfo) {
-      clearAllData()
-    }
+    console.log(isLoggedIn, userInfo)
     if (isLoggedIn && userInfo) {
+      // localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+      // localStorage.setItem('userInfo', JSON.stringify(userInfo));
       fetchWardrobeItems();
       fetchOutfitSuggestions();
     }
   }, [isLoggedIn, userInfo]);
 
-  const clearAllData = () => {
+  const clearLocalStorage = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userInfo');
+  }
+
+  const clearData = () => {
     setIsLoggedIn(null);
     setUserInfo(null);
     setLoading(false);
@@ -54,14 +63,12 @@ function App() {
     setLoading(true);
     try {
       const response = await axios.get(`/users/${userId}`);
-      setUserInfo(response.data);
+      handleLogin(response.data)
       setUserError(null);
-      // localStorage.setItem('userId', userId);
     } catch (err) {
       setUserError(err.response?.data?.detail || 'An unexpected error occurred.');
       console.error("Error fetching user data:", err);
       setUserInfo(null);
-      // localStorage.setItem('userId', null);
     } finally {
       setLoading(false);
     }
@@ -75,11 +82,8 @@ function App() {
     setLoading(true);
     try {
       await axios.delete(`/users/${userInfo.user_id}`);
-      setIsLoggedIn(false);
-      setUserInfo(null);
-      setUserError(null);
+      handleLogout();
       alert("Your account has been successfully deleted.");
-      // localStorage.setItem('userId', null);
   } catch (err) {
       setUserError(err.response?.data?.detail || err.message);
       console.error("Error deleting account:", err);
@@ -88,10 +92,20 @@ function App() {
     }
   };
 
+  const handleLogin = (user) => {
+    setIsLoggedIn(true);
+    setUserInfo(user);
+    console.log("Login Status:", isLoggedIn);
+    console.log("User Info:", userInfo);
+
+    localStorage.setItem('isLoggedIn', JSON.stringify(true));
+    localStorage.setItem('userInfo', JSON.stringify(user));
+  };
+
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserInfo(null);
-    // localStorage.setItem('userId', null);
+    clearLocalStorage();
+    clearData();
+    setUserError(null);
   };
 
   // Function to fetch outfit suggestions
@@ -247,7 +261,7 @@ function App() {
               />
             ) : (
               <>
-                <Navbar setIsLoggedIn={setIsLoggedIn} handleLogout={handleLogout} />
+                <Navbar handleLogout={handleLogout} />
                 <main className="main-content">
                   <Switch>
                     <Route path="/wardrobe">

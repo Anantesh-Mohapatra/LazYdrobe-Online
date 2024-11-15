@@ -54,16 +54,19 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
           <option value="Other">Other</option>
         </select>
       </div>
-      
-      <div className="wardrobe-grid">
-        {filteredItems.map(item => (
-          <WardrobeItem 
-            key={item.item_id} 
-            item={item} 
-            onClick={() => {openModal(item)}}
-          />
-        ))}
-      </div>
+      {filteredItems.length == 0 ? (
+        <p>No items in your wardrobe. Please add one!</p>
+      ) : (
+        <div className="wardrobe-grid">
+          {filteredItems.map(item => (
+            <WardrobeItem 
+              key={item.item_id} 
+              item={item} 
+              onClick={() => {openModal(item)}}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Wardrobe Modal */}
       <WardrobeModal

@@ -3,11 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../App.css';
 import './styling/Navbar.css';
 
-const Navbar = ({ setIsLoggedIn }) => {
-  const handleLogout = () => {
-    // Add logout functionality here
-    setIsLoggedIn(false);
-  };
+const Navbar = ({ handleLogout }) => {
 
   return (
     <nav className="navbar">

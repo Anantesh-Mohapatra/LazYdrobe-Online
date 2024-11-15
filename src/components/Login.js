@@ -29,7 +29,7 @@ const Login = ({ setIsLoggedIn, fetchUserData }) => {
       const response = await axios.post('/login', { email, password });
       if (response.data) {
         if (isMounted.current) {
-          setIsLoggedIn(true);
+          setIsLoggedIn(true)
           await fetchUserData(response.data.user_id);
           history.push('/'); // Redirect to Home page after successful login
         }
