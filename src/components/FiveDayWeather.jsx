@@ -49,6 +49,12 @@ const FiveDayWeather = () => {
     }
   };
 
+  useEffect(() => {
+    if (locationInput) {
+      handleFetchWeather();
+    }
+  }, []);
+
   return (
     <div className='five-day-component'>
       <div className='component'>

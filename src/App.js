@@ -12,7 +12,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 import axios from 'axios';
 
-import { ecommerceItems, weatherData, outfitSuggestions, fashionTrends } from './mockData';
+import { outfitSuggestions } from './mockData';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,6 +20,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [wardrobeItems, setWardrobeItems] = useState([]);
+  const [forecast, setForecast] = useState([]);
 
   useEffect(() => {
     if (isLoggedIn && userInfo) {
