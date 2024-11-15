@@ -3,21 +3,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import './styling/Login.css';
-import axios from 'axios';
+import axios from '../api/axiosInstance';
 import { useHistory } from 'react-router-dom';
 
-const Login = ({ setIsLoggedIn, fetchUserData, fetchWardrobeItems }) => {
+const Login = ({ setIsLoggedIn, fetchUserData }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
-  // Ref to track if the component is mounted
   const isMounted = useRef(true);
 
   useEffect(() => {
-    // Cleanup function to set isMounted to false when component unmounts
     return () => {
       isMounted.current = false;
     };
@@ -29,19 +26,16 @@ const Login = ({ setIsLoggedIn, fetchUserData, fetchWardrobeItems }) => {
     setError(null);
 
     try {
-      // Send POST request to /login with email and password
       const response = await axios.post('/login', { email, password });
       if (response.data) {
-        if (isMounted.current) { // Check if component is still mounted
+        if (isMounted.current) {
           setIsLoggedIn(true);
-          fetchUserData(response.data.user_id);
-          fetchWardrobeItems(response.data.user_id);
+          await fetchUserData(response.data.user_id);
           history.push('/'); // Redirect to Home page after successful login
         }
       }
     } catch (err) {
-      if (isMounted.current) { // Check if component is still mounted
-        // Handle errors returned from the backend
+      if (isMounted.current) {
         if (err.response && err.response.data && err.response.data.detail) {
           setError(err.response.data.detail);
         } else {
@@ -49,15 +43,15 @@ const Login = ({ setIsLoggedIn, fetchUserData, fetchWardrobeItems }) => {
         }
       }
     } finally {
-      if (isMounted.current) { // Check if component is still mounted
+      if (isMounted.current) {
         setLoading(false);
       }
     }
   };
 
   const handleRegisterRedirect = (e) => {
-    e.preventDefault(); // Prevent form submission
-    history.push('/register'); // Use history to redirect to the register page
+    e.preventDefault();
+    history.push('/register');
   };
 
   return (

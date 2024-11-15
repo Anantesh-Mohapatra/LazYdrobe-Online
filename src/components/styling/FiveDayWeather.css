@@ -1,7 +1,8 @@
 .five-day-component {
+    margin: 20px auto;
     padding: 20px;
-    background-color: #e0f7fa;
-}   
+    max-width: 800px;
+  }
 
 .component {
     display: flex;
@@ -40,17 +41,58 @@ img {
     height: 40px;
 }
 
-.forecast-component {
+
+  
+  .forecast-component {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    gap: auto;
-}
-
-.day {
-    text-align: center;
-}
-
+    flex-direction: column;
+    gap: 10px;
+    background-color: #e8f0fe; /* Light background */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .day {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+  }
+  
+  .day div {
+    margin: 0 10px;
+  }
+  
+  .day-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #4a097a;
+  }
+  
+  .icon img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .data {
+    color: #555;
+  }
+  
+  .day p {
+    margin: 5px 0;
+  }
+  
 .day:hover {
     background-color: #e0f7fa;
 }
