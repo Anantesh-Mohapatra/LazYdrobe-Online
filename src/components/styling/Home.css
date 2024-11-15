@@ -6,13 +6,17 @@
 }
 
 .home {
-  max-width: 800px;
+  /* Adjust or remove max-width */
+  max-width: 100%; /* or set a larger width, like 1000px */
+  width: 90%; /* Set width to expand based on screen */
   margin: 0 auto;
   background-color: #ffffff;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: auto; /* Add this to allow content to fit without overflow */
 }
+
 
 .home h1 {
   text-align: center;

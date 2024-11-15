@@ -9,6 +9,7 @@ function Register() {
     username: '',
     email: '',
     password: '',
+    location: ''
   });
   const [error, setError] = useState(null);
   const history = useHistory();
@@ -23,17 +24,17 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    if (!formData.username || !formData.email || !formData.password) {
+    // Updated validation to include 'location'
+    if (!formData.username || !formData.email || !formData.password || !formData.location) {
       setError('Please fill in all fields.');
       return;
     }
-    if(formData.password.length < 6)
-    {
-      setError('Password is too short, needs to be minimal length 6');
+    if (formData.password.length < 6) {
+      setError('Password is too short, needs to be at least 6 characters.');
       return;
     }
     try {
-      const response = await axios.post('/users/', formData);
+      await axios.post('/users/', formData);
       history.push('/login'); // Redirect to login after successful registration
     } catch (err) {
       if (err.response && err.response.data && err.response.data.detail) {
@@ -47,7 +48,6 @@ function Register() {
   const handleLoginRedirect = () => {
     history.push('/login'); // Use history to redirect to the login page
   };
-
 
   return (
     <div className="register-page">
@@ -88,10 +88,21 @@ function Register() {
             minLength={6}
           />
 
-          <button type="submit" className="button" onClick={handleSubmit}>
+          {/* Added Location Field */}
+          <label>Location</label>
+          <input
+            type="text"
+            name="location"
+            placeholder="Enter your location (e.g., New York, US)"
+            value={formData.location}
+            onChange={handleChange}
+            required
+          />
+
+          <button type="submit" className="button">
             Register
           </button>
-          <button type="submit" className="button" onClick={handleLoginRedirect}>
+          <button type="button" className="button" onClick={handleLoginRedirect}>
             Already have an account?
           </button>
         </form>
