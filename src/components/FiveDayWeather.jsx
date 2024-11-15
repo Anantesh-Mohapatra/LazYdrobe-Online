@@ -4,8 +4,7 @@ import axios from '../api/axiosInstance';
 import '../App.css';
 import './styling/FiveDayWeather.css';
 
-const FiveDayWeather = ({ userInfo }) => {
-  const [forecast, setForecast] = useState([]);
+const FiveDayWeather = ({ userInfo, weather, updateWeather }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -15,14 +14,16 @@ const FiveDayWeather = ({ userInfo }) => {
       return;
     }
 
-    setLoading(true);
     setError(null);
-    try {
+    try { 
       const weatherRequest = {
         user_id: userInfo.user_id
       };
       const response = await axios.post('/weather/', weatherRequest);
-      setForecast(response.data);
+      if (response.data != weather) {
+        setLoading(true);
+      }
+      updateWeather(response.data);
     } catch (err) {
       console.error('Error fetching weather data:', err);
       setError(err.response?.data?.detail || err.message || 'Unable to retrieve weather data.');
@@ -39,12 +40,13 @@ const FiveDayWeather = ({ userInfo }) => {
     <div className='five-day-component'>
       <div className='component'>
         {error && <p className='error'>{error}</p>}
+        <div className="day-name" >Weather for: {userInfo?.location}</div>
 
         {loading ? (
           <p>Loading weather data...</p>
-        ) : forecast.length > 0 ? (
+        ) : weather.length > 0 ? (
           <div className='forecast-component'> 
-            {forecast.map((day, index) => (
+            {weather.map((day, index) => (
               <div key={index} className='day'>
                 <div className="day-name">
                   {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}

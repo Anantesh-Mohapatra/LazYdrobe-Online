@@ -6,7 +6,7 @@ import '../App.css';
 import './styling/Home.css';
 import FiveDayWeather from './FiveDayWeather';
 
-const Home = ({ userInfo }) => {
+const Home = ({ userInfo, weather, updateWeather }) => {
   return (
     <div className="home-page">
       <div className="home">
@@ -28,6 +28,8 @@ const Home = ({ userInfo }) => {
         </div>
         <FiveDayWeather 
           userInfo={userInfo} 
+          weather={weather}
+          updateWeather={updateWeather}
         /> {/* Pass userInfo to FiveDayWeather */}
       </div>
     </div>

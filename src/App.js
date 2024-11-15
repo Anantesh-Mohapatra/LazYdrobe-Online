@@ -13,7 +13,7 @@ import Home from './components/Home';
 import axios from 'axios';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -28,24 +28,61 @@ function App() {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
+    if (!isLoggedIn && !userInfo) {
+      clearAllData()
+    }
     if (isLoggedIn && userInfo) {
       fetchWardrobeItems();
       fetchOutfitSuggestions();
     }
   }, [isLoggedIn, userInfo]);
 
+  const clearAllData = () => {
+    setIsLoggedIn(null);
+    setUserInfo(null);
+    setLoading(false);
+    setUserError(null);
+    setWardrobeError(null);
+    setOutfitError(null);
+    setWardrobeItems([]);
+    setOutfitSuggestions([]);
+    setWeather([]);
+  };
+
+  // Handling User Account Management
   const fetchUserData = async (userId) => {
     setLoading(true);
     try {
       const response = await axios.get(`/users/${userId}`);
       setUserInfo(response.data);
       setUserError(null);
-      localStorage.setItem('userId', userId);
+      // localStorage.setItem('userId', userId);
     } catch (err) {
       setUserError(err.response?.data?.detail || 'An unexpected error occurred.');
       console.error("Error fetching user data:", err);
       setUserInfo(null);
-      localStorage.removeItem('userId');
+      // localStorage.setItem('userId', null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handling User Account Management
+  const handleDeleteAccount = async () => {
+    if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+      return;
+    }
+    setLoading(true);
+    try {
+      await axios.delete(`/users/${userInfo.user_id}`);
+      setIsLoggedIn(false);
+      setUserInfo(null);
+      setUserError(null);
+      alert("Your account has been successfully deleted.");
+      // localStorage.setItem('userId', null);
+  } catch (err) {
+      setUserError(err.response?.data?.detail || err.message);
+      console.error("Error deleting account:", err);
     } finally {
       setLoading(false);
     }
@@ -54,7 +91,7 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserInfo(null);
-    localStorage.removeItem('userId');
+    // localStorage.setItem('userId', null);
   };
 
   // Function to fetch outfit suggestions
@@ -84,26 +121,6 @@ function App() {
       setOutfitError(err.response?.data?.detail || err.message);
       console.error("Error suggesting outfit:", err);
       alert("Failed to suggest outfit.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Handling User Account Management
-  const handleDeleteAccount = async () => {
-    if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-      return;
-    }
-    setLoading(true);
-    try {
-      await axios.delete(`/users/${userInfo.user_id}`);
-      setIsLoggedIn(false);
-      setUserInfo(null);
-      setUserError(null);
-      alert("Your account has been successfully deleted.");
-    } catch (err) {
-      setUserError(err.response?.data?.detail || err.message);
-      console.error("Error deleting account:", err);
     } finally {
       setLoading(false);
     }
@@ -211,6 +228,10 @@ function App() {
     }
   };
 
+  const handleUpdateWeather = (newWeather) => {
+    setWeather(newWeather);
+  };
+
   return (
     <Router>
       <div className="app-container">
@@ -272,6 +293,8 @@ function App() {
                     <Route path="/" exact>
                       <Home 
                         userInfo={userInfo} 
+                        weather={weather}
+                        updateWeather={handleUpdateWeather}
                       />
                     </Route>
                     <Redirect to="/" />
