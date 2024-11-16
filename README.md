@@ -76,7 +76,7 @@ lazydrobe/
 │   │   │   ├── Profile.js           # Profile page component
 │   │   │   ├── ProfileEdit.js       # Profile page segment 
 │   │   │   ├── ProfileView.js       # Profile page segment
-│   │   │   ├── PergerencesIput.js   # Profile page segment
+│   │   │   ├── PerferencesInput.js  # Profile page segment
 │   │   │   ├── Profile.js           # Profile page component
 │   │   ├── styling/                 # All React components' CSS files
 │   │   ├── Login.js                 # Login page component

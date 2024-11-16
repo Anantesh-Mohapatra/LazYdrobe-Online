@@ -27,6 +27,7 @@ function App() {
   const [outfitError, setOutfitError] = useState(null);
 
   const [wardrobeItems, setWardrobeItems] = useState([]);
+  const [outfit, setOutfits] = useState([]);
   const [outfitSuggestions, setOutfitSuggestions] = useState([]);
 
   const [weather, setWeather] = useState([]);
@@ -157,12 +158,6 @@ function App() {
       const wardrobeItemToAdd = {
         ...newWardrobeItem,
         user_id: userInfo.user_id,
-        color: Array.isArray(newWardrobeItem.color)
-          ? newWardrobeItem.color
-          : newWardrobeItem.color.split(',').map((c) => c.trim()),
-        tags: Array.isArray(newWardrobeItem.tags)
-          ? newWardrobeItem.tags
-          : newWardrobeItem.tags.split(',').map((tag) => tag.trim()),
       };
       const response = await axios.post('/wardrobe_item/', wardrobeItemToAdd);
       setWardrobeItems([...wardrobeItems, response.data]);
@@ -243,6 +238,29 @@ function App() {
     setWeather(newWeather);
   };
 
+  const handleCreateOutfit = async (newOutfit) => {
+    setLoading(true);
+    try {
+      const outfitToAdd = {
+        ...newOutfit,
+        user_id: userInfo.user_id
+      };
+  
+      const response = await axios.post('/outfit/', outfitToAdd);
+  
+      setOutfits([...outfits, response.data]);
+      setOutfitError(null);
+      console.log("Created new outfit:", response.data);
+    } catch (err) {
+      console.error("Failed to create outfit:", err);
+      setOutfitError(err.response?.data?.detail || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  
+
   return (
     <Router>
       <div className="app-container">
@@ -269,6 +287,7 @@ function App() {
                         onDelete={handleDeleteWardrobeItem}
                         loading={loading}
                         error={wardrobeError}
+                        createOutfit={handleCreateOutfit}
                       />
                     </Route>
                     <Route path="/outfits">

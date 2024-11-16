@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import WardrobeItem from './WardrobeItem';
-import WardrobeModal from './WardrobeModal'; // Import the new WardrobeModal component
+import WardrobeItemModal from './WardrobeItemModal'; // Import the new WardrobeItemModal component
 import '../App.css';
 import './styling/Wardrobe.css';
+import OutfitModal from './OutfitModal';
 
-const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
+const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
   const [filter, setFilter] = useState('');
   const [weatherFilter, setWeatherFilter] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
+  const [isItemModal, setIsItemModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
   const [multiSelect, setMultiSelect] = useState([]);
+
+  const [isOutfitModal, setIsOutfitModal] = useState(false);
 
   const weatherOptions = ["Summer", "Winter", "Rainy", "All Year Around"];
 
@@ -28,14 +32,19 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
     )
   );
   
-  const openModal = (item) => {
+  const openItemModal = (item) => {
     setSelectedItem(item);
-    setIsModalOpen(true);
+    setIsItemModal(true);
+  };
+
+  const openOutfitModal = () => {
+    if (multiSelect.length > 0){setIsOutfitModal(true);}
   };
 
   const closeModal = () => {
     setSelectedItem(null);
-    setIsModalOpen(false);
+    setIsOutfitModal(false);
+    setIsItemModal(false);
   };
 
   const toggleSelection = (itemId) => {
@@ -51,10 +60,25 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
     setMultiSelect([]);
   };
 
+  const selectedItemImgs = (ids, items) => {
+    return ids.map(id => {
+      const theItem = items.find(item => item.item_id === id);
+      if (theItem) {
+        return {
+          image_url: theItem?.image_url || '',
+          alt: theItem?.clothing_type || 'No name available'
+        };
+      }
+      return null;
+    }).filter(Boolean);
+  };
+  
+
   return (
     <div className="wardrobe">
       <div className='on-top'>
-        <button onClick={() => openModal(null)} className='add-button'>Add Item</button>
+        <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
+        <button onClick={() => openOutfitModal(null)} className='create-button'>Create Outfit</button>
         
         {/* Filter */}
         <input 
@@ -86,17 +110,18 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
         </button>
       </div>
 
-      {filteredItems.length == 0 ? (
-        <p>No items in your wardrobe. Please add one!</p>
+      {filteredItems.length === 0 ? (
+        filter || weatherFilter ? 
+          <p>No items match your filter criteria.</p> :
+          <p>No items in your wardrobe. Please add one!</p>
       ) : (
         <div className="wardrobe-grid">
           {filteredItems.map(item => (
             <div>
               <WardrobeItem 
-                key={item.item_id} 
                 item={item} 
-                onClick={() => {openModal(item)}}
-                isSelected={multiSelect.includes(item.item_id)}
+                onClick={() => {openItemModal(item)}}
+                isSelected={multiSelect.includes(item?.item_id)}
                 toggleSelect={toggleSelection}
               />
             </div>
@@ -105,13 +130,20 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
       )}
 
       {/* Wardrobe Modal */}
-      <WardrobeModal
-        isOpen={isModalOpen}
+      <WardrobeItemModal
+        isOpen={isItemModal}
         onRequestClose={closeModal}
         onAdd={onAdd}
         onUpdate={onUpdate}
         onDelete={onDelete}
         item={selectedItem}
+      />
+
+      <OutfitModal
+        isOpen={isOutfitModal}
+        onRequestClose={closeModal}
+        onCreate={createOutfit}
+        clothings={selectedItemImgs(multiSelect,items)}
       />
     </div>
   );
@@ -127,6 +159,10 @@ Wardrobe.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     item_id: PropTypes.number.isRequired,
     clothing_type: PropTypes.string.isRequired,
+    color: PropTypes.arrayOf(PropTypes.string),
+    tags: PropTypes.arrayOf(PropTypes.string),
+    for_weather: PropTypes.string,
+    image_url: PropTypes.string,
   })).isRequired,
   onAdd: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,

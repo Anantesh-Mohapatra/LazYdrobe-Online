@@ -15,7 +15,7 @@ const WardrobeItem = ({ item, onClick, isSelected, toggleSelect }) => {
   };
 
   return (
-    <div className="wardrobe-item">
+    <div className={`wardrobe-item ${isSelected ? 'selected' : ''}`}>
       <div className="checkbox">
           <input 
             type="checkbox" 

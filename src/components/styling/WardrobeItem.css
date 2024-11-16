@@ -29,20 +29,23 @@
   margin: 0;
 }
 
-/* Optional: Focus styles for accessibility */
-.wardrobe-item:focus {
-  outline: 2px solid #007bff; /* Adds a focus outline for keyboard navigation */
-  outline-offset: 2px;
-}
-
 .checkbox {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 10;
 }
 
 .checkbox input {
   width: 18px;
   height: 18px;
+}
+
+.wardrobe-item.selected {
+  border: 1px solid #6a0dad;
+  box-shadow: 0 0 5px rgba(106, 13, 173, 0.2);
+}
+
+.wardrobe-item:hover {
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(106, 13, 173, 0.2);
 }
