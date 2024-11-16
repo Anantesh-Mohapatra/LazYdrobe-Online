@@ -15,7 +15,7 @@
 .modal-content {
   background-color: #f5f5ff; /* Match the page background */
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 10px;  
   max-width: 600px;
   position: relative;
   text-align: center;
@@ -114,4 +114,8 @@ label {
 
 .modal-content .error {
   color: #d9534f; /* Softer red for error messages */
+}
+
+.button-group {
+  gap: 10px;
 }

@@ -29,6 +29,10 @@ function Register() {
       setError('Please fill in all fields.');
       return;
     }
+    if (formData.username.length < 3) {
+      setError('Username is too short, needs to be at least 3 characters.');
+      return;
+    }
     if (formData.password.length < 6) {
       setError('Password is too short, needs to be at least 6 characters.');
       return;

@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import './styling/WardrobeItem.css';
 
-const WardrobeItem = ({ item, onClick }) => {
+const WardrobeItem = ({ item, onClick, isSelected, toggleSelect }) => {
   // Ensure that item properties exist before rendering
   const clothingType = item.clothing_type || 'Unknown Clothing Type';
   const color = item.color || 'Unknown Color';
@@ -15,11 +15,23 @@ const WardrobeItem = ({ item, onClick }) => {
   };
 
   return (
-    <div className="wardrobe-item" onClick={onClick}>
-      <img src={imageUrl} alt={clothingType} />
-      <h3>{clothingType}</h3>
-      <p>Color: {listToStr(color)}</p>
-      <p>Size: {size}</p>
+    <div className="wardrobe-item">
+      <div className="checkbox">
+          <input 
+            type="checkbox" 
+            checked={isSelected} 
+            onChange={(e) => {
+              e.stopPropagation();
+              toggleSelect(item.item_id);
+            }} 
+          />
+        </div>
+      <div onClick={onClick}>
+        <img src={imageUrl} alt={clothingType} />
+        <h3>{clothingType}</h3>
+        <p>Color: {listToStr(color)}</p>
+        <p>Size: {size}</p>
+      </div>
     </div>
   );
 };

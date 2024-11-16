@@ -10,16 +10,24 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
   const [weatherFilter, setWeatherFilter] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
   const [selectedItem, setSelectedItem] = useState(null);
+  const [multiSelect, setMultiSelect] = useState([]);
 
   const weatherOptions = ["Summer", "Winter", "Rainy", "All Year Around"];
 
   const filteredItems = items.filter(item =>
-    item.clothing_type.toLowerCase().includes(filter.toLowerCase()) &&
-    (weatherFilter == '' || weatherFilter == item.for_weather ||
-      (weatherFilter == "Other" && !weatherOptions.includes(item.for_weather))
+    // Filter by item name
+    (item.clothing_type.toLowerCase().includes(filter.toLowerCase()) ||
+      // Filter by color
+      item.color.some(tag => tag.toLowerCase().includes(filter.toLowerCase())) ||
+      // Filter by item tag
+      item.tags.some(tag => tag.toLowerCase().includes(filter.toLowerCase()))
+    ) &&
+    // Filter by weather
+    (weatherFilter === '' || weatherFilter === item.for_weather ||
+      (weatherFilter === "Other" && !weatherOptions.includes(item.for_weather))
     )
   );
-
+  
   const openModal = (item) => {
     setSelectedItem(item);
     setIsModalOpen(true);
@@ -30,10 +38,25 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
     setIsModalOpen(false);
   };
 
+  const toggleSelection = (itemId) => {
+    if (multiSelect.includes(itemId)) {
+      setMultiSelect(multiSelect.filter(id => id !== itemId));
+    } else {
+      setMultiSelect([...multiSelect, itemId]);
+    }
+  };
+
+  const deleteSelectedItems = () => {
+    onDelete(multiSelect);
+    setMultiSelect([]);
+  };
+
   return (
     <div className="wardrobe">
       <div className='on-top'>
         <button onClick={() => openModal(null)} className='add-button'>Add Item</button>
+        
+        {/* Filter */}
         <input 
           type="text" 
           placeholder="Filter by clothing type" 
@@ -53,17 +76,30 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete }) => {
           <option value="Rainy">Rainy</option>
           <option value="Other">Other</option>
         </select>
+
+        <button 
+          onClick={deleteSelectedItems} 
+          className='delete-button' 
+          disabled={multiSelect.length == 0}
+        >
+          Delete Selected
+        </button>
       </div>
+
       {filteredItems.length == 0 ? (
         <p>No items in your wardrobe. Please add one!</p>
       ) : (
         <div className="wardrobe-grid">
           {filteredItems.map(item => (
-            <WardrobeItem 
-              key={item.item_id} 
-              item={item} 
-              onClick={() => {openModal(item)}}
-            />
+            <div>
+              <WardrobeItem 
+                key={item.item_id} 
+                item={item} 
+                onClick={() => {openModal(item)}}
+                isSelected={multiSelect.includes(item.item_id)}
+                toggleSelect={toggleSelection}
+              />
+            </div>
           ))}
         </div>
       )}

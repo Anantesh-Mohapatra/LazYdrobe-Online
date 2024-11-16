@@ -5,16 +5,6 @@
   background-color: #f5f5ff; /* Very light purple hint */
 }
 
-.wardrobe .type-filter, .weather-filter {
-  padding: 5px 10px; /* Adjust padding for better height alignment */
-  margin-bottom: 15px;
-  width: 100%;
-  max-width: 300px;
-  font-size: 16px;
-  box-sizing: border-box; /* Ensures padding is part of width */
-  height: 32px; /* Slightly adjust to match button height */
-}
-
 /* Grid layout for wardrobe items */
 .wardrobe-grid {
   display: grid;
@@ -28,8 +18,26 @@
   outline-offset: 2px;
 }
 
+.on-top {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.on-top .type-filter, .weather-filter {
+  padding: 5px 10px; /* Adjust padding for better height alignment */
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures padding is part of width */
+  height: 35px; /* Slightly adjust to match button height */
+}
+
+.on-top button {
+  height: fit-content;
+}
+
 .add-button {
   background-color: #007bff;
-  margin-right: 10px;
-    
 }
+

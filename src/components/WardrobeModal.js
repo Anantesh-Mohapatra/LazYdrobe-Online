@@ -8,7 +8,7 @@ Modal.setAppElement('#root');
 const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item = {} }) => {
   const [clothing_type, setClothingType] = useState(item?.clothing_type || '');
   const [for_weather, setForWeather] = useState(item?.for_weather || 'All year around');
-  const [color, setColor] = useState(item?.color || '');
+  const [color, setColor] = useState(item?.color.join || '');
   const [size, setSize] = useState(item?.size || '');
   const [tags, setTags] = useState(item?.tags || '');
   const [image_url, setImageUrl] = useState(item?.image_url || '');
@@ -21,15 +21,19 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
     } else if (item) {
       setClothingType(item.clothing_type || '');
       setForWeather(item.for_weather || '');
-      setColor(item.color || '');
+      setColor(item.color.join(', ') || '');
       setSize(item.size || '');
-      setTags(item.tags || '');
+      setTags(item.tags.join(', ') || '');
       setImageUrl(item.image_url || '');
     }
   }, [isOpen, item]); 
 
   const handleAdd = async () => {
-    if (clothing_type && for_weather && color && size && tags && image_url) {
+    if (clothing_type && for_weather && color && size && image_url) {
+      if (clothing_type.length < 3) {
+        setError('Clothing type must be at least 3 characters long.');
+        return;
+      }
       const result = await onAdd({clothing_type, for_weather, color, size, tags, image_url});
       
       if (result == -1) {
@@ -64,10 +68,9 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
   const handleDelete = async (e) => {
     e.preventDefault();
     
-    const result = await onDelete(item.item_id);
+    const result = await onDelete([item.item_id]);
     handleClose();
   };
-  
 
   const handleClear = () => {
     console.log(item);
@@ -98,6 +101,8 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
             value={clothing_type} 
             onChange={(e) => setClothingType(e.target.value)} 
             placeholder="Enter clothing type (e.g., tshirt)" 
+            minLength={3}
+            maxLength={50}
             required
           />
 
@@ -130,16 +135,17 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
             value={size} 
             onChange={(e) => setSize(e.target.value)} 
             placeholder="Enter size (e.g., L)" 
+            minLength={1}
+            maxLength={50}
             required
           />
 
-          <label>Any Other Tags</label>
+          <label>Optional: Tags</label>
           <input 
             type="text" 
             value={tags} 
             onChange={(e) => setTags(e.target.value)} 
-            placeholder="Enter tags (e.g., casual, summer)" 
-            required
+            placeholder="Enter tags (e.g., casual, short)" 
           />
 
           <label>Image URL</label>
@@ -151,7 +157,7 @@ const WardrobeModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item
             required
           />
 
-          <div>
+          <div className='button-group'>
             {item?.item_id ? (
               <button type="button" className="edit-button" onClick={handleUpdate}>Edit</button>
             ) : (

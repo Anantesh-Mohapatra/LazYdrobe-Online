@@ -32,10 +32,7 @@ function App() {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
-    console.log(isLoggedIn, userInfo)
     if (isLoggedIn && userInfo) {
-      // localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
-      // localStorage.setItem('userInfo', JSON.stringify(userInfo));
       fetchWardrobeItems();
       fetchOutfitSuggestions();
     }
@@ -95,8 +92,6 @@ function App() {
   const handleLogin = (user) => {
     setIsLoggedIn(true);
     setUserInfo(user);
-    console.log("Login Status:", isLoggedIn);
-    console.log("User Info:", userInfo);
 
     localStorage.setItem('isLoggedIn', JSON.stringify(true));
     localStorage.setItem('userInfo', JSON.stringify(user));
@@ -224,14 +219,16 @@ function App() {
     }
   };
 
-  const handleDeleteWardrobeItem = async (itemId) => {
-    if (!window.confirm("Are you sure you want to delete this item?")) {
+  const handleDeleteWardrobeItem = async (itemIds) => {
+    console.log("Trying to delete", itemIds);
+    if (!window.confirm("Are you sure you want to delete the selected item(s)?")) {
       return;
     }
+
     setLoading(true);
     try {
-      await axios.delete(`/wardrobe_items/${itemId}`);
-      setWardrobeItems((prevItems) => prevItems.filter((item) => item.item_id !== itemId));
+      await axios.delete(`/wardrobe_items/`, { data: { item_ids: itemIds } });
+      setWardrobeItems((prevItems) => prevItems.filter((item) => !itemIds.includes(item.item_id)));
       setWardrobeError(null);
       alert("Wardrobe item has been deleted successfully.");
     } catch (err) {

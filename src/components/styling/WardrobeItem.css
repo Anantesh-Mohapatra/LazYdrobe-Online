@@ -1,5 +1,6 @@
 /* WardrobeItem styles */
 .wardrobe-item {
+  position: relative;
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
@@ -32,4 +33,16 @@
 .wardrobe-item:focus {
   outline: 2px solid #007bff; /* Adds a focus outline for keyboard navigation */
   outline-offset: 2px;
+}
+
+.checkbox {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
 }

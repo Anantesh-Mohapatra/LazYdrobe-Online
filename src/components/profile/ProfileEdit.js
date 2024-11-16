@@ -34,11 +34,52 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Existing fields */}
-      {/* Added Location Field */}
+      {/* Username */}
+      <div>
+        <label>Username:</label>
+        <input 
+          className='input-field'
+          type="text" 
+          name="username" 
+          value={form.username} 
+          onChange={handleChange} 
+          placeholder="Enter your username" 
+          minLength={3}
+          maxLength={50}
+          required 
+        />
+      </div>
+
+      <div>
+        <label>Email:</label>
+        <input 
+          className='input-field'
+          type="text" 
+          name="email" 
+          value={form.email} 
+          onChange={handleChange} 
+          placeholder="Enter your email" 
+          required 
+        />
+      </div>
+
+      <div>
+        <label>New Password:</label>
+        <input 
+          className='input-field'
+          type="password" 
+          name="password" 
+          value={form.password} 
+          onChange={handleChange} 
+          placeholder="Leave blank to keep current password" 
+          minLength={6}
+        />
+      </div>
+
       <div>
         <label>Location:</label>
         <input 
+          className='input-field'
           type="text" 
           name="location" 
           value={form.location} 
@@ -47,9 +88,43 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
           required 
         />
       </div>
+
+      {/* Gender */}
+      <div>
+        <label>Gender:</label>
+        <select 
+          className='input-field'
+          type="select" 
+          name="gender" 
+          value={form.gender} 
+          onChange={handleChange} 
+          required
+        >
+          <option value="" disabled>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      {/* Fashion Preference */}
+      <div>
+        <label>Fashion preferences:</label>
+        <input 
+          className='input-field'
+          type="text" 
+          name="preferences" 
+          value={form.preferences} 
+          onChange={handleChange} 
+          placeholder="e.g., Unisex, Comfortable, ..." 
+        />
+      </div>
+
       {/* Rest of the form */}
-      <button type="submit" className="save-button">Save Changes</button>
-      <button type="button" className="cancel-button" onClick={onCancel}>Cancel</button>
+      <div className='button-group'>
+        <button type="submit" className="save-button">Save Changes</button>
+        <button type="button" className="cancel-button" onClick={onCancel}>Cancel</button>
+      </div>
     </form>
   );
 };
