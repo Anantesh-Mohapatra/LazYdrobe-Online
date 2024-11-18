@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
-import { suggestOutfit } from '../api/api';
 
-const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfits, wardrobeItems, weather, occasion }) => {
+const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfits, wardrobeItems, weather, occasion, loading }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedOutfit, setSelectedOutfit] = useState(null);
   const [isOutfitModal, setIsOutfitModal] = useState(false);
@@ -38,6 +37,20 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
     } catch (err) {
       console.error("Failed to delete outfit suggestion:", err);
       alert("Failed to delete outfit suggestion.");
+    }
+  };
+
+  const suggestOutfit = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post('/outfits/suggest', { user_id: userInfo.user_id });
+      setOutfits([response.data, ...outfits]);
+      alert("Outfit suggested successfully!");
+    } catch (err) {
+      console.error("Error suggesting outfit:", err);
+      alert("Failed to suggest outfit.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -157,6 +170,14 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
       <h2>Custom Outfits</h2>
       {renderCustomOutfits()}
 
+      <button
+        onClick={suggestOutfit}
+        disabled={loading}
+        style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px' }}
+      >
+        {loading ? 'Suggesting...' : 'Suggest New Outfit'}
+      </button>
+
       {/* Purchase Modal */}
       {selectedItem && (
         <div className="modal-overlay" onClick={handleCloseModal}>
@@ -234,6 +255,7 @@ OutfitSuggestions.propTypes = {
   wardrobeItems: PropTypes.array.isRequired,
   weather: PropTypes.string.isRequired,
   occasion: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default OutfitSuggestions;

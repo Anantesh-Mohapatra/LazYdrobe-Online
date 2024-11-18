@@ -128,23 +128,6 @@ function App() {
     }
 };
 
-  // Function to trigger outfit suggestion generation
-  const suggestOutfit = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post('/outfits/suggest', { user_id: userInfo.user_id });
-      setOutfitSuggestions([response.data, ...outfitSuggestions]);
-      setOutfitError(null);
-      alert("Outfit suggested successfully!");
-    } catch (err) {
-      setOutfitError(err.response?.data?.detail || err.message);
-      console.error("Error suggesting outfit:", err);
-      alert("Failed to suggest outfit.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleUpdateUser = async (updatedData) => {
     setLoading(true);
     try {
@@ -373,14 +356,8 @@ function App() {
                         setOutfits={setOutfitSuggestions} // Ensure this mapping is correct
                         setCustomOutfits={setCustomOutfits} // Check if needed
                         error={outfitError}
+                        loading={loading}
                       />
-                      <button
-                        onClick={suggestOutfit}
-                        disabled={loading}
-                        style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px' }}
-                      >
-                        {loading ? 'Suggesting...' : 'Suggest New Outfit'}
-                      </button>
                     </Route>
                     <Route path="/profile">
                       <div className="profile-section">
