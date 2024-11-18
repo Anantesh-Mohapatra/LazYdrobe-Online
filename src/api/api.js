@@ -1,5 +1,3 @@
-// src/api/api.js
-
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -13,8 +11,8 @@ const api = axios.create({
 
 // Handle API responses and errors globally
 api.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     const message = error.response?.data?.detail || error.message || 'An error occurred';
     toast.error(message);
     return Promise.reject(error);
@@ -50,20 +48,62 @@ export const deleteUser = async (userId) => {
   toast.success('Your account has been successfully deleted.');
 };
 
+// Weather API
 export const fetchWeather = async (weatherRequest) => {
   const response = await api.post('/weather/', weatherRequest);
   toast.success('Weather data fetched successfully!');
   return response.data;
 };
 
-// Implement other API functions as needed
-
+// Wardrobe API
 export const fetchWardrobeItems = async () => {
-  const response = await api.get('/wardrobe'); // Ensure this endpoint exists in your FastAPI backend
+  const response = await api.get('/wardrobe');
   return response.data;
 };
 
-export const fetchOutfitSuggestions = async () => {
-  const response = await api.get('/outfits'); // Ensure this endpoint exists in your FastAPI backend
-  return response.data;
+// Outfit Suggestion API
+export const getOutfitSuggestions = async (weather, occasion) => {
+  try {
+    const response = await api.post('/outfits/', { weather, occasion });
+    toast.success('Outfit suggestions fetched successfully!');
+    return response.data;
+  } catch (error) {
+    toast.error('Failed to fetch outfit suggestions.');
+    throw error;
+  }
+};
+
+// Local Outfit Suggestion Algorithm
+export const suggestOutfit = (weather, occasion, wardrobe) => {
+  const outfit = [];
+
+  wardrobe.forEach((item) => {
+    if (item.style.includes(occasion)) {
+      if (weather === 'cold' && ['top', 'outerwear', 'footwear'].includes(item.type)) {
+        outfit.push(item);
+      } else if (weather === 'hot' && item.type !== 'outerwear') {
+        outfit.push(item);
+      } else if (['sunny', 'rainy'].includes(weather)) {
+        outfit.push(item);
+      }
+    }
+  });
+
+  const uniqueOutfit = {};
+  outfit.forEach((item) => {
+    if (!uniqueOutfit[item.type]) uniqueOutfit[item.type] = item;
+  });
+
+  return Object.values(uniqueOutfit);
+};
+
+// Fallback API
+export const fetchWardrobeAndSuggestOutfit = async (weather, occasion) => {
+  try {
+    const wardrobe = await fetchWardrobeItems();
+    return suggestOutfit(weather, occasion, wardrobe);
+  } catch (error) {
+    console.error('Fallback to local processing due to API failure.');
+    return []; // Return empty or fallback logic
+  }
 };
