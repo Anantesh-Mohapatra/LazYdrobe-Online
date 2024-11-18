@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
+import { suggestOutfit } from '../api/api';
 
-const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfits, wardrobeItems }) => {
-  
+const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfits, wardrobeItems, weather, occasion }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedOutfit, setSelectedOutfit] = useState(null);
   const [isOutfitModal, setIsOutfitModal] = useState(false);
+  const [generatedOutfits, setGeneratedOutfits] = useState([]);
 
   const handleBuyClick = (item) => {
     setSelectedItem(item);
@@ -29,10 +30,10 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
     if (!window.confirm("Are you sure you want to delete this outfit suggestion?")) {
       return;
     }
-  
+
     try {
       await axios.delete(`/outfits/suggestions/${suggestion_id}`);
-      setOutfits(prevOutfits => prevOutfits.filter(suggestion => suggestion.suggestion_id !== suggestion_id));
+      setOutfits((prevOutfits) => prevOutfits.filter((suggestion) => suggestion.suggestion_id !== suggestion_id));
       alert("Outfit suggestion deleted successfully.");
     } catch (err) {
       console.error("Failed to delete outfit suggestion:", err);
@@ -40,18 +41,39 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
     }
   };
 
-  // Handle empty outfits gracefully
+  // Generate outfits based on weather and occasion
+  useEffect(() => {
+    if (weather && occasion && wardrobeItems.length > 0) {
+      const suggestions = suggestOutfit(weather, occasion, wardrobeItems);
+      setGeneratedOutfits(suggestions);
+    }
+  }, [weather, occasion, wardrobeItems]);
+
   const renderOutfitSuggestions = () => {
-    if (outfits.length === 0) {
+    if (outfits.length === 0 && generatedOutfits.length === 0) {
       return <p>No outfit suggestions available. Please generate one!</p>;
     }
 
     return (
       <div className="outfit-list">
-        {outfits.map(outfitSuggestion => (
+        {generatedOutfits.length > 0 && (
+          <div className="generated-outfits">
+            <h3>Generated Outfits</h3>
+            {generatedOutfits.map((item, index) => (
+              <div key={index} className="clothing-item">
+                <img src={item.image_url} alt={item.clothing_type} />
+                <p>{item.product_name}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {outfits.map((outfitSuggestion) => (
           <div key={outfitSuggestion.suggestion_id} className="outfit-card">
             <h3>Suggestion ID: {outfitSuggestion.suggestion_id}</h3>
-            <p><strong>Date Suggested:</strong> {new Date(outfitSuggestion.date_suggested).toLocaleString()}</p>
+            <p>
+              <strong>Date Suggested:</strong>{" "}
+              {new Date(outfitSuggestion.date_suggested).toLocaleString()}
+            </p>
             <button
               className="delete-button"
               onClick={() => handleDeleteSuggestion(outfitSuggestion.suggestion_id)}
@@ -63,7 +85,7 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
                 <div key={index} className="outfit-components">
                   <h4>Outfit {index + 1}</h4>
                   <div className="clothing-items">
-                    {outfit.map(component => (
+                    {outfit.map((component) => (
                       <div key={component.item_id} className="clothing-item">
                         <img src={component.image_url} alt={component.clothing_type} />
                         <p>{component.product_name}</p>
@@ -88,10 +110,20 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
     return (
       <div className="custom-outfits-container">
         {customOutfits.map((customOutfit, index) => (
-          <div key={index} className="custom-outfit" onClick={() => {openOutfitModal(customOutfit)}}>
+          <div
+            key={index}
+            className="custom-outfit"
+            onClick={() => {
+              openOutfitModal(customOutfit);
+            }}
+          >
             <div className="outfit-info">
-              <p><strong>Occasion:</strong> {customOutfit.occasion.join(", ")}</p>
-              <p><strong>Weather:</strong> {customOutfit.for_weather}</p>
+              <p>
+                <strong>Occasion:</strong> {customOutfit.occasion.join(", ")}
+              </p>
+              <p>
+                <strong>Weather:</strong> {customOutfit.for_weather}
+              </p>
             </div>
             <div className="outfit-images">
               {customOutfit.clothings.map((clothingId) => {
@@ -131,18 +163,26 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Purchase {selectedItem.clothing_type}</h2>
             <img src={selectedItem.image_url} alt={selectedItem.clothing_type} />
-            <p><strong>Name:</strong> {selectedItem.product_name}</p>
+            <p>
+              <strong>Name:</strong> {selectedItem.product_name}
+            </p>
             <div>
               <strong>Buy Links:</strong>
               <ul>
                 {selectedItem.eBay_link.map((link, idx) => (
                   <li key={idx}>
-                    <a href={link} target="_blank" rel="noopener noreferrer">{`Buy Option ${idx + 1}`}</a>
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >{`Buy Option ${idx + 1}`}</a>
                   </li>
                 ))}
               </ul>
             </div>
-            <button className="close-button" onClick={handleCloseModal}>X</button>
+            <button className="close-button" onClick={handleCloseModal}>
+              X
+            </button>
           </div>
         </div>
       )}
@@ -152,8 +192,12 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
         <div className="modal-overlay" onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Custom Outfit Details</h2>
-            <p><strong>Occasion:</strong> {selectedOutfit.occasion.join(", ")}</p>
-            <p><strong>Weather:</strong> {selectedOutfit.for_weather}</p>
+            <p>
+              <strong>Occasion:</strong> {selectedOutfit.occasion.join(", ")}
+            </p>
+            <p>
+              <strong>Weather:</strong> {selectedOutfit.for_weather}
+            </p>
             <div className="custom-outfit-images">
               {selectedOutfit.clothings.map((clothingId) => {
                 const wardrobeItem = wardrobeItems.find(
@@ -162,14 +206,19 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
                 return wardrobeItem ? (
                   <div key={clothingId} className="clothing-item">
                     <p>{wardrobeItem.clothing_type}</p>
-                    <img src={wardrobeItem.image_url} alt={wardrobeItem.clothing_type} />
+                    <img
+                      src={wardrobeItem.image_url}
+                      alt={wardrobeItem.clothing_type}
+                    />
                   </div>
                 ) : (
                   <p key={clothingId}>Wardrobe Missing Item</p>
                 );
               })}
             </div>
-            <button className="close-button" onClick={handleCloseModal}>X</button>
+            <button className="close-button" onClick={handleCloseModal}>
+              X
+            </button>
           </div>
         </div>
       )}
@@ -178,35 +227,13 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
 };
 
 OutfitSuggestions.propTypes = {
-  outfits: PropTypes.arrayOf(PropTypes.shape({
-    suggestion_id: PropTypes.number.isRequired,
-    outfit_details: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
-      clothing_type: PropTypes.string.isRequired,
-      item_id: PropTypes.number.isRequired,
-      product_name: PropTypes.string.isRequired,
-      image_url: PropTypes.string.isRequired,
-      eBay_link: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }))).isRequired,
-    date_suggested: PropTypes.string.isRequired,
-  })).isRequired,
-
-  customOutfits: PropTypes.arrayOf(PropTypes.shape({
-    occasion: PropTypes.arrayOf(PropTypes.string).isRequired,
-    for_weather: PropTypes.string.isRequired,
-    clothings: PropTypes.arrayOf(PropTypes.number).isRequired,
-  })).isRequired,
-
-  wardrobeItems: PropTypes.arrayOf(PropTypes.shape({
-    item_id: PropTypes.number.isRequired,
-    clothing_type: PropTypes.string.isRequired,
-    image_url: PropTypes.string.isRequired,
-    product_name: PropTypes.string.isRequired,
-    eBay_link: PropTypes.arrayOf(PropTypes.string).isRequired,
-    gender: PropTypes.string.isRequired,
-  })).isRequired,
-
+  outfits: PropTypes.array.isRequired,
   setOutfits: PropTypes.func.isRequired,
+  customOutfits: PropTypes.array.isRequired,
   setCustomOutfits: PropTypes.func.isRequired,
+  wardrobeItems: PropTypes.array.isRequired,
+  weather: PropTypes.string.isRequired,
+  occasion: PropTypes.string.isRequired,
 };
 
 export default OutfitSuggestions;
