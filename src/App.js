@@ -115,12 +115,18 @@ function App() {
       setOutfitSuggestions(response.data);
       setOutfitError(null);
     } catch (err) {
-      setOutfitError(err.response?.data?.detail || err.message);
-      console.error("Error fetching outfit suggestions:", err);
+      if (err.response && err.response.status === 404) {
+        // No outfit suggestions found; set to empty array
+        setOutfitSuggestions([]);
+        setOutfitError(null);
+      } else {
+        setOutfitError(err.response?.data?.detail || err.message);
+        console.error("Error fetching outfit suggestions:", err);
+      }
     } finally {
       setLoading(false);
     }
-  };
+};
 
   // Function to trigger outfit suggestion generation
   const suggestOutfit = async () => {
@@ -364,8 +370,8 @@ function App() {
                         outfits={outfitSuggestions}
                         wardrobeItems={wardrobeItems}
                         customOutfits={customOutfits}
-                        onUpdateCustom={handleUpdateOutfit}
-                        onDeleteCustom={handleDeleteOutfit}
+                        setOutfits={setOutfitSuggestions} // Ensure this mapping is correct
+                        setCustomOutfits={setCustomOutfits} // Check if needed
                         error={outfitError}
                       />
                       <button

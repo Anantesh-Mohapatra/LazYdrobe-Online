@@ -177,3 +177,18 @@
   object-fit: cover;
   border-radius: 4px;
 }
+
+.delete-button {
+  padding: 5px 10px;
+  background-color: #ff4d4f;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  float: right;
+  margin-top: -40px;
+}
+
+.delete-button:hover {
+  background-color: #ff7875;
+}
