@@ -27,15 +27,15 @@ function App() {
   const [outfitError, setOutfitError] = useState(null);
 
   const [wardrobeItems, setWardrobeItems] = useState([]);
-  const [outfit, setOutfits] = useState([]);
+  const [customOutfits, setCustomOutfits] = useState([]);
   const [outfitSuggestions, setOutfitSuggestions] = useState([]);
-
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
     if (isLoggedIn && userInfo) {
       fetchWardrobeItems();
       fetchOutfitSuggestions();
+      fetchOutfits();
     }
   }, [isLoggedIn, userInfo]);
 
@@ -48,10 +48,13 @@ function App() {
     setIsLoggedIn(null);
     setUserInfo(null);
     setLoading(false);
+
     setUserError(null);
     setWardrobeError(null);
     setOutfitError(null);
+
     setWardrobeItems([]);
+    setCustomOutfits([]);
     setOutfitSuggestions([]);
     setWeather([]);
   };
@@ -245,10 +248,11 @@ function App() {
         ...newOutfit,
         user_id: userInfo.user_id
       };
+      console.log(newOutfit)
   
       const response = await axios.post('/outfit/', outfitToAdd);
   
-      setOutfits([...outfits, response.data]);
+      setCustomOutfits([...customOutfits, response.data]);
       setOutfitError(null);
       console.log("Created new outfit:", response.data);
     } catch (err) {
@@ -258,9 +262,74 @@ function App() {
       setLoading(false);
     }
   };
-  
-  
 
+  const fetchOutfits = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`/outfits/user/${userInfo.user_id}`);
+      setCustomOutfits(response.data);
+      setOutfitError(null);
+      console.log("Obtained outfits:", response.data);
+    } catch (err) {
+      console.error("Failed to get outfits:", err);
+      setOutfitError(err.response?.data?.detail || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateOutfit = async (outfit_id, updatedOutfit) => {
+    console.log(updatedOutfit);
+    setLoading(true);
+    try {
+      const updatedOutfitToEdit = {
+        ...updatedOutfit,
+        occasion: Array.isArray(updatedOutfit.occasion) 
+          ? updatedOutfit.occasion
+          : updatedOutfit.occasion.split(',').map((s) => s.trim()),
+      };
+  
+      console.log("Updating outfit:", outfit_id);
+      const response = await axios.put(`/outfits/${outfit_id}`, updatedOutfitToEdit); 
+      console.log("Update response:", response.data);
+  
+      setCustomOutfits((prevOutfits) =>
+        prevOutfits.map((outfit) => (outfit.outfit_id === outfit_id ? response.data : outfit))
+      );
+  
+      setOutfitError(null);
+      alert("Outfit has been updated successfully.");
+    } catch (err) {
+      console.error("Failed to edit outfit:", err);
+      setOutfitError(err.response?.data?.detail || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  
+  const handleDeleteOutfit = async (outfitId) => {
+    console.log("Trying to delete outfit:", outfitId);
+    if (!window.confirm("Are you sure you want to delete the selected outfit?")) {
+      return;
+    }
+  
+    setLoading(true);
+    try {
+      console.log("Delete requested")
+      await axios.delete(`/outfits/${outfitId}`);
+      setCustomOutfits((prevOutfits) => prevOutfits.filter((outfit) => !outfitIds.includes(outfit.outfit_id)));
+      setOutfitError(null);
+      alert("Outfit(s) have been deleted successfully.");
+    } catch (err) {
+      console.error("Failed to delete outfits:", err);
+      setOutfitError(err.response?.data?.detail || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  
   return (
     <Router>
       <div className="app-container">
@@ -293,6 +362,10 @@ function App() {
                     <Route path="/outfits">
                       <OutfitSuggestions
                         outfits={outfitSuggestions}
+                        wardrobeItems={wardrobeItems}
+                        customOutfits={customOutfits}
+                        onUpdateCustom={handleUpdateOutfit}
+                        onDeleteCustom={handleDeleteOutfit}
                         error={outfitError}
                       />
                       <button

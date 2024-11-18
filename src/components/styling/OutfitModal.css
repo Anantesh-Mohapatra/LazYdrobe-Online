@@ -27,7 +27,7 @@
   color: #6a0dad; /* Purple accent */
 }
 
-.modal-content .edit-button, .modal-content .add-button {
+.modal-content .edit-button, .modal-content .create-button {
   background-color: #6495ed; /* Softer blue for consistency */
   color: #ffffff;
   border: none;
@@ -47,7 +47,7 @@
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
-.modal-content .edit-button:hover, .modal-content .add-button:hover, .clear-button:hover {
+.modal-content .edit-button:hover, .modal-content .create-button:hover, .clear-button:hover {
   opacity: 0.85;
 }
 
@@ -122,10 +122,28 @@ label {
 
 .img-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit);
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  gap: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
 }
 
-.img-grid image {
+.img-grid div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+}
+
+.img-grid img {
+  max-width: 50px;
+  max-height: 50px;
   object-fit: cover;
+  border-radius: 4px;
 }

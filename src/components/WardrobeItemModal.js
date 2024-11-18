@@ -57,7 +57,7 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
           clothing_type, for_weather, color, size, tags, image_url}); 
         handleClose();
       } catch (err) {
-        setError('Failed to add item');
+        setError('Failed to edit item');
       }
     } else {
       setError('Please fill in all fields.');

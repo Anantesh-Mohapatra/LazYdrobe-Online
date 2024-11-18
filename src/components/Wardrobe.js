@@ -38,7 +38,7 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
   };
 
   const openOutfitModal = () => {
-    if (multiSelect.length > 0){setIsOutfitModal(true);}
+    if (multiSelect.length > 0) {setIsOutfitModal(true);}
   };
 
   const closeModal = () => {
@@ -60,25 +60,16 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
     setMultiSelect([]);
   };
 
-  const selectedItemImgs = (ids, items) => {
-    return ids.map(id => {
-      const theItem = items.find(item => item.item_id === id);
-      if (theItem) {
-        return {
-          image_url: theItem?.image_url || '',
-          alt: theItem?.clothing_type || 'No name available'
-        };
-      }
-      return null;
-    }).filter(Boolean);
+  const unselectAll = () => {
+    setMultiSelect([]);
   };
-  
 
   return (
     <div className="wardrobe">
       <div className='on-top'>
         <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
         <button onClick={() => openOutfitModal(null)} className='create-button'>Create Outfit</button>
+        <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
         
         {/* Filter */}
         <input 
@@ -143,7 +134,9 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
         isOpen={isOutfitModal}
         onRequestClose={closeModal}
         onCreate={createOutfit}
-        clothings={selectedItemImgs(multiSelect,items)}
+        clothings={multiSelect}
+        wardrobeItems={items}
+        unselectAll={unselectAll}
       />
     </div>
   );
