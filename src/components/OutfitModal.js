@@ -6,25 +6,32 @@ import './styling/OutfitModal.css';
 Modal.setAppElement('#root');
 
 const OutfitModal = ({ isOpen, onRequestClose, onCreate, unselectAll, onUpdate, onDelete, clothings = [], wardrobeItems = [], outfit = {}}) => {
-  const [occasion, setOccasion] = useState(outfit?.occasion || '');
-  const [for_weather, setForWeather] = useState(outfit?.for_weather || '');
+  const [occasion, setOccasion] = useState('');
+  const [for_weather, setForWeather] = useState('');
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (outfit?.outfit_id) {
-      setOccasion(outfit?.occasion?.join(', ') || '');
+    if (isOpen) {
+      setOccasion(outfit?.occasion || ''); // Ensure occasion is set without unnecessary transformations
       setForWeather(outfit?.for_weather || '');
-    } else {
-      setOccasion('');
-      setForWeather('');
     }
-  }, [outfit, isOpen]);
+  }, [isOpen]); // Only reset when modal opens
+
+  const handleOccasionChange = (e) => {
+    const value = e.target.value;
+    console.log('Occasion Input:', value); // Debug log
+    setOccasion(value); // Update state
+    console.log('Updated Occasion State:', occasion); // Debug to confirm
+  };
 
   const handleCreate = async () => {
-    if (occasion && for_weather ) {
+    if (occasion && for_weather) {
       try {
-        await onCreate({ occasion: occasion.split(',').map(s => s.trim()), 
-          for_weather, clothings });
+        await onCreate({ 
+          occasion: occasion.split(',').map(s => s.trim()), 
+          for_weather, 
+          clothings 
+        });
         handleClose();
         unselectAll();
       } catch (err) {
@@ -50,9 +57,8 @@ const OutfitModal = ({ isOpen, onRequestClose, onCreate, unselectAll, onUpdate, 
     e.preventDefault();
     if (occasion && for_weather) {
       try {
-        console.log(occasion, for_weather)
-        const result = await onUpdate(outfit.outfit_id, {occasion, for_weather}); 
-        console.log(occasion)
+        console.log('Updating:', { occasion, for_weather }); // Debug log
+        await onUpdate(outfit.outfit_id, { occasion, for_weather }); 
         handleClose();
       } catch (err) {
         setError('Failed to edit item');
@@ -64,9 +70,12 @@ const OutfitModal = ({ isOpen, onRequestClose, onCreate, unselectAll, onUpdate, 
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    
-    const result = await onDelete(outfit.outfit_id);
-    handleClose();
+    try {
+      await onDelete(outfit.outfit_id);
+      handleClose();
+    } catch (err) {
+      setError('Failed to delete item');
+    }
   };
 
   const selectedItemImgs = (ids, items) => {
@@ -94,8 +103,8 @@ const OutfitModal = ({ isOpen, onRequestClose, onCreate, unselectAll, onUpdate, 
           <label>Occasion</label>
           <input 
             type="text" 
-            value={occasion} 
-            onChange={(e) => setOccasion(e.target.value)} 
+            value={occasion || ''} // Default to empty string
+            onChange={handleOccasionChange}
             placeholder="Enter occasion (e.g., formal, casual)" 
             required
           />
@@ -116,7 +125,7 @@ const OutfitModal = ({ isOpen, onRequestClose, onCreate, unselectAll, onUpdate, 
 
           <div className='img-grid'>
             {clothingImgs.map((item) => (
-                <div>
+                <div key={item.image_url}>
                   <img src={item.image_url} alt={item.alt} />
                 </div>
             ))}
@@ -127,7 +136,8 @@ const OutfitModal = ({ isOpen, onRequestClose, onCreate, unselectAll, onUpdate, 
               <button type="button" className="edit-button" onClick={handleUpdate}>Edit</button>
             ) : (
               <button type="button" className="add-button" onClick={handleCreate}>Add</button>
-            )}<button type="button" className='clear-button' onClick={handleClear}>Clear</button>
+            )}
+            <button type="button" className='clear-button' onClick={handleClear}>Clear</button>
           </div>
           {outfit?.outfit_id && (
             <button type="button" className="delete-button" onClick={handleDelete}>Delete</button>
