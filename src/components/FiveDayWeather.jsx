@@ -40,7 +40,7 @@ const FiveDayWeather = ({ userInfo, weather, updateWeather }) => {
     <div className='five-day-component'>
       <div className='component'>
         {error && <p className='error'>{error}</p>}
-        <div className="day-name" >Weather for: {userInfo?.location}</div>
+        <div className="day-name" >Weather for {userInfo?.location}</div>
 
         {loading ? (
           <p>Loading weather data...</p>
