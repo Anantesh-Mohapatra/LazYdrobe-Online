@@ -166,7 +166,7 @@ function App() {
   const fetchWardrobeItems = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`/wardrobe_items/user/${userInfo.user_id}`);
+      const response = await axios.get(`/wardrobe_item/user/${userInfo.user_id}`);
       setWardrobeItems(response.data);
       setWardrobeError(null);
       console.log("Obtained wardrobe items:", response.data);
@@ -191,7 +191,7 @@ function App() {
           : updatedItem.tags.split(',').map((tag) => tag.trim()),
       };
       console.log("Updating item:", item_id);
-      const response = await axios.put(`/wardrobe_items/${item_id}`, wardrobeItemToEdit);
+      const response = await axios.put(`/wardrobe_item/${item_id}`, wardrobeItemToEdit);
       console.log("Update response:", response.data);
       setWardrobeItems((prevItems) =>
         prevItems.map((item) => (item.item_id === item_id ? response.data : item))
@@ -214,7 +214,7 @@ function App() {
 
     setLoading(true);
     try {
-      await axios.delete(`/wardrobe_items/`, { data: { item_ids: itemIds } });
+      await axios.delete(`/wardrobe_item/`, { data: { item_ids: itemIds } });
       setWardrobeItems((prevItems) => prevItems.filter((item) => !itemIds.includes(item.item_id)));
       setWardrobeError(null);
       alert("Wardrobe item has been deleted successfully.");
@@ -255,7 +255,7 @@ function App() {
   const fetchOutfits = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`/outfits/user/${userInfo.user_id}`);
+      const response = await axios.get(`/outfit/user/${userInfo.user_id}`);
       setCustomOutfits(response.data);
       setOutfitError(null);
       console.log("Obtained outfits:", response.data);
@@ -279,7 +279,7 @@ function App() {
       };
   
       console.log("Updating outfit:", outfit_id);
-      const response = await axios.put(`/outfits/${outfit_id}`, updatedOutfitToEdit); 
+      const response = await axios.put(`/outfit/${outfit_id}`, updatedOutfitToEdit); 
       console.log("Update response:", response.data);
   
       setCustomOutfits((prevOutfits) =>
@@ -306,7 +306,7 @@ function App() {
     setLoading(true);
     try {
       console.log("Delete requested")
-      await axios.delete(`/outfits/${outfitId}`);
+      await axios.delete(`/outfit/${outfitId}`);
       setCustomOutfits((prevOutfits) => prevOutfits.filter((outfit) => !outfitIds.includes(outfit.outfit_id)));
       setOutfitError(null);
       alert("Outfit(s) have been deleted successfully.");

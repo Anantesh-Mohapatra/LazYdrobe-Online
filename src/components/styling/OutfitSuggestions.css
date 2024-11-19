@@ -16,11 +16,38 @@
   gap: 20px;
 }
 
-.outfit-card {
-  background-color: #f9f9f9;
+.suggestion-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+
+  gap: 15px;
+  overflow-y: auto;
+  /* max-height: 600px; */
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.outfit-card {
+  display: column;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.outfit-card .delete-button {
+  position: relative;
+  top: -90px;
+  right: 20px;
+  padding: 5px 10px;
+  background-color: #ff4d4f;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  float: right;
 }
 
 .clothing-items {
@@ -130,17 +157,6 @@
 
 .close-button:hover {
   color: #555555;
-}
-
-.outfit-card .delete-button {
-  padding: 5px 10px;
-  background-color: #ff4d4f;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  float: right;
-  margin-top: -40px;
 }
 
 .delete-button:hover {

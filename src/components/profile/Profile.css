@@ -65,30 +65,3 @@ button:hover {
   border-color: #6a0dad; /* Highlight input field with purple accent */
   outline: none;
 }
-
-.gender-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.gender-button {
-  padding: 10px 18px;
-  background-color: #d3d3d3;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  color: #333;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.gender-button.active {
-  background-color: #6495ed; /* Softer blue to match the updated theme */
-  color: #ffffff;
-}
-
-.other-input {
-  margin-left: 10px;
-  margin-top: 8px;
-  width: calc(100% - 20px);
-}

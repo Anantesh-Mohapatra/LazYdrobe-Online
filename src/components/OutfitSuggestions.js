@@ -14,7 +14,6 @@ const OutfitSuggestions = ({ outfits, setOutfits, wardrobeItems, weather, occasi
 
   const handleCloseModal = () => {
     setSelectedItem(null);
-    setSelectedOutfit(null);
   };
 
   const handleDeleteSuggestion = async (suggestion_id) => {
@@ -68,38 +67,40 @@ const OutfitSuggestions = ({ outfits, setOutfits, wardrobeItems, weather, occasi
             ))}
           </div>
         )}
-        {outfits.map((outfitSuggestion) => (
-          <div key={outfitSuggestion.suggestion_id} className="outfit-card">
-            <h3>Suggestion ID: {outfitSuggestion.suggestion_id}</h3>
-            <p>
-              <strong>Date Suggested:</strong>{" "}
-              {new Date(outfitSuggestion.date_suggested).toLocaleString()}
-            </p>
-            <button
-              className="delete-button"
-              onClick={() => handleDeleteSuggestion(outfitSuggestion.suggestion_id)}
-            >
-              Delete Suggestion
-            </button>
-            <div className="outfit-details">
-              {outfitSuggestion.outfit_details.map((outfit, index) => (
-                <div key={index} className="outfit-components">
-                  <h4>Outfit {index + 1}</h4>
-                  <div className="clothing-items">
-                    {outfit.map((component) => (
-                      <div key={component.item_id} className="clothing-item">
-                        <img src={component.image_url} alt={component.clothing_type} />
-                        <p>{component.product_name}</p>
-                        <button onClick={() => handleBuyClick(component)}>Buy</button>
-                      </div>
-                    ))}
+        <div className="suggestion-container">
+          {outfits.map((outfitSuggestion) => (
+            <div key={outfitSuggestion.suggestion_id} className='outfit-card'>
+              <h3>Suggestion ID: {outfitSuggestion.suggestion_id}</h3>
+              <p>
+                <strong>Date Suggested:</strong>{" "}
+                {new Date(outfitSuggestion.date_suggested).toLocaleString()}
+              </p>
+              <button
+                key={outfitSuggestion.suggestion_id}
+                className="delete-button"
+                onClick={() => handleDeleteSuggestion(outfitSuggestion.suggestion_id)}
+              >
+                Delete Suggestion
+              </button>
+              <div className="outfit-details">
+                {outfitSuggestion.outfit_details.map((outfit, index) => (
+                  <div key={index} className="outfit-components">
+                    <h4>Outfit {index + 1}</h4>
+                    <div className="clothing-items">
+                      {outfit.map((component) => (
+                        <div key={component.item_id} className="clothing-item">
+                          <img src={component.image_url} alt={component.clothing_type} />
+                          <p>{component.product_name}</p>
+                          <button onClick={() => handleBuyClick(component)}>Buy</button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-        
+          ))}
+        </div>
       </div>
     );
   };

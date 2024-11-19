@@ -73,26 +73,24 @@ lazydrobe/
 ├── src/  
 │   ├── components/                  # All React components
 │   │   ├── profile/                 # Profile components
-│   │   │   ├── Profile.js           # Profile page component
+│   │   │   ├── Profile.js           # Profile page screen
 │   │   │   ├── ProfileEdit.js       # Profile page segment 
 │   │   │   ├── ProfileView.js       # Profile page segment
-│   │   │   ├── PerferencesInput.js  # Profile page segment
-│   │   │   ├── Profile.js           # Profile page component
 │   │   ├── styling/                 # All React components' CSS files
-│   │   ├── Login.js                 # Login page component
-│   │   ├── Register.js              # Register page component
-│   │   ├── Home.js                  # Home page component
+│   │   ├── Login.js                 # Login page screen
+│   │   ├── Register.js              # Register page screen
+│   │   ├── Home.js                  # Home page screen
 │   │   ├── Navbar.js                # Navigation bar component
 │   │   ├── Footer.js                # Footer component
 │   │   ├── Wardrobe.js              # Main wardrobe screen
 │   │   ├── WardrobeItem.js          # Individual wardrobe item component
 │   │   ├── WardrobeModal.js         # Modal component for adding/editing wardrobe items
-│   │   ├── ECommerce.js             # Main shopping screen
+│   │   ├── ECommerce.js             # Old shopping screen
 │   │   ├── ECommerceItem.js         # Individual ecommerce item component
-│   │   ├── ECommerceModal.js        # Modal component for adding/editing ecommerce items
 │   │   ├── OutfitSuggestions.js     # Outfit suggestion screen
+│   │   ├── OutfitModal.js           # Modal component for adding/editing custom outfits 
 │   │   ├── FiveDayWeather.jsx       # Weather component
-│   ├── App.js                       # Main app component with routes
+│   ├── App.js                       # Main app component with routes and functions
 │   ├── index.js                     # Entry point to render the app
 │   └── App.css                      # Unified styling for all components
 ├── .gitignore                       # Excludes unnecessary files from Git
@@ -108,20 +106,23 @@ The following core components were identified in the wireframe and are implement
  - **Navbar** (`Navbar.js`): Displays the navigation links for the app.  
  - **Footer** (`Footer.js`): Shows copyright information.  
  - **Wardrobe** (`Wardrobe.js`): Displays wardrobe items with filtering functionality.  
+                                 Also displays custom made outfits
    - **WardrobeItem** (`WardrobeItem.js`): Represents individual wardrobe items.  
    - **WardrobeModal** (`WardrobeModal.js`): Modal for adding/editing wardrobe items.
+   - **OutfitModal** (`OutfitModal.js`): Modal for adding/editing custom outfits.
  - **ECommerce** (`ECommerce.js`): Displays e-commerce items with filtering functionality.  
    - **ECommerceItem** (`ECommerceItem.js`): Represents individual e-commerce items.  
-   - **ECommerceModal** (`ECommerceModal.js`): Modal for adding/editing e-commerce items.
  - **OutfitSuggestions** (`OutfitSuggestions.js`): Displays outfit recommendations based on weather.  
  - **FiveDayWeather** (`FiveDayWeather.jsx`): Shows a five-day weather forecast.
- - **HelloUser** (`HelloUser.js`): Greets the user upon login.
  - **Profile** (`Profile.js`): Allows users to view and edit their profile information.
+   - **ProfileEdit** (`ProfileEdit.js`): Component for editing user information
+   - **ProfileView** (`ProfileView.js`): Component for viewing user information
+   
 
 These components are designed based on the hierarchy and interaction flows from the wireframe.
 
 ## Styling
-All component styles have their own css files, located in the src/components/styling folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
+All component styles have their own css files, located in the src/components/styling folder or in separate folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
 
 ## API Integration
 
@@ -137,15 +138,29 @@ The frontend interacts with the backend API to perform CRUD operations and fetch
 - **DELETE** `/users/{user_id}`: Delete a user account.
 
 #### Wardrobe Management
-- **GET** `/clothing_items/`: Retrieve all clothing items.
-- **GET** `/clothing_items/{item_id}`: Retrieve a specific clothing item by ID.
-- **POST** `/clothing_items/`: Create a new clothing item.
-- **PUT** `/clothing_items/{item_id}`: Update an existing clothing item.
-- **DELETE** `/clothing_items/{item_id}`: Delete a clothing item.
+- **POST** `/wardrobe_item/`: Register a new wardrobe item.
+- **GET** `/wardrobe_item/user/{user_id}`: Retrieve wardrobe items of an user.
+- **GET** `/wardrobe_item/{item_id}`: Retrieve wardrobe item information.
+- **PUT** `/wardrobe_item/{item_id}`: Update wardrobe item information.
+- **DELETE** `/wardrobe_item/{item_ids}`: Delete a list of wardrobe item(s).
 
 #### Weather Data
-- **GET** `/weather/{location}`: Retrieve weather data for a specific location.
-- **POST** `/weather/`: Fetch weather data for a given location.
+- **POST** `/weather/`: Fetch weather data for a given location from API or database.
+
+#### Fashion Trends
+- **POST** `/fashion_trends/update`: Fetching and updating a new fashion trend.
+- **GET** `/fashion_trends/`: Retrieve fashion trend.
+
+#### Custom Outfit Management
+- **POST** `/outfit/`: Register a new outfit.
+- **GET** `/outfit/user/{user_id}`: Retrieve outfits of an user.
+- **PUT** `/outfit/{item_id}`: Update outfit information.
+- **DELETE** `/outfit/{item_id}`: Delete an outfit.
+
+#### Outfit Suggestion Management
+- **POST** `/outfits/suggest`: Register a new outfit suggestion.
+- **GET** `/outfits/suggestions/{user_id}`: Retrieve outfit suggestions of an user.
+- **DELETE** `/outfits/suggestions/{suggestion_id}`: Delete an outfit suggestion.
 
 ### Handling API Calls
 
