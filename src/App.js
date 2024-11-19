@@ -357,6 +357,8 @@ function App() {
                         setCustomOutfits={setCustomOutfits} // Check if needed
                         error={outfitError}
                         loading={loading}
+                        setLoading={setLoading} // Pass setLoading as a prop
+                        userInfo={userInfo} // Pass userInfo as a prop
                       />
                     </Route>
                     <Route path="/profile">

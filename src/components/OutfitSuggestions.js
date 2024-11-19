@@ -4,7 +4,7 @@ import '../App.css';
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
 
-const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfits, wardrobeItems, weather, occasion, loading }) => {
+const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfits, wardrobeItems, weather, occasion, loading, setLoading, userInfo }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedOutfit, setSelectedOutfit] = useState(null);
   const [isOutfitModal, setIsOutfitModal] = useState(false);
@@ -256,6 +256,8 @@ OutfitSuggestions.propTypes = {
   weather: PropTypes.string.isRequired,
   occasion: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  userInfo: PropTypes.object.isRequired,
 };
 
 export default OutfitSuggestions;
