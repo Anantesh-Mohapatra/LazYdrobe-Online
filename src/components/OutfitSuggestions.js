@@ -64,7 +64,15 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
 
   const renderOutfitSuggestions = () => {
     if (outfits.length === 0 && generatedOutfits.length === 0) {
-      return <p>No outfit suggestions available. Please generate one!</p>;
+      return (
+        <button
+          onClick={suggestOutfit}
+          disabled={loading}
+          className="big-glowing-button"
+        >
+          {loading ? 'Suggesting...' : 'Suggest New Outfit'}
+        </button>
+      );
     }
 
     return (
@@ -111,6 +119,13 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
             </div>
           </div>
         ))}
+        <button
+          onClick={suggestOutfit}
+          disabled={loading}
+          className="small-glowing-button"
+        >
+          {loading ? 'Suggesting...' : 'Suggest New Outfit'}
+        </button>
       </div>
     );
   };
@@ -169,14 +184,6 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
 
       <h2>Custom Outfits</h2>
       {renderCustomOutfits()}
-
-      <button
-        onClick={suggestOutfit}
-        disabled={loading}
-        style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px' }}
-      >
-        {loading ? 'Suggesting...' : 'Suggest New Outfit'}
-      </button>
 
       {/* Purchase Modal */}
       {selectedItem && (

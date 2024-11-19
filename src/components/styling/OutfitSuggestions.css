@@ -192,3 +192,37 @@
 .delete-button:hover {
   background-color: #ff7875;
 }
+
+.big-glowing-button {
+  display: block;
+  margin: 50px auto;
+  padding: 20px 40px;
+  font-size: 20px;
+  color: white;
+  background-color: #8b008b; /* Dark Magenta */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  animation: glowing 1.5s infinite;
+}
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 5px #8b008b; }
+  50% { box-shadow: 0 0 20px #8b008b; }
+  100% { box-shadow: 0 0 5px #8b008b; }
+}
+
+.small-glowing-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #8b008b; /* Dark Magenta */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 0 10px #8b008b;
+}
