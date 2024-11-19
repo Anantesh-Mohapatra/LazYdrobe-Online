@@ -133,7 +133,15 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
       {filteredItems.length === 0 ? (
         filter || weatherFilter ? 
           <p>No items match your filter criteria.</p> :
-          <p>No items in your wardrobe. Please add one!</p>
+          <>
+            <p>No items in your wardrobe. Please add one!</p>
+            <img 
+              src="https://raw.githubusercontent.com/Anantesh-Mohapatra/LazYdrobe-Online/refs/heads/main/src/assets/emptydrobe.png" 
+              alt="Empty Wardrobe" 
+              style={{ width: '300px', height: '300px', cursor: 'pointer' }} 
+              onClick={() => openItemModal(null)} 
+            />
+          </>
       ) : (
         <div className="wardrobe-container">
           {filteredItems.map(item => (
