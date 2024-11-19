@@ -35,8 +35,11 @@
 }
 
 .on-top .type-filter, .weather-filter {
+  display: block;
   padding: 5px 10px; /* Adjust padding for better height alignment */
   width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   max-width: 300px;
   font-size: 16px;
   box-sizing: border-box; /* Ensures padding is part of width */

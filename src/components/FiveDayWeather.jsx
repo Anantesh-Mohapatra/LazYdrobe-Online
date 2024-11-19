@@ -40,7 +40,7 @@ const FiveDayWeather = ({ userInfo, weather, updateWeather }) => {
     <div className='five-day-component'>
       <div className='component'>
         {error && <p className='error'>{error}</p>}
-        <div className="day-name" >Weather for: {userInfo?.location}</div>
+        <div className="day-name" >Weather for {userInfo?.location}</div>
 
         {loading ? (
           <p>Loading weather data...</p>
@@ -62,21 +62,28 @@ const FiveDayWeather = ({ userInfo, weather, updateWeather }) => {
                   )}
                 </div>
                 <div className="temperature">
-                  <p><span className="label">Temperature:</span> <span className="data">{day.temp_min}°F - {day.temp_max}°F</span></p>
-                  <p><span className="label">Feels Like:</span> <span className="data">{day.feels_min}°F - {day.feels_max}°F</span></p>
+                  <p><span className="label">Temperature</span></p>
+                  <p><span className="data">{day.temp_min}°F - {day.temp_max}°F</span></p>
+                  <p><span className="label">Feels Like</span></p>
+                  <p><span className="data">{day.feels_min}°F - {day.feels_max}°F</span></p>
                 </div>
                 <div className="wind">
-                  <p><span className="label">Wind Speed:</span> <span className="data">{day.wind_speed} mph</span></p>
+                  <p><span className="label">Wind Speed</span></p>
+                  <p><span className="data">{day.wind_speed} mph</span></p>
                 </div>
                 <div className="humidity">
-                  <p><span className="label">Humidity:</span> <span className="data">{day.humidity}%</span></p>
+                  <p><span className="label">Humidity</span></p>
+                  <p><span className="data">{day.humidity}%</span></p>
                 </div>
                 <div className="precipitation">
-                  <p><span className="label">Precipitation:</span> <span className="data">{day.precipitation} inches</span></p>
-                  <p><span className="label">Precipitation Probability:</span> <span className="data">{day.precipitation_probability}%</span></p>
+                  <p><span className="label">Precipitation</span></p>
+                  <p><span className="data">{day.precipitation} inches</span></p>
+                  <p><span className="label">Precipitation Probability</span></p>
+                  <p><span className="data">{day.precipitation_probability}%</span></p>
                 </div>
                 <div className="special-conditions">
-                  <p><span className="label">Special Conditions:</span> <span className="data">{day.special_condition}</span></p>
+                  <p><span className="label">Special Conditions</span></p>
+                  <p><span className="data">{day.special_condition}</span></p>
                 </div>
               </div>
             ))}
