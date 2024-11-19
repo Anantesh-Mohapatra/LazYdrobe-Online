@@ -132,6 +132,7 @@ function App() {
     setLoading(true);
     try {
       const response = await axios.put(`/users/${userInfo.user_id}`, updatedData);
+      localStorage.setItem('userInfo', JSON.stringify(response.data));
       setUserInfo(response.data);
       setUserError(null);
       alert("Your profile has been updated successfully.");

@@ -153,6 +153,7 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
             onChange={(e) => setImageUrl(e.target.value)} 
             placeholder="Enter image URL" 
             required
+            maxLength={500}
           />
 
           <div className='button-group'>

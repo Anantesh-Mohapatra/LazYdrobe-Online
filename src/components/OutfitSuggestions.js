@@ -155,11 +155,7 @@ const OutfitSuggestions = ({ outfits, setOutfits, wardrobeItems, weather, occasi
 OutfitSuggestions.propTypes = {
   outfits: PropTypes.array.isRequired,
   setOutfits: PropTypes.func.isRequired,
-  customOutfits: PropTypes.array.isRequired,
-  setCustomOutfits: PropTypes.func.isRequired,
   wardrobeItems: PropTypes.array.isRequired,
-  weather: PropTypes.string.isRequired,
-  occasion: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   setLoading: PropTypes.func.isRequired,
   userInfo: PropTypes.object.isRequired,
