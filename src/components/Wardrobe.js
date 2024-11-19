@@ -5,6 +5,7 @@ import WardrobeItemModal from './WardrobeItemModal'; // Import the new WardrobeI
 import '../App.css';
 import './styling/Wardrobe.css';
 import OutfitModal from './OutfitModal';
+import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 
 const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfit, updateOutfit, deleteOutfit }) => {
   const [filter, setFilter] = useState('');
@@ -92,6 +93,15 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
     return `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}`;
   };
 
+  const history = useHistory(); // Initialize useHistory
+
+  const navigateToOutfitSuggestions = () => {
+    history.push('/outfits'); // Navigate to the /outfits page
+    setTimeout(() => {
+      document.querySelector('.big-glowing-button, .small-glowing-button').click(); // Click the suggest new outfits button
+    }, 500); // Delay to ensure the page has loaded
+  };
+
   return (
     <div className="wardrobe">
       <div className='on-top'>
@@ -138,7 +148,7 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
             <img 
               src="https://raw.githubusercontent.com/Anantesh-Mohapatra/LazYdrobe-Online/refs/heads/main/src/assets/emptydrobe.png" 
               alt="Empty Wardrobe" 
-              style={{ width: '300px', height: '300px', cursor: 'pointer' }} 
+              style={{ width: '200px', height: '200px', cursor: 'pointer' }} 
               onClick={() => openItemModal(null)} 
             />
           </>
@@ -159,7 +169,15 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
 
       <h2>Custom Outfits</h2>
       {customOutfits.length === 0 ? (
-        <p>No custom outfits created.</p>
+        <>
+          <p>No custom outfits created.</p>
+          <img 
+            src="https://raw.githubusercontent.com/Anantesh-Mohapatra/LazYdrobe-Online/refs/heads/main/src/assets/emptyfit.png" 
+            alt="Empty Outfits" 
+            style={{ width: '200px', height: '200px', cursor: 'pointer' }} 
+            onClick={navigateToOutfitSuggestions} 
+          />
+        </>
       ) : (
         <div className="custom-outfits-container">
           {customOutfits.map((customOutfit, index) => (
