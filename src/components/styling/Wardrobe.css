@@ -5,11 +5,21 @@
   background-color: #f5f5ff; /* Very light purple hint */
 }
 
-/* Grid layout for wardrobe items */
-.wardrobe-grid {
+/* Scroll layout for wardrobe items */
+.wardrobe-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px; /* Improved spacing between items */
+  gap: 15px;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.wardrobe-container > div {
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 /* Optional: Add focus styles for better UX */
@@ -39,4 +49,58 @@
 
 .add-button, .create-button, .unselect-button {
   background-color: #007bff;
+}
+
+.on-top .delete-button {
+  background-color: #ff4d4f;
+}
+
+.custom-outfits-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+
+  gap: 15px;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.custom-outfit {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.outfit-info {
+  width: 20%;
+}
+
+.outfit-images {
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.clothing-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.outfit-images img {
+  max-width: 50px;
+  max-height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
 }

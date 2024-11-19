@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WardrobeItem from './WardrobeItem';
 import WardrobeItemModal from './WardrobeItemModal'; // Import the new WardrobeItemModal component
@@ -6,7 +6,7 @@ import '../App.css';
 import './styling/Wardrobe.css';
 import OutfitModal from './OutfitModal';
 
-const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
+const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfit, updateOutfit, deleteOutfit }) => {
   const [filter, setFilter] = useState('');
   const [weatherFilter, setWeatherFilter] = useState('');
   const [isItemModal, setIsItemModal] = useState(false);
@@ -15,6 +15,7 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
   const [multiSelect, setMultiSelect] = useState([]);
 
   const [isOutfitModal, setIsOutfitModal] = useState(false);
+  const [selectedOutfit, setSelectedOutfit] = useState(null);
 
   const weatherOptions = ["Summer", "Winter", "Rainy", "All Year Around"];
 
@@ -37,14 +38,20 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
     setIsItemModal(true);
   };
 
-  const openOutfitModal = () => {
-    if (multiSelect.length > 0) {setIsOutfitModal(true);}
+  const openOutfitModal = (outfit) => {
+    if (outfit) {
+      setSelectedOutfit(outfit);
+      setIsOutfitModal(true);
+    }
+    else if (multiSelect.length > 0) {setIsOutfitModal(true);}
   };
 
   const closeModal = () => {
     setSelectedItem(null);
-    setIsOutfitModal(false);
     setIsItemModal(false);
+
+    setSelectedOutfit(null);
+    setIsOutfitModal(false);
   };
 
   const toggleSelection = (itemId) => {
@@ -57,11 +64,32 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
 
   const deleteSelectedItems = () => {
     onDelete(multiSelect);
-    setMultiSelect([]);
+    unselectAll();
   };
 
   const unselectAll = () => {
     setMultiSelect([]);
+  };
+
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        handleCloseModal();
+      }
+    };
+
+    if (isItemModal || isOutfitModal) {
+      window.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isItemModal, isOutfitModal]);
+
+  const listToStr = (list) => {
+    if (list.length === 1) return list[0];
+    return `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}`;
   };
 
   return (
@@ -101,12 +129,13 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
         </button>
       </div>
 
+      <h2>Wardrobe</h2>
       {filteredItems.length === 0 ? (
         filter || weatherFilter ? 
           <p>No items match your filter criteria.</p> :
           <p>No items in your wardrobe. Please add one!</p>
       ) : (
-        <div className="wardrobe-grid">
+        <div className="wardrobe-container">
           {filteredItems.map(item => (
             <div>
               <WardrobeItem 
@@ -119,6 +148,51 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
           ))}
         </div>
       )}
+
+      <h2>Custom Outfits</h2>
+      {customOutfits.length === 0 ? (
+        <p>No custom outfits created.</p>
+      ) : (
+        <div className="custom-outfits-container">
+          {customOutfits.map((customOutfit, index) => (
+            <div
+              key={index}
+              className="custom-outfit"
+              onClick={() => {
+                openOutfitModal(customOutfit);
+              }}
+            >
+              <div className="outfit-info">
+                <p>
+                  <strong>Occasion:</strong> {listToStr(customOutfit.occasion)}
+                </p>
+                <p>
+                  <strong>Weather:</strong> {customOutfit.for_weather}
+                </p>
+              </div>
+              <div className="outfit-images">
+                {customOutfit.clothings.map((clothingId) => {
+                  const wardrobeItem = items.find(
+                    (item) => item.item_id === clothingId
+                  );
+                  return wardrobeItem ? (
+                    <div key={clothingId} className="clothing-item">
+                      <p>{wardrobeItem.clothing_type}</p>
+                      <img
+                        src={wardrobeItem.image_url}
+                        alt={wardrobeItem.clothing_type}
+                      />
+                    </div>
+                  ) : (
+                    <p key={clothingId}>Wardrobe Missing Item</p>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
 
       {/* Wardrobe Modal */}
       <WardrobeItemModal
@@ -133,10 +207,15 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, createOutfit }) => {
       <OutfitModal
         isOpen={isOutfitModal}
         onRequestClose={closeModal}
-        onCreate={createOutfit}
-        clothings={multiSelect}
-        wardrobeItems={items}
         unselectAll={unselectAll}
+
+        onCreate={createOutfit}
+        onUpdate={updateOutfit}
+        onDelete={deleteOutfit}
+
+        outfit={selectedOutfit}
+        clothings={selectedOutfit?.clothings || multiSelect}
+        wardrobeItems={items}
       />
     </div>
   );
@@ -161,5 +240,12 @@ Wardrobe.propTypes = {
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
+
+Outfits: PropTypes.arrayOf(PropTypes.shape({
+  occasion: PropTypes.string.isRequired,
+  for_weather: PropTypes.string.isRequired,
+  clothings: PropTypes.arrayOf(PropTypes.shape({
+  })).isRequired,
+}));
 
 export default Wardrobe;

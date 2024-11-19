@@ -4,24 +4,16 @@ import '../App.css';
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
 
-const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfits, wardrobeItems, weather, occasion, loading, setLoading, userInfo }) => {
+const OutfitSuggestions = ({ outfits, setOutfits, wardrobeItems, weather, occasion, loading, setLoading, userInfo }) => {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedOutfit, setSelectedOutfit] = useState(null);
-  const [isOutfitModal, setIsOutfitModal] = useState(false);
   const [generatedOutfits, setGeneratedOutfits] = useState([]);
 
   const handleBuyClick = (item) => {
     setSelectedItem(item);
   };
 
-  const openOutfitModal = (outfit) => {
-    setSelectedOutfit(outfit);
-    setIsOutfitModal(true);
-  };
-
   const handleCloseModal = () => {
     setSelectedItem(null);
-    setIsOutfitModal(false);
     setSelectedOutfit(null);
   };
 
@@ -63,18 +55,6 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
   }, [weather, occasion, wardrobeItems]);
 
   const renderOutfitSuggestions = () => {
-    if (outfits.length === 0 && generatedOutfits.length === 0) {
-      return (
-        <button
-          onClick={suggestOutfit}
-          disabled={loading}
-          className="big-glowing-button"
-        >
-          {loading ? 'Suggesting...' : 'Suggest New Outfit'}
-        </button>
-      );
-    }
-
     return (
       <div className="outfit-list">
         {generatedOutfits.length > 0 && (
@@ -119,60 +99,7 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
             </div>
           </div>
         ))}
-        <button
-          onClick={suggestOutfit}
-          disabled={loading}
-          className="small-glowing-button"
-        >
-          {loading ? 'Suggesting...' : 'Suggest New Outfit'}
-        </button>
-      </div>
-    );
-  };
-
-  const renderCustomOutfits = () => {
-    if (customOutfits.length === 0) {
-      return <p>No custom outfits created.</p>;
-    }
-
-    return (
-      <div className="custom-outfits-container">
-        {customOutfits.map((customOutfit, index) => (
-          <div
-            key={index}
-            className="custom-outfit"
-            onClick={() => {
-              openOutfitModal(customOutfit);
-            }}
-          >
-            <div className="outfit-info">
-              <p>
-                <strong>Occasion:</strong> {customOutfit.occasion.join(", ")}
-              </p>
-              <p>
-                <strong>Weather:</strong> {customOutfit.for_weather}
-              </p>
-            </div>
-            <div className="outfit-images">
-              {customOutfit.clothings.map((clothingId) => {
-                const wardrobeItem = wardrobeItems.find(
-                  (item) => item.item_id === clothingId
-                );
-                return wardrobeItem ? (
-                  <div key={clothingId} className="clothing-item">
-                    <p>{wardrobeItem.clothing_type}</p>
-                    <img
-                      src={wardrobeItem.image_url}
-                      alt={wardrobeItem.clothing_type}
-                    />
-                  </div>
-                ) : (
-                  <p key={clothingId}>Wardrobe Missing Item</p>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+        
       </div>
     );
   };
@@ -180,10 +107,16 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
   return (
     <div className="outfit-suggestions">
       <h2>Outfit Suggestions</h2>
+      <button
+        onClick={suggestOutfit}
+        disabled={loading}
+        className={`${outfits.length === 0 && generatedOutfits.length === 0 
+                      ? 'big-glowing-button' 
+                      : 'small-glowing-button'}`}
+      >
+        {loading ? 'Suggesting...' : 'Suggest New Outfit'}
+      </button>
       {renderOutfitSuggestions()}
-
-      <h2>Custom Outfits</h2>
-      {renderCustomOutfits()}
 
       {/* Purchase Modal */}
       {selectedItem && (
@@ -207,42 +140,6 @@ const OutfitSuggestions = ({ outfits, setOutfits, customOutfits, setCustomOutfit
                   </li>
                 ))}
               </ul>
-            </div>
-            <button className="close-button" onClick={handleCloseModal}>
-              X
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Outfit Modal for Custom Outfits */}
-      {isOutfitModal && selectedOutfit && (
-        <div className="modal-overlay" onClick={handleCloseModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Custom Outfit Details</h2>
-            <p>
-              <strong>Occasion:</strong> {selectedOutfit.occasion.join(", ")}
-            </p>
-            <p>
-              <strong>Weather:</strong> {selectedOutfit.for_weather}
-            </p>
-            <div className="custom-outfit-images">
-              {selectedOutfit.clothings.map((clothingId) => {
-                const wardrobeItem = wardrobeItems.find(
-                  (item) => item.item_id === clothingId
-                );
-                return wardrobeItem ? (
-                  <div key={clothingId} className="clothing-item">
-                    <p>{wardrobeItem.clothing_type}</p>
-                    <img
-                      src={wardrobeItem.image_url}
-                      alt={wardrobeItem.clothing_type}
-                    />
-                  </div>
-                ) : (
-                  <p key={clothingId}>Wardrobe Missing Item</p>
-                );
-              })}
             </div>
             <button className="close-button" onClick={handleCloseModal}>
               X

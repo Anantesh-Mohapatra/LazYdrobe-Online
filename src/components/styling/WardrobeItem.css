@@ -8,12 +8,13 @@
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; /* Ensures padding and border are included in width/height */
+  overflow: hidden;
 }
 
 .wardrobe-item img {
   max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 5px;
   border-radius: 4px;
   object-fit: cover; /* Ensures images maintain aspect ratio and fill the space */
 }

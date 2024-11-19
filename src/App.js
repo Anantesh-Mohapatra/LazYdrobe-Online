@@ -345,14 +345,17 @@ function App() {
                         onDelete={handleDeleteWardrobeItem}
                         loading={loading}
                         error={wardrobeError}
+
+                        customOutfits={customOutfits}
                         createOutfit={handleCreateOutfit}
+                        updateOutfit={handleUpdateOutfit}
+                        deleteOutfit={handleDeleteOutfit}
                       />
                     </Route>
                     <Route path="/outfits">
                       <OutfitSuggestions
                         outfits={outfitSuggestions}
                         wardrobeItems={wardrobeItems}
-                        customOutfits={customOutfits}
                         setOutfits={setOutfitSuggestions} // Ensure this mapping is correct
                         setCustomOutfits={setCustomOutfits} // Check if needed
                         error={outfitError}

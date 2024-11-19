@@ -136,7 +136,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 90%; 
   aspect-ratio: 1 / 1;
   border-radius: 4px;
 }

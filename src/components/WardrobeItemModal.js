@@ -138,7 +138,7 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
             required
           />
 
-          <label>Optional: Tags</label>
+          <label>Tags</label>
           <input 
             type="text" 
             value={tags} 

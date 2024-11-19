@@ -12,7 +12,7 @@ const OutfitModal = ({ isOpen, onRequestClose, onCreate, unselectAll, onUpdate, 
 
   useEffect(() => {
     if (isOpen) {
-      setOccasion(outfit?.occasion || ''); // Ensure occasion is set without unnecessary transformations
+      setOccasion(outfit?.occasion.join(', ') || ''); // Ensure occasion is set without unnecessary transformations
       setForWeather(outfit?.for_weather || '');
     }
   }, [isOpen]); // Only reset when modal opens
