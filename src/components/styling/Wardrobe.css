@@ -30,17 +30,48 @@
 
 .on-top {
   display: flex;
+  justify-content: space-between;
   gap: 15px;
   margin-bottom: 20px;
 }
 
-.on-top .type-filter, .weather-filter {
+.left-controls {
+  display: flex;
+  gap: 15px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px; /* Ensure consistent spacing */
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.right-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.on-top .type-filter {
   display: block;
   padding: 5px 10px; /* Adjust padding for better height alignment */
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 6px;
-  max-width: 300px;
+  max-width: 200px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures padding is part of width */
+  height: 35px; /* Slightly adjust to match button height */
+}
+
+.on-top .weather-filter {
+  display: block;
+  padding: 5px 10px; /* Adjust padding for better height alignment */
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-width: 200px;
   font-size: 16px;
   box-sizing: border-box; /* Ensures padding is part of width */
   height: 35px; /* Slightly adjust to match button height */
@@ -50,8 +81,16 @@
   height: fit-content;
 }
 
-.add-button, .create-button, .unselect-button, .select-button {
-  background-color: #007bff;
+.add-button, .create-button {
+  background-color: #28a745; /* Green */
+}
+
+.select-button {
+  background-color: #007bff; /* Blue */
+}
+
+.unselect-button {
+  background-color: #0056b3; /* Darker Blue */
 }
 
 .on-top .delete-button {
