@@ -50,7 +50,7 @@
   height: fit-content;
 }
 
-.add-button, .create-button, .unselect-button {
+.add-button, .create-button, .unselect-button, .select-button {
   background-color: #007bff;
 }
 

@@ -7,7 +7,7 @@ import './styling/Wardrobe.css';
 import OutfitModal from './OutfitModal';
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 
-const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfit, updateOutfit, deleteOutfit }) => {
+const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfit, updateOutfit, deleteOutfit, error }) => {
   const [filter, setFilter] = useState('');
   const [weatherFilter, setWeatherFilter] = useState('');
   const [isItemModal, setIsItemModal] = useState(false);
@@ -17,20 +17,34 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
 
   const [isOutfitModal, setIsOutfitModal] = useState(false);
   const [selectedOutfit, setSelectedOutfit] = useState(null);
+  const [outfitFilter, setOutfitFilter] = useState('');
+  const [weatherOutfitFilter, setOutfitWeatherFilter] = useState('');
 
   const weatherOptions = ["Summer", "Winter", "Rainy", "All Year Around"];
 
   const filteredItems = items.filter(item =>
     // Filter by item name
-    (item.clothing_type.toLowerCase().includes(filter.toLowerCase()) ||
+    (item?.clothing_type.toLowerCase().includes(filter.toLowerCase()) ||
       // Filter by color
-      item.color.some(tag => tag.toLowerCase().includes(filter.toLowerCase())) ||
+      item?.color?.some(tag => tag.toLowerCase().includes(filter.toLowerCase())) ||
       // Filter by item tag
-      item.tags.some(tag => tag.toLowerCase().includes(filter.toLowerCase()))
+      item?.tags?.some(tag => tag.toLowerCase().includes(filter.toLowerCase()))
     ) &&
     // Filter by weather
     (weatherFilter === '' || weatherFilter === item.for_weather ||
       (weatherFilter === "Other" && !weatherOptions.includes(item.for_weather))
+    )
+  );
+
+  const filteredOutfits = customOutfits.filter(outfit =>
+    // Filter by outfit occasion
+    (outfit?.occasion?.some(tag => tag.toLowerCase().includes(outfitFilter.toLowerCase())) ||
+      // Filter by outfit tag
+      outfit?.tags?.some(tag => tag.toLowerCase().includes(outfitFilter.toLowerCase()))
+    ) &&
+    // Filter by weather
+    (weatherOutfitFilter === '' || weatherOutfitFilter === outfit.for_weather ||
+      (weatherOutfitFilter === "Other" && !weatherOptions.includes(outfit.for_weather))
     )
   );
   
@@ -68,6 +82,10 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
     unselectAll();
   };
 
+  const selectAll = () => {
+    setMultiSelect(filteredItems.map(item => item.item_id));
+  }
+
   const unselectAll = () => {
     setMultiSelect([]);
   };
@@ -104,9 +122,11 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
 
   return (
     <div className="wardrobe">
+      <h2>Wardrobe</h2>
       <div className='on-top'>
         <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
         <button onClick={() => openOutfitModal(null)} className='create-button'>Create Outfit</button>
+        <button onClick={selectAll} className='select-button'>Select All</button>
         <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
         
         {/* Filter */}
@@ -139,7 +159,6 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
         </button>
       </div>
 
-      <h2>Wardrobe</h2>
       {filteredItems.length === 0 ? (
         filter || weatherFilter ? 
           <p>No items match your filter criteria.</p> :
@@ -179,43 +198,79 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
           />
         </>
       ) : (
-        <div className="custom-outfits-container">
-          {customOutfits.map((customOutfit, index) => (
-            <div
-              key={index}
-              className="custom-outfit"
-              onClick={() => {
-                openOutfitModal(customOutfit);
-              }}
-            >
-              <div className="outfit-info">
-                <p>
-                  <strong>Occasion:</strong> {listToStr(customOutfit.occasion)}
-                </p>
-                <p>
-                  <strong>Weather:</strong> {customOutfit.for_weather}
-                </p>
-              </div>
-              <div className="outfit-images">
-                {customOutfit.clothings.map((clothingId) => {
-                  const wardrobeItem = items.find(
-                    (item) => item.item_id === clothingId
-                  );
-                  return wardrobeItem ? (
-                    <div key={clothingId} className="clothing-item">
-                      <p>{wardrobeItem.clothing_type}</p>
-                      <img
-                        src={wardrobeItem.image_url}
-                        alt={wardrobeItem.clothing_type}
-                      />
-                    </div>
-                  ) : (
-                    <p key={clothingId}>Wardrobe Missing Item</p>
-                  );
-                })}
-              </div>
+        <div>
+          {/* Filter */}
+          <input 
+            type="text" 
+            placeholder="Filter by outfit occasion" 
+            className="type-filter"
+            value={outfitFilter}
+            onChange={(e) => setOutfitFilter(e.target.value)}
+          />
+          <select 
+            value={weatherOutfitFilter} 
+            onChange={(e) => setOutfitWeatherFilter(e.target.value)}
+            className="weather-filter"
+          >
+            <option value="">Select weather filter</option>
+            <option value="All Year Around">All Year Around</option>
+            <option value="Summer">Summer</option>
+            <option value="Winter">Winter</option>
+            <option value="Rainy">Rainy</option>
+            <option value="Other">Other</option>
+          </select>
+
+          {filteredOutfits.length === 0 ? (
+            outfitFilter || weatherOutfitFilter ? 
+              <p>No outfits match your filter criteria.</p> :
+              <>
+                <img 
+                  src="https://raw.githubusercontent.com/Anantesh-Mohapatra/LazYdrobe-Online/refs/heads/main/src/assets/emptydrobe.png" 
+                  alt="Empty Wardrobe" 
+                  style={{ width: '200px', height: '200px', cursor: 'pointer' }} 
+                  onClick={() => openItemModal(null)} 
+                />
+              </>
+          ) : (
+            <div className="custom-outfits-container">
+              {filteredOutfits.map((customOutfit, index) => (
+                <div
+                  key={index}
+                  className="custom-outfit"
+                  onClick={() => {
+                    openOutfitModal(customOutfit);
+                  }}
+                >
+                  <div className="outfit-info">
+                    <p>
+                      <strong>Occasion:</strong> {listToStr(customOutfit.occasion)}
+                    </p>
+                    <p>
+                      <strong>Weather:</strong> {customOutfit.for_weather}
+                    </p>
+                  </div>
+                  <div className="outfit-images">
+                    {customOutfit.clothings.map((clothingId) => {
+                      const wardrobeItem = items.find(
+                        (item) => item.item_id === clothingId
+                      );
+                      return wardrobeItem ? (
+                        <div key={clothingId} className="clothing-item">
+                          <p>{wardrobeItem.clothing_type}</p>
+                          <img
+                            src={wardrobeItem.image_url}
+                            alt={wardrobeItem.clothing_type}
+                          />
+                        </div>
+                      ) : (
+                        <p key={clothingId}>Wardrobe Missing Item</p>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       )}
 
@@ -228,6 +283,7 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
         onUpdate={onUpdate}
         onDelete={onDelete}
         item={selectedItem}
+        errorFromAbove={error}
       />
 
       <OutfitModal

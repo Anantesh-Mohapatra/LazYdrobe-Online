@@ -31,23 +31,17 @@ Change to the project’s directory:
 cd  path/to/LazYdrobe-Online
 ```
 ### 3. Install Dependencies
-Install the necessary packages using npm or yarn:
+Install the necessary packages using npm:
 
 
 #### Using npm
 ```
 npm install
 npm install react
+npm install react-scripts
 npm install react-router-dom
 npm install react-modal
 ```
-
-#### OR using yarn
-```
-yarn install
-```
-This will install all required packages, including react, react-router-dom, and react-modal.
-
 
 ### 4. Start the Application
 Start the development server:
@@ -55,11 +49,6 @@ Start the development server:
 #### Using npm
 ```
 npm start
-```
-
-#### OR using yarn
-```
-yarn start
 ```
 After starting, the app should open automatically in your browser at http://localhost:3000. If it doesn’t, open the link manually.
 
@@ -72,7 +61,7 @@ lazydrobe/
 │   └── index.html                   # Main HTML file for the React app
 ├── src/  
 │   ├── components/                  # All React components
-│   │   ├── profile/                 # Profile components
+│   │   ├── profile/                 # Profile components and css
 │   │   │   ├── Profile.js           # Profile page screen
 │   │   │   ├── ProfileEdit.js       # Profile page segment 
 │   │   │   ├── ProfileView.js       # Profile page segment

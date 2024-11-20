@@ -5,20 +5,21 @@ import './styling/WardrobeItemModal.css';
 
 Modal.setAppElement('#root');
 
-const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item = {} }) => {
+const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item = {}, errorFromAbove }) => {
   const [clothing_type, setClothingType] = useState(item?.clothing_type || '');
   const [for_weather, setForWeather] = useState(item?.for_weather || 'All year around');
   const [color, setColor] = useState(item?.color.join || '');
   const [size, setSize] = useState(item?.size || '');
   const [tags, setTags] = useState(item?.tags || '');
   const [image_url, setImageUrl] = useState(item?.image_url || '');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(errorFromAbove || null);
 
   useEffect(() => {
     // Reset form fields when modal is opened or closed, if `item` is null
     if (!isOpen) {
       handleClear();
     } else if (item) {
+      setError(errorFromAbove || null);
       setClothingType(item.clothing_type || '');
       setForWeather(item.for_weather || '');
       setColor(item.color.join(', ') || '');
