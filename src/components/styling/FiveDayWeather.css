@@ -47,7 +47,6 @@ img {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: #e8f0fe; /* Light background */
     padding: 20px;
     border-radius: 8px;
     max-width: 800px;
