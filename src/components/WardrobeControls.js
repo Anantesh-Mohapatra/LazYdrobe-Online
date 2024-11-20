@@ -44,8 +44,12 @@ const WardrobeControls = ({
       </div>
       <div className='right-controls'>
         <button onClick={selectAll} className='select-button'>Select All</button>
-        <button onClick={unselectAll} className={`unselect-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Unselect All</button>
-        <button onClick={deleteSelectedItems} className={`delete-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Delete Selected</button>
+        {!isDisabled && (
+          <>
+            <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
+            <button onClick={deleteSelectedItems} className='delete-button'>Delete Selected</button>
+          </>
+        )}
       </div>
     </div>
   );
