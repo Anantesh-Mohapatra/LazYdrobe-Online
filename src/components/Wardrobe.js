@@ -6,6 +6,7 @@ import '../App.css';
 import './styling/Wardrobe.css';
 import OutfitModal from './OutfitModal';
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
+import WardrobeControls from './WardrobeControls'; // Ensure this import is present
 
 const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfit, updateOutfit, deleteOutfit, error }) => {
   const [filter, setFilter] = useState('');
@@ -123,42 +124,18 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
   return (
     <div className="wardrobe">
       <h2>Wardrobe</h2>
-      <div className='on-top'>
-        <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
-        <button onClick={() => openOutfitModal(null)} className='create-button'>Create Outfit</button>
-        <button onClick={selectAll} className='select-button'>Select All</button>
-        <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
-        
-        {/* Filter */}
-        <input 
-          type="text" 
-          placeholder="Filter by clothing type" 
-          className="type-filter"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        />
-        <select 
-          value={weatherFilter} 
-          onChange={(e) => setWeatherFilter(e.target.value)}
-          className="weather-filter"
-        >
-          <option value="">Select weather filter</option>
-          <option value="All Year Around">All Year Around</option>
-          <option value="Summer">Summer</option>
-          <option value="Winter">Winter</option>
-          <option value="Rainy">Rainy</option>
-          <option value="Other">Other</option>
-        </select>
-
-        <button 
-          onClick={deleteSelectedItems} 
-          className='delete-button' 
-          disabled={multiSelect.length == 0}
-        >
-          Delete Selected
-        </button>
-      </div>
-
+      <WardrobeControls
+        openItemModal={openItemModal}
+        openOutfitModal={openOutfitModal}
+        selectAll={selectAll}
+        unselectAll={unselectAll}
+        filter={filter}
+        setFilter={setFilter}
+        weatherFilter={weatherFilter}
+        setWeatherFilter={setWeatherFilter}
+        deleteSelectedItems={deleteSelectedItems}
+        multiSelect={multiSelect}
+      />
       {filteredItems.length === 0 ? (
         filter || weatherFilter ? 
           <p>No items match your filter criteria.</p> :

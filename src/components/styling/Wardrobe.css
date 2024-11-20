@@ -58,6 +58,12 @@
   background-color: #ff4d4f;
 }
 
+.greyed-out {
+  background-color: grey !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .custom-outfits-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));

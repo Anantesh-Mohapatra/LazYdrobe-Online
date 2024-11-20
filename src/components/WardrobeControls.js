@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -14,12 +13,14 @@ const WardrobeControls = ({
   deleteSelectedItems,
   multiSelect
 }) => {
+  const isDisabled = multiSelect.length === 0;
+
   return (
     <div className='on-top'>
       <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
-      <button onClick={() => openOutfitModal(null)} className='create-button'>Create Outfit</button>
+      <button onClick={() => openOutfitModal(null)} className={`create-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Create Outfit</button>
       <button onClick={selectAll} className='select-button'>Select All</button>
-      <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
+      <button onClick={unselectAll} className={`unselect-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Unselect All</button>
       
       {/* Filter */}
       <input 
@@ -44,8 +45,8 @@ const WardrobeControls = ({
 
       <button 
         onClick={deleteSelectedItems} 
-        className='delete-button' 
-        disabled={multiSelect.length == 0}
+        className={`delete-button ${isDisabled ? 'greyed-out' : ''}`} 
+        disabled={isDisabled}
       >
         Delete Selected
       </button>
