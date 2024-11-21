@@ -19,7 +19,8 @@ const WardrobeControls = ({
     <div className='on-top'>
       <div className='left-controls'>
         <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
-        <button onClick={() => openOutfitModal(null)} className={`create-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Create Outfit</button>
+        {/*<button onClick={() => openOutfitModal(null)} className={`create-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Create Outfit</button>*/}
+        {/* This button ^ is commented out unless the custom outfits are added back */}
         <button onClick={selectAll} className='select-button'>Select All</button>
         {!isDisabled && (
           <>

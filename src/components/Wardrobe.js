@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WardrobeSection from './wardrobe/WardrobeSection';
-import CustomOutfitsSection from './wardrobe/CustomOutfitsSection';
+// import CustomOutfitsSection from './wardrobe/CustomOutfitsSection'; // Custom Outfits is currently disabled, please un-comment to reenable
 import { useHistory } from 'react-router-dom';
 import '../App.css';
 import './styling/Wardrobe.css';
@@ -95,9 +95,9 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
         onDelete={onDelete}
         selectedItem={selectedItem}
         error={error}
-        openOutfitModal={openOutfitModal} // Add this line
+        openOutfitModal={openOutfitModal}
       />
-      <CustomOutfitsSection
+      {/* <CustomOutfitsSection // Uncomment to re-enable Custom Outfits
         customOutfits={customOutfits}
         items={items}
         outfitFilter={outfitFilter}
@@ -113,7 +113,7 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
         selectedOutfit={selectedOutfit}
         multiSelect={multiSelect}
         unselectAll={unselectAll}
-      />
+      /> */}
     </div>
   );
 };
