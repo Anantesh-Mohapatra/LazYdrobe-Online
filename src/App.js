@@ -151,6 +151,12 @@ function App() {
       const wardrobeItemToAdd = {
         ...newWardrobeItem,
         user_id: userInfo.user_id,
+        color: Array.isArray(newWardrobeItem.color)
+          ? newWardrobeItem.color
+          : newWardrobeItem.color.split(',').map((c) => c.trim()),
+        tags: Array.isArray(newWardrobeItem.tags)
+          ? newWardrobeItem.tags
+          : newWardrobeItem.tags.split(',').map((tag) => tag.trim()),
       };
       const response = await axios.post('/wardrobe_item/', wardrobeItemToAdd);
       setWardrobeItems([...wardrobeItems, response.data]);
@@ -308,7 +314,7 @@ function App() {
     try {
       console.log("Delete requested")
       await axios.delete(`/outfit/${outfitId}`);
-      setCustomOutfits((prevOutfits) => prevOutfits.filter((outfit) => !outfitIds.includes(outfit.outfit_id)));
+      setCustomOutfits((prevOutfits) => prevOutfits.filter((outfit) => outfit.outfit_id !== outfitId));
       setOutfitError(null);
       alert("Outfit(s) have been deleted successfully.");
     } catch (err) {
@@ -319,7 +325,10 @@ function App() {
     }
   };
   
-  
+  const openOutfitModal = (outfit) => {
+    // Logic to open the outfit modal
+  };
+
   return (
     <Router>
       <div className="app-container">
@@ -351,6 +360,7 @@ function App() {
                         createOutfit={handleCreateOutfit}
                         updateOutfit={handleUpdateOutfit}
                         deleteOutfit={handleDeleteOutfit}
+                        openOutfitModal={openOutfitModal} // Add this line
                       />
                     </Route>
                     <Route path="/outfits">

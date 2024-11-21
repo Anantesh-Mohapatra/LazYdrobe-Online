@@ -1,6 +1,6 @@
 import React from 'react';
-import '../App.css';
-import './styling/WardrobeItem.css';
+import '../../App.css';
+import '../styling/WardrobeItem.css';
 
 const WardrobeItem = ({ item, onClick, isSelected, toggleSelect }) => {
   // Ensure that item properties exist before rendering

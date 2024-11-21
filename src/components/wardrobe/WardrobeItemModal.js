@@ -1,16 +1,15 @@
-// WardrobeItemModal.js
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import './styling/WardrobeItemModal.css';
+import '../styling/WardrobeItemModal.css';
 
 Modal.setAppElement('#root');
 
 const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, item = {}, errorFromAbove }) => {
   const [clothing_type, setClothingType] = useState(item?.clothing_type || '');
   const [for_weather, setForWeather] = useState(item?.for_weather || 'All year around');
-  const [color, setColor] = useState(item?.color.join || '');
+  const [color, setColor] = useState(item?.color?.join(', ') || '');
   const [size, setSize] = useState(item?.size || '');
-  const [tags, setTags] = useState(item?.tags || '');
+  const [tags, setTags] = useState(item?.tags?.join(', ') || '');
   const [image_url, setImageUrl] = useState(item?.image_url || '');
   const [error, setError] = useState(errorFromAbove || null);
 
@@ -36,12 +35,15 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
         return;
       }
       try {
-        const result = await onAdd({ clothing_type, for_weather, size, image_url,
+        const result = await onAdd({ 
+          clothing_type, 
+          for_weather, 
+          size, 
+          image_url,
           color: color.split(',').map(s => s.trim()), 
-          tags : tags.split(',').map(s => s.trim())
+          tags: tags.split(',').map(s => s.trim())
         });
         handleClose();
-        
       } catch (err) {
         setError('Failed to add item');
       }
@@ -55,7 +57,13 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
     if (clothing_type && for_weather && color && size && tags && image_url) {
       try {
         const result = await onUpdate(item.item_id, {
-          clothing_type, for_weather, color, size, tags, image_url}); 
+          clothing_type, 
+          for_weather, 
+          color: color.split(',').map(s => s.trim()), 
+          size, 
+          tags: tags.split(',').map(s => s.trim()), 
+          image_url
+        }); 
         handleClose();
       } catch (err) {
         setError('Failed to edit item');

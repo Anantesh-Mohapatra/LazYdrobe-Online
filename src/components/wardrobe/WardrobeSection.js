@@ -1,14 +1,14 @@
 import React from 'react';
 import WardrobeItem from './WardrobeItem';
 import WardrobeItemModal from './WardrobeItemModal';
-import './styling/Wardrobe.css';
+import '../styling/Wardrobe.css';
 import WardrobeControls from './WardrobeControls'; // Ensure this import is present
 
 const WardrobeSection = ({
   items, filter, setFilter, weatherFilter, setWeatherFilter, 
   openItemModal, deleteSelectedItems, multiSelect, toggleSelection, 
   selectAll, unselectAll, isItemModal, closeModal, onAdd, onUpdate, onDelete, 
-  selectedItem, error
+  selectedItem, error, openOutfitModal // Add this line
 }) => {
   const weatherOptions = ["Summer", "Winter", "Rainy", "All Year Around"];
 
@@ -27,6 +27,7 @@ const WardrobeSection = ({
       <h2>Wardrobe</h2>
       <WardrobeControls
         openItemModal={openItemModal}
+        openOutfitModal={openOutfitModal} // Add this line
         selectAll={selectAll}
         unselectAll={unselectAll}
         filter={filter}

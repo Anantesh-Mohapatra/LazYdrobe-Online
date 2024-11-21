@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import WardrobeSection from './WardrobeSection';
-import CustomOutfitsSection from './CustomOutfitsSection';
+import WardrobeSection from './wardrobe/WardrobeSection';
+import CustomOutfitsSection from './wardrobe/CustomOutfitsSection';
 import { useHistory } from 'react-router-dom';
 import '../App.css';
 import './styling/Wardrobe.css';
@@ -95,6 +95,7 @@ const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfi
         onDelete={onDelete}
         selectedItem={selectedItem}
         error={error}
+        openOutfitModal={openOutfitModal} // Add this line
       />
       <CustomOutfitsSection
         customOutfits={customOutfits}
