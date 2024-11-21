@@ -20,6 +20,13 @@ const WardrobeControls = ({
       <div className='left-controls'>
         <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
         <button onClick={() => openOutfitModal(null)} className={`create-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Create Outfit</button>
+        <button onClick={selectAll} className='select-button'>Select All</button>
+        {!isDisabled && (
+          <>
+            <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
+            <button onClick={deleteSelectedItems} className='delete-button'>Delete Selected</button>
+          </>
+        )}
       </div>
       <div className='filters'>
         <input 
@@ -41,15 +48,6 @@ const WardrobeControls = ({
           <option value="Rainy">Rainy</option>
           <option value="Other">Other</option>
         </select>
-      </div>
-      <div className='right-controls'>
-        <button onClick={selectAll} className='select-button'>Select All</button>
-        {!isDisabled && (
-          <>
-            <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
-            <button onClick={deleteSelectedItems} className='delete-button'>Delete Selected</button>
-          </>
-        )}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import OutfitModal from '../OutfitModal';
 import { useHistory } from 'react-router-dom';
+import CustomOutfitsControls from './CustomOutfitsControls';
 import '../styling/Wardrobe.css';
 
 const CustomOutfitsSection = ({
@@ -47,26 +48,14 @@ const CustomOutfitsSection = ({
         </>
       ) : (
         <div>
-          <input 
-            type="text" 
-            placeholder="Filter by outfit occasion" 
-            className="type-filter" // Use the same CSS class
-            value={outfitFilter}
-            onChange={(e) => setOutfitFilter(e.target.value)}
-          />
-          <select 
-            value={weatherOutfitFilter} 
-            onChange={(e) => setOutfitWeatherFilter(e.target.value)}
-            className="weather-filter"
-          >
-            <option value="">Select weather filter</option>
-            <option value="All Year Around">All Year Around</option>
-            <option value="Summer">Summer</option>
-            <option value="Winter">Winter</option>
-            <option value="Rainy">Rainy</option>
-            <option value="Other">Other</option>
-          </select>
-
+          <div className="on-top">
+            <CustomOutfitsControls
+              outfitFilter={outfitFilter}
+              setOutfitFilter={setOutfitFilter}
+              weatherOutfitFilter={weatherOutfitFilter}
+              setOutfitWeatherFilter={setOutfitWeatherFilter}
+            />
+          </div>
           {filteredOutfits.length === 0 ? (
             outfitFilter || weatherOutfitFilter ? 
               <p>No outfits match your filter criteria.</p> :

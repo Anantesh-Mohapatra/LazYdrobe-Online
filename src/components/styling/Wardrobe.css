@@ -38,6 +38,7 @@
 .left-controls {
   display: flex;
   gap: 15px;
+  justify-content: flex-start; /* Ensure left alignment */
 }
 
 .filters {
@@ -53,7 +54,7 @@
   justify-content: flex-end;
 }
 
-.on-top .type-filter {
+.on-top .type-filter, .filters .type-filter {
   display: block;
   padding: 5px 10px; /* Adjust padding for better height alignment */
   width: 100%;
@@ -65,7 +66,7 @@
   height: 35px; /* Slightly adjust to match button height */
 }
 
-.on-top .weather-filter {
+.on-top .weather-filter, .filters .weather-filter {
   display: block;
   padding: 5px 10px; /* Adjust padding for better height alignment */
   width: 100%;
