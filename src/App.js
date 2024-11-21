@@ -372,9 +372,7 @@ function App() {
                     </Route>
                     <Route path="/profile">
                       <div className="profile-section">
-                        {loading ? (
-                          <p>Loading...</p>
-                        ) : userInfo ? (
+                        {userInfo ? (
                           <Profile
                             userInfo={userInfo}
                             onUpdate={handleUpdateUser}

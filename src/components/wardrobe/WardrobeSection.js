@@ -24,7 +24,7 @@ const WardrobeSection = ({
 
   return (
     <div>
-      <h2>Wardrobe</h2>
+      <h2 className="wardrobe-header">Wardrobe</h2>
       <WardrobeControls
         openItemModal={openItemModal}
         openOutfitModal={openOutfitModal} // Add this line

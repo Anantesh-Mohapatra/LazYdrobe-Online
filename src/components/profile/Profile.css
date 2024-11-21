@@ -47,6 +47,16 @@ button:hover {
   background-color: #52c41a;
 }
 
+.save-button.inactive {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.save-button.active {
+  background-color: green;
+  cursor: pointer;
+}
+
 .cancel-button {
   background-color: #f5222d;
 }

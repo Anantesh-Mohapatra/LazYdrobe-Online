@@ -12,8 +12,11 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
     password: ''
   });
 
+  const [isChanged, setIsChanged] = useState(false);
+
   const handleChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value});
+    setIsChanged(true);
   };
 
   const handleSubmit = (e) => {
@@ -30,6 +33,7 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
       updatedData.password = form.password;
     }
     onUpdate(updatedData);
+    setIsChanged(false);
   };
 
   return (
@@ -122,7 +126,13 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
 
       {/* Rest of the form */}
       <div className='button-group'>
-        <button type="submit" className="save-button">Save Changes</button>
+        <button 
+          type="submit" 
+          className={`save-button ${isChanged ? 'active' : 'inactive'}`} 
+          disabled={!isChanged}
+        >
+          Save Changes
+        </button>
         <button type="button" className="cancel-button" onClick={onCancel}>Cancel</button>
       </div>
     </form>
