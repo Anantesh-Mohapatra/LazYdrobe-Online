@@ -77,6 +77,7 @@ function App() {
 
   // Handling User Account Management
   const handleDeleteAccount = async () => {
+    // Custom confirmation logic
     if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
       return;
     }
@@ -84,8 +85,8 @@ function App() {
     try {
       await axios.delete(`/users/${userInfo.user_id}`);
       handleLogout();
-      alert("Your account has been successfully deleted.");
-  } catch (err) {
+      console.log("Your account has been successfully deleted.");
+    } catch (err) {
       setUserError(err.response?.data?.detail || err.message);
       console.error("Error deleting account:", err);
     } finally {
@@ -135,7 +136,7 @@ function App() {
       localStorage.setItem('userInfo', JSON.stringify(response.data));
       setUserInfo(response.data);
       setUserError(null);
-      alert("Your profile has been updated successfully.");
+      console.log("Your profile has been updated successfully.");
     } catch (err) {
       setUserError(err.response?.data?.detail || err.message);
       console.error("Error updating user:", err);
@@ -204,7 +205,7 @@ function App() {
         prevItems.map((item) => (item.item_id === item_id ? response.data : item))
       );
       setWardrobeError(null);
-      alert("Wardrobe item has been updated successfully.");
+      console.log("Wardrobe item has been updated successfully.");
     } catch (err) {
       console.error("Failed to edit wardrobe item:", err);
       setWardrobeError(err.response?.data?.detail || err.message);
@@ -215,16 +216,13 @@ function App() {
 
   const handleDeleteWardrobeItem = async (itemIds) => {
     console.log("Trying to delete", itemIds);
-    if (!window.confirm("Are you sure you want to delete the selected item(s)?")) {
-      return;
-    }
 
     setLoading(true);
     try {
       await axios.delete(`/wardrobe_item/`, { data: { item_ids: itemIds } });
       setWardrobeItems((prevItems) => prevItems.filter((item) => !itemIds.includes(item.item_id)));
       setWardrobeError(null);
-      alert("Wardrobe item has been deleted successfully.");
+      console.log("Wardrobe item has been deleted successfully.");
     } catch (err) {
       console.error("Failed to delete wardrobe item:", err);
       setWardrobeError(err.response?.data?.detail || err.message);
@@ -294,7 +292,7 @@ function App() {
       );
   
       setOutfitError(null);
-      alert("Outfit has been updated successfully.");
+      console.log("Outfit has been updated successfully.");
     } catch (err) {
       console.error("Failed to edit outfit:", err);
       setOutfitError(err.response?.data?.detail || err.message);
@@ -306,17 +304,14 @@ function App() {
   
   const handleDeleteOutfit = async (outfitId) => {
     console.log("Trying to delete outfit:", outfitId);
-    if (!window.confirm("Are you sure you want to delete the selected outfit?")) {
-      return;
-    }
-  
+
     setLoading(true);
     try {
       console.log("Delete requested")
       await axios.delete(`/outfit/${outfitId}`);
       setCustomOutfits((prevOutfits) => prevOutfits.filter((outfit) => outfit.outfit_id !== outfitId));
       setOutfitError(null);
-      alert("Outfit(s) have been deleted successfully.");
+      console.log("Outfit(s) have been deleted successfully.");
     } catch (err) {
       console.error("Failed to delete outfits:", err);
       setOutfitError(err.response?.data?.detail || err.message);
