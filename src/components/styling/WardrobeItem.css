@@ -9,6 +9,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; /* Ensures padding and border are included in width/height */
   overflow: hidden;
+  width: 200px; /* Standard width */
+  height: 300px; /* Standard height */
+  margin: 10px; /* Ensure space between items on all sides */
 }
 
 .wardrobe-item img {
@@ -17,28 +20,55 @@
   margin-bottom: 5px;
   border-radius: 4px;
   object-fit: cover; /* Ensures images maintain aspect ratio and fill the space */
+  width: 100%; /* Increase image size horizontally */
+  height: auto; /* Adjust height to maintain aspect ratio */
 }
 
 .wardrobe-item h3 {
   font-size: 1.2em;
   margin: 0 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
 }
 
 .wardrobe-item p {
   font-size: 0.9em;
   color: #555;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.wardrobe-item h3:hover, .wardrobe-item p:hover {
+  overflow: visible;
+  white-space: normal;
+  background-color: white;
+  z-index: 1;
+  position: relative;
+}
+
+.wardrobe-item h3:hover::after, .wardrobe-item p:hover::after {
+  content: none;
 }
 
 .checkbox {
   position: absolute;
   top: 10px;
   right: 10px;
+  display: none; /* Hide checkbox by default */
 }
 
 .checkbox input {
   width: 18px;
   height: 18px;
+}
+
+.wardrobe-item:hover .checkbox {
+  display: block; /* Show checkbox on hover */
 }
 
 .wardrobe-item.selected {
