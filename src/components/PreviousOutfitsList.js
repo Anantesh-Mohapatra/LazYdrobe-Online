@@ -6,7 +6,7 @@ import './styling/PreviousOutfitsList.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Ensure this is imported
-import PreviousOutfitModal from './PreviousOutfitModal';
+import PreviousOutfitItem from './PreviousOutfitItem';
 
 const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
   const history = useHistory();
@@ -73,7 +73,7 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
       </div>
       <div className="outfit-list">
         {outfits.map((outfit) => (
-          <PreviousOutfitModal key={outfit.suggestion_id} outfit={outfit} />
+          <PreviousOutfitItem key={outfit.suggestion_id} outfit={outfit} />
         ))}
       </div>
       {/* Confirmation Modal */}

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const PreviousOutfitModal = ({ outfit }) => {
+const PreviousOutfitItem = ({ outfit }) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleItemClick = () => {
+    setIsSelected(!isSelected);
+  };
+
   return (
-    <div className="outfit-item">
+    <div
+      className={`outfit-item ${isSelected ? 'selected' : ''}`}
+      onClick={handleItemClick}
+    >
       <div className="outfit-header"></div>
       <div className="outfit-details">
         {/* Iterate through each clothing item in the outfit */}
@@ -33,8 +42,8 @@ const PreviousOutfitModal = ({ outfit }) => {
   );
 };
 
-PreviousOutfitModal.propTypes = {
+PreviousOutfitItem.propTypes = {
   outfit: PropTypes.object.isRequired,
 };
 
-export default PreviousOutfitModal;
+export default PreviousOutfitItem;

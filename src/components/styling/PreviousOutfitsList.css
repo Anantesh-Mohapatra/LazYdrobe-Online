@@ -46,6 +46,21 @@
     margin-bottom: 30px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+    transition: box-shadow 0.3s;
+    cursor: pointer; /* Add cursor pointer to indicate clickability */
+  }
+  
+  .outfit-item:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .selected {
+    border: 2px solid #007bff;
   }
   
   .outfit-header {
@@ -79,6 +94,16 @@
   
   .clothing-group strong {
     margin-right: 5px;
+  }
+  
+  .clothing-link {
+    color: #1e90ff; /* Blue text */
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  .clothing-link:hover {
+    text-decoration: underline;
   }
   
   .clothing-link {
@@ -194,4 +219,3 @@
   .cancel-button:hover {
     background-color: #0056b3;
   }
-  
