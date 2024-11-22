@@ -16,6 +16,7 @@ const OutfitGenerationModal = ({ outfit, closeModal }) => {
       Bottom: [],
       Shoes: [],
       Outerwear: [],
+      Set: [], // Added Set category
     };
 
     outfit.outfit_details.forEach(outfitComponents => {
@@ -45,6 +46,10 @@ const OutfitGenerationModal = ({ outfit, closeModal }) => {
           clothing_type.toLowerCase().includes('outerwear')
         ) {
           categories.Outerwear.push(eBay_link[0]);
+        } else if (
+          clothing_type.toLowerCase().includes('set') // Handling Set category
+        ) {
+          categories.Set.push(eBay_link[0]);
         }
       });
     });
