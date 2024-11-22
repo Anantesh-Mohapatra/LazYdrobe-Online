@@ -13,6 +13,8 @@ import Register from './components/Register';
 import Home from './components/Home';
 import axios from 'axios';
 import ErrorBoundary from './components/ErrorBoundary';
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -338,6 +340,7 @@ function App() {
     <Router>
       <div className="app-container">
         <ErrorBoundary>
+          <ToastContainer />
           <Switch>
             <Route path="/register">
               <Register />

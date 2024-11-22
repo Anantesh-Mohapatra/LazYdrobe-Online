@@ -1,6 +1,6 @@
 /* src/components/styling/OutfitGenerationModal.css */
 
-.modal-overlay {
+.outfit-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -13,22 +13,22 @@
     z-index: 1000;
   }
   
-  .modal-content {
+  .outfit-modal-content {
     background-color: white;
-    padding: 20px;
+    padding: 30px; /* Increased padding for a larger container */
     border-radius: 10px;
-    width: 95%;
-    max-width: 1100px; 
+    width: 100%; /* Full width */
+    max-width: 1200px; /* Increased max-width */
     position: relative;
     text-align: center;
-    /* Prevent scrolling */
-    overflow: hidden;
+    /* Allow scrolling if content overflows */
+    overflow-y: auto;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  .modal-close-button {
+  .outfit-modal-close-button {
     position: absolute;
     top: 15px; 
     right: 20px;
@@ -39,7 +39,7 @@
     color: #888888;
   }
   
-  .modal-close-button:hover {
+  .outfit-modal-close-button:hover {
     color: #555555;
   }
   
@@ -57,11 +57,11 @@
   
   .generated-image {
     width: 100%;
-    max-width: 900px; 
+    max-width: 1000px; /* Increased max-width for a larger image */
     height: auto;
     border-radius: 8px;
-    object-fit: contain; 
-    margin-bottom: 10px;
+    object-fit: cover; /* Changed to cover for better image filling */
+    margin-bottom: 20px; /* Increased margin for spacing */
   }
   
   .info-text {
@@ -105,5 +105,17 @@
   .buy-link:hover {
     text-decoration: underline;
     color: #104e8b;
+  }
+  
+  @media (max-width: 768px) {
+    .outfit-modal-content {
+      max-width: 90%;
+      padding: 20px;
+    }
+  
+    .generated-image {
+      max-width: 100%;
+      margin-bottom: 15px;
+    }
   }
   

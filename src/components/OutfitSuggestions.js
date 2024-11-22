@@ -6,7 +6,8 @@ import '../App.css';
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
 import OutfitGenerationModal from './OutfitGenerationModal';
-import { useHistory } from 'react-router-dom'; // Import useHistory for navigation
+import { useHistory } from 'react-router-dom'; 
+import { toast } from 'react-toastify'; 
 
 const OutfitSuggestions = ({
   outfits,
@@ -19,7 +20,6 @@ const OutfitSuggestions = ({
 }) => {
   const [isGenerationModalOpen, setIsGenerationModalOpen] = useState(false);
   const [currentOutfit, setCurrentOutfit] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
   
   const history = useHistory(); // Initialize useHistory
 
@@ -30,19 +30,17 @@ const OutfitSuggestions = ({
       setOutfitSuggestions([response.data, ...outfits]);
       setCurrentOutfit(response.data);
       setIsGenerationModalOpen(true);
-      setSuccessMessage('Outfit suggested successfully!');
-      // Automatically hide the message after 3 seconds
-      setTimeout(() => setSuccessMessage(''), 3000);
+      toast.success('Outfit suggested successfully!'); // Use toast notification
     } catch (err) {
       console.error("Error suggesting outfit:", err);
-      alert("Failed to suggest outfit.");
+      toast.error("Failed to suggest outfit.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleViewPreviousOutfits = () => {
-    history.push('/previous-outfits'); // Navigate to the previous outfits page
+    history.push('/previous-outfits');
   };
 
   const closeGenerationModal = () => {
@@ -68,9 +66,6 @@ const OutfitSuggestions = ({
           View Previous Outfits
         </button>
       </div>
-
-      {/* Success Message */}
-      {successMessage && <p className="success-message">{successMessage}</p>}
 
       {/* Outfit Generation Modal */}
       {isGenerationModalOpen && currentOutfit && (

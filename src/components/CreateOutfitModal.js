@@ -35,7 +35,7 @@ const CreateOutfitModal = ({ closeModal, wardrobeItems, userInfo, setOutfitSugge
 
       setOutfitSuggestions([response.data, ...outfitSuggestions]); // Assuming you have access to outfitSuggestions
       setError(null);
-      alert("Outfit created successfully!");
+      toast.success("Outfit created successfully!");
       closeModal();
     } catch (err) {
       console.error("Failed to create outfit:", err);

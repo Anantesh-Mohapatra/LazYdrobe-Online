@@ -55,9 +55,9 @@ const OutfitGenerationModal = ({ outfit, closeModal }) => {
   const categories = categorizeLinks();
 
   return (
-    <div className="modal-overlay" onClick={closeModal}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-button" onClick={closeModal}>
+    <div className="outfit-modal-overlay" onClick={closeModal}>
+      <div className="outfit-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="outfit-modal-close-button" onClick={closeModal}>
           &times;
         </button>
         <div className="outfit-container">
