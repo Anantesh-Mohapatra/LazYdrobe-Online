@@ -6,18 +6,22 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Wardrobe from './components/Wardrobe';
 import OutfitSuggestions from './components/OutfitSuggestions';
+import PreviousOutfitsList from './components/PreviousOutfitsList';
 import Profile from './components/profile/Profile';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import axios from 'axios';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return JSON.parse(localStorage.getItem('isLoggedIn')) || false;
+    const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    return loggedIn || false;
   });
   const [userInfo, setUserInfo] = useState(() => {
-    return JSON.parse(localStorage.getItem('userInfo')) || null;
+    const user = JSON.parse(localStorage.getItem('userInfo'));
+    return user || null;
   });
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +49,7 @@ function App() {
   }
 
   const clearData = () => {
-    setIsLoggedIn(null);
+    setIsLoggedIn(false);
     setUserInfo(null);
     setLoading(false);
 
@@ -70,6 +74,8 @@ function App() {
       setUserError(err.response?.data?.detail || 'An unexpected error occurred.');
       console.error("Error fetching user data:", err);
       setUserInfo(null);
+      setIsLoggedIn(false);
+      clearLocalStorage();
     } finally {
       setLoading(false);
     }
@@ -115,11 +121,13 @@ function App() {
       const response = await axios.get(`/outfits/suggestions/${userInfo.user_id}`);
       setOutfitSuggestions(response.data);
       setOutfitError(null);
+      console.log("Obtained outfit suggestions:", response.data);
     } catch (err) {
       if (err.response && err.response.status === 404) {
         // No outfit suggestions found; set to empty array
         setOutfitSuggestions([]);
         setOutfitError(null);
+        console.warn("No outfit suggestions found for this user.");
       } else {
         setOutfitError(err.response?.data?.detail || err.message);
         console.error("Error fetching outfit suggestions:", err);
@@ -179,8 +187,15 @@ function App() {
       setWardrobeError(null);
       console.log("Obtained wardrobe items:", response.data);
     } catch (err) {
-      console.error("Failed to get wardrobe items:", err);
-      setWardrobeError(err.response?.data?.detail || err.message);
+      if (err.response && err.response.status === 404) {
+        // No wardrobe items found; set to empty array
+        setWardrobeItems([]);
+        setWardrobeError(null);
+        console.warn("No wardrobe items found for this user.");
+      } else {
+        console.error("Failed to get wardrobe items:", err);
+        setWardrobeError(err.response?.data?.detail || err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -235,23 +250,18 @@ function App() {
     setWeather(newWeather);
   };
 
-  const handleCreateOutfit = async (newOutfit) => {
+  const handleCreateOutfit = async () => {
     setLoading(true);
     try {
-      const outfitToAdd = {
-        ...newOutfit,
-        user_id: userInfo.user_id
-      };
-      console.log(newOutfit)
-
-      const response = await axios.post('/outfit/', outfitToAdd);
-
-      setCustomOutfits([...customOutfits, response.data]);
-      setOutfitError(null);
-      console.log("Created new outfit:", response.data);
+      const response = await axios.post('/outfits/suggest', { user_id: userInfo.user_id });
+      setOutfitSuggestions([response.data, ...outfitSuggestions]); // Ensure correct variable
+      setCustomOutfits(response.data);
+      setSuccessMessage('Outfit suggested successfully!');
+      // Automatically hide the message after 3 seconds
+      setTimeout(() => setSuccessMessage(''), 3000);
     } catch (err) {
-      console.error("Failed to create outfit:", err);
-      setOutfitError(err.response?.data?.detail || err.message);
+      console.error("Error suggesting outfit:", err);
+      alert("Failed to suggest outfit.");
     } finally {
       setLoading(false);
     }
@@ -327,78 +337,87 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <Switch>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/">
-            {!isLoggedIn ? (
-              <Login
-                setIsLoggedIn={setIsLoggedIn}
-                fetchUserData={fetchUserData}
-              />
-            ) : (
-              <>
-                <Navbar handleLogout={handleLogout} />
-                <main className="main-content">
-                  <Switch>
-                    <Route path="/wardrobe">
-                      <Wardrobe
-                        items={wardrobeItems}
-                        onAdd={handleAddWardrobeItem}
-                        onUpdate={handleUpdateWardrobeItem}
-                        onDelete={handleDeleteWardrobeItem}
-                        loading={loading}
-                        error={wardrobeError}
-  
-                        customOutfits={customOutfits}
-                        createOutfit={handleCreateOutfit}
-                        updateOutfit={handleUpdateOutfit}
-                        deleteOutfit={handleDeleteOutfit}
-                        openOutfitModal={openOutfitModal}
-                      />
-                    </Route>
-                    <Route path="/outfits">
-                      <OutfitSuggestions
-                        outfits={outfitSuggestions}
-                        setOutfitSuggestions={setOutfitSuggestions} // Corrected prop name
-                        wardrobeItems={wardrobeItems}
-                        error={outfitError}
-                        loading={loading}
-                        setLoading={setLoading}
-                        userInfo={userInfo}
-                      />
-                    </Route>
-                    <Route path="/profile">
-                      <div className="profile-section">
-                        {userInfo ? (
-                          <Profile
-                            userInfo={userInfo}
-                            onUpdate={handleUpdateUser}
-                            onDelete={handleDeleteAccount}
-                            loading={loading}
-                            error={userError}
-                          />
-                        ) : (
-                          <p>Please log in to view your profile.</p>
-                        )}
-                      </div>
-                    </Route>
-                    <Route path="/" exact>
-                      <Home 
-                        userInfo={userInfo} 
-                        weather={weather}
-                        updateWeather={handleUpdateWeather}
-                      />
-                    </Route>
-                    <Redirect to="/" />
-                  </Switch>
-                </main>
-                <Footer />
-              </>
-            )}
-          </Route>
-        </Switch>
+        <ErrorBoundary>
+          <Switch>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/">
+              {!isLoggedIn || !userInfo ? (
+                <Login
+                  setIsLoggedIn={setIsLoggedIn}
+                  fetchUserData={fetchUserData}
+                />
+              ) : (
+                <>
+                  <Navbar handleLogout={handleLogout} />
+                  <main className="main-content">
+                    <Switch>
+                      <Route path="/wardrobe">
+                        <Wardrobe
+                          items={wardrobeItems}
+                          onAdd={handleAddWardrobeItem}
+                          onUpdate={handleUpdateWardrobeItem}
+                          onDelete={handleDeleteWardrobeItem}
+                          loading={loading}
+                          error={wardrobeError}
+
+                          customOutfits={customOutfits}
+                          createOutfit={handleCreateOutfit}
+                          updateOutfit={handleUpdateOutfit}
+                          deleteOutfit={handleDeleteOutfit}
+                          openOutfitModal={openOutfitModal}
+                        />
+                      </Route>
+                      <Route path="/outfits">
+                        <OutfitSuggestions
+                          outfits={outfitSuggestions}
+                          setOutfitSuggestions={setOutfitSuggestions}
+                          wardrobeItems={wardrobeItems}
+                          error={outfitError}
+                          loading={loading}
+                          setLoading={setLoading}
+                          userInfo={userInfo}
+                        />
+                      </Route>
+                      <Route path="/previous-outfits">
+                        <PreviousOutfitsList
+                          outfits={outfitSuggestions} // Pass outfitSuggestions as outfits
+                          setOutfitSuggestions={setOutfitSuggestions}
+                          userId={userInfo.user_id} // Pass userId as a separate prop
+                        />
+                      </Route>
+                      <Route path="/profile">
+                        <div className="profile-section">
+                          {userInfo ? (
+                            <Profile
+                              userInfo={userInfo}
+                              onUpdate={handleUpdateUser}
+                              onDelete={handleDeleteAccount}
+                              loading={loading}
+                              error={userError}
+                            />
+                          ) : (
+                            <p>Please log in to view your profile.</p>
+                          )}
+                        </div>
+                      </Route>
+                      <Route path="/" exact>
+                        <Home 
+                          userInfo={userInfo} 
+                          weather={weather}
+                          updateWeather={handleUpdateWeather}
+                        />
+                      </Route>
+                      <Redirect to="/" />
+                    </Switch>
+                  </main>
+                  <Footer />
+                </>
+              )}
+            </Route>
+          </Switch>
+        </ErrorBoundary>
       </div>
     </Router>
   );

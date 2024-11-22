@@ -1,41 +1,20 @@
 /* src/components/styling/PreviousOutfitsList.css */
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.previous-outfits-page {
+    padding: 20px;
+    background-color: #f5f5ff; /* Light Lavender */
+    text-align: center;
   }
   
-  .modal-content {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 800px;
-    position: relative;
-    text-align: left; /* Changed to left for better readability */
-    max-height: 80vh;
-    overflow-y: auto; /* Enable vertical scrolling */
-  }
-  
-  .previous-outfits {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .modal-header {
+  .previous-outfits-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+  }
+  
+  .previous-outfits-header h2 {
+    margin: 0;
   }
   
   .delete-all-button {
@@ -52,62 +31,60 @@
     background-color: #c82333;
   }
   
-  .suggestion-list {
-    list-style-type: decimal;
-    padding-left: 40px;
+  .delete-all-button:disabled {
+    background-color: #a64ca6;
+    cursor: not-allowed;
   }
   
-  .suggestion-item {
+  .outfit-list {
+    list-style-type: decimal;
+    padding-left: 40px;
+    text-align: left; /* Align text to the left for better readability */
+  }
+  
+  .outfit-item {
     margin-bottom: 30px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
   }
   
-  .suggestion-header {
+  .outfit-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
   }
   
-  .suggestion-number {
+  .outfit-number {
     font-weight: bold;
     margin-right: 10px;
   }
   
-  .suggestion-date {
+  .outfit-date {
     font-size: 14px;
     color: #777777;
   }
   
-  .outfit-combinations {
+  .outfit-details {
     margin-left: 20px;
   }
   
-  .outfit-combination {
-    margin-bottom: 15px;
+  .clothing-list {
+    margin-bottom: 10px;
   }
   
-  .clothing-categories p {
-    margin: 5px 0;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
+  .clothing-group {
+    margin-bottom: 5px;
   }
   
-  .clothing-thumbnail {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-    border-radius: 4px;
+  .clothing-group strong {
     margin-right: 5px;
-    vertical-align: middle;
   }
   
   .clothing-link {
     color: #1e90ff; /* Blue text */
     text-decoration: none;
-    margin-right: 5px;
+    margin-right: 10px;
   }
   
   .clothing-link:hover {
@@ -122,48 +99,38 @@
   }
   
   .link-unavailable {
-    color: red;
+    color: gray;
     margin-left: 5px;
     font-size: 0.9em;
   }
   
-  .close-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #8b008b; /* Dark Magenta */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .close-button:hover {
-    background-color: #a64ca6;
+  .error-message {
+    color: red;
+    margin-top: 10px;
   }
   
   @media (max-width: 600px) {
-    .suggestion-list {
+    .previous-outfits-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .delete-all-button {
+      margin-top: 10px;
+      width: 100%;
+    }
+  
+    .outfit-list {
       padding-left: 20px;
     }
   
-    .outfit-combination h4 {
-      font-size: 16px;
+    .outfit-header {
+      flex-direction: column;
+      align-items: flex-start;
     }
   
-    .clothing-categories p {
-      font-size: 14px;
-    }
-  
-    .clothing-thumbnail {
-      width: 25px;
-      height: 25px;
-    }
-  
-    .clothing-link {
-      display: block;
-      margin-bottom: 5px;
+    .outfit-date {
+      margin-top: 5px;
     }
   }
   

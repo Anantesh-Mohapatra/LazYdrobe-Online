@@ -6,7 +6,7 @@ import '../App.css';
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
 import OutfitGenerationModal from './OutfitGenerationModal';
-import PreviousOutfitsList from './PreviousOutfitsList';
+import { useHistory } from 'react-router-dom'; // Import useHistory for navigation
 
 const OutfitSuggestions = ({
   outfits,
@@ -19,8 +19,9 @@ const OutfitSuggestions = ({
 }) => {
   const [isGenerationModalOpen, setIsGenerationModalOpen] = useState(false);
   const [currentOutfit, setCurrentOutfit] = useState(null);
-  const [isPreviousOutfitsOpen, setIsPreviousOutfitsOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  
+  const history = useHistory(); // Initialize useHistory
 
   const handleCreateOutfit = async () => {
     setLoading(true);
@@ -41,11 +42,7 @@ const OutfitSuggestions = ({
   };
 
   const handleViewPreviousOutfits = () => {
-    setIsPreviousOutfitsOpen(true);
-  };
-
-  const closePreviousOutfits = () => {
-    setIsPreviousOutfitsOpen(false);
+    history.push('/previous-outfits'); // Navigate to the previous outfits page
   };
 
   const closeGenerationModal = () => {
@@ -80,15 +77,6 @@ const OutfitSuggestions = ({
         <OutfitGenerationModal
           outfit={currentOutfit}
           closeModal={closeGenerationModal}
-        />
-      )}
-
-      {/* Previous Outfits List */}
-      {isPreviousOutfitsOpen && (
-        <PreviousOutfitsList
-          outfits={outfits}
-          closeModal={closePreviousOutfits}
-          setOutfitSuggestions={setOutfitSuggestions}
         />
       )}
 
