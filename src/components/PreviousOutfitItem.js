@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const PreviousOutfitItem = ({ outfit }) => {
-  const [isSelected, setIsSelected] = useState(false);
-
+const PreviousOutfitItem = ({ outfit, isSelected, onSelect, onUnselect }) => {
   const handleItemClick = () => {
-    setIsSelected(!isSelected);
+    if (isSelected) {
+      onUnselect();
+    } else {
+      onSelect();
+    }
   };
 
   return (
@@ -15,7 +17,6 @@ const PreviousOutfitItem = ({ outfit }) => {
     >
       <div className="outfit-header"></div>
       <div className="outfit-details">
-        {/* Iterate through each clothing item in the outfit */}
         {outfit.outfit_details.map((clothingList, outfitIndex) => (
           <div key={outfitIndex} className="clothing-list">
             {clothingList.map((item) => (
@@ -44,6 +45,9 @@ const PreviousOutfitItem = ({ outfit }) => {
 
 PreviousOutfitItem.propTypes = {
   outfit: PropTypes.object.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onUnselect: PropTypes.func.isRequired,
 };
 
 export default PreviousOutfitItem;

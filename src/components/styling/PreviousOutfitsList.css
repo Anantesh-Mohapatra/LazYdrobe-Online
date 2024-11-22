@@ -104,16 +104,6 @@
   
   .clothing-link:hover {
     text-decoration: underline;
-  }
-  
-  .clothing-link {
-    color: #1e90ff; /* Blue text */
-    text-decoration: none;
-    margin-right: 10px;
-  }
-  
-  .clothing-link:hover {
-    text-decoration: underline;
     color: #104e8b; /* Darker blue on hover */
   }
   
@@ -218,4 +208,63 @@
   
   .cancel-button:hover {
     background-color: #0056b3;
+  }
+
+  .previous-outfits-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .select-button,
+  .unselect-button,
+  .delete-button,
+  .delete-all-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .select-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .unselect-button {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .delete-all-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .select-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .unselect-button:hover {
+    background-color: #5a6268;
+  }
+  
+  .delete-button:hover,
+  .delete-all-button:hover {
+    background-color: #c82333;
+  }
+  
+  .select-button:disabled,
+  .unselect-button:disabled,
+  .delete-button:disabled,
+  .delete-all-button:disabled {
+    background-color: #a64ca6;
+    cursor: not-allowed;
   }

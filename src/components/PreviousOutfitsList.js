@@ -4,18 +4,17 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './styling/PreviousOutfitsList.css';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify'; // Ensure this is imported
+import { toast } from 'react-toastify';
 import PreviousOutfitItem from './PreviousOutfitItem';
+import PreviousOutfitsControls from './wardrobe/PreviousOutfitsControls';
 
 const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
-  const history = useHistory();
-
-  // State to control the visibility of the confirmation modal
+  const [multiSelect, setMultiSelect] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteAll, setDeleteAll] = useState(false);
 
-  // Functions to open and close the modal
-  const openConfirmationModal = () => {
+  const openConfirmationModal = (deleteAll = false) => {
+    setDeleteAll(deleteAll);
     setIsModalOpen(true);
   };
 
@@ -23,35 +22,27 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
     setIsModalOpen(false);
   };
 
-  // Handle the delete action when confirmed
-  const confirmDeleteAll = async () => {
-    closeConfirmationModal(); // Close the modal
-
+  const confirmDelete = async () => {
+    closeConfirmationModal();
     try {
-      // Ensure outfits array is not empty
-      if (outfits.length === 0) {
-        toast.info("No outfit suggestions to delete.");
-        return;
+      if (deleteAll) {
+        await axios.delete(`/outfits/suggestions/all`, { params: { user_id: userId } });
+        setOutfitSuggestions([]);
+        toast.success("All outfit suggestions deleted successfully.");
       }
-
-      if (!userId) {
-        toast.error("User ID not found.");
-        console.error("Deletion failed: userId is undefined or null.");
-        return;
-      }
-
-      await axios.delete(`/outfits/suggestions/all`, { params: { user_id: userId } });
-      setOutfitSuggestions([]);
-      toast.success("All outfit suggestions deleted successfully."); // Replaced alert with toast
-      history.push('/outfits'); // Redirect to Outfit Suggestions page after deletion
+      setMultiSelect([]);
     } catch (err) {
-      console.error("Failed to delete all outfit suggestions:", err);
-      toast.error("Failed to delete all outfit suggestions."); // Replaced alert with toast
+      console.error("Failed to delete outfit suggestions:", err);
+      toast.error("Failed to delete outfit suggestions.");
     }
   };
 
-  const handleDeleteAll = () => {
-    openConfirmationModal();
+  const selectAll = () => {
+    setMultiSelect(outfits.map(outfit => outfit.suggestion_id));
+  };
+
+  const unselectAll = () => {
+    setMultiSelect([]);
   };
 
   if (!outfits || outfits.length === 0) {
@@ -67,24 +58,32 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
     <div className="previous-outfits-page">
       <div className="previous-outfits-header">
         <h2>Previous Outfit Recommendations</h2>
-        <button onClick={handleDeleteAll} className="delete-all-button">
-          Delete All
-        </button>
+        <PreviousOutfitsControls
+          selectAll={selectAll}
+          unselectAll={unselectAll}
+          openConfirmationModal={openConfirmationModal}
+          multiSelect={multiSelect}
+        />
       </div>
       <div className="outfit-list">
         {outfits.map((outfit) => (
-          <PreviousOutfitItem key={outfit.suggestion_id} outfit={outfit} />
+          <PreviousOutfitItem
+            key={outfit.suggestion_id}
+            outfit={outfit}
+            isSelected={multiSelect.includes(outfit.suggestion_id)}
+            onSelect={() => setMultiSelect([...multiSelect, outfit.suggestion_id])}
+            onUnselect={() => setMultiSelect(multiSelect.filter(id => id !== outfit.suggestion_id))}
+          />
         ))}
       </div>
-      {/* Confirmation Modal */}
       {isModalOpen && (
         <div className="previous-outfits-modal-overlay">
           <div className="previous-outfits-modal-content">
             <p className="modal-message">
-              Are you sure you want to delete all outfit suggestions? This action cannot be undone.
+              Are you sure you want to delete {deleteAll ? 'all' : 'selected'} outfit suggestions? This action cannot be undone.
             </p>
             <div className="modal-buttons">
-              <button onClick={confirmDeleteAll} className="confirm-button">
+              <button onClick={confirmDelete} className="confirm-button">
                 Yes
               </button>
               <button onClick={closeConfirmationModal} className="cancel-button">
