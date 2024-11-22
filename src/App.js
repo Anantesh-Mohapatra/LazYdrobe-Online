@@ -127,7 +127,7 @@ function App() {
     } finally {
       setLoading(false);
     }
-};
+  };
 
   const handleUpdateUser = async (updatedData) => {
     setLoading(true);
@@ -243,9 +243,9 @@ function App() {
         user_id: userInfo.user_id
       };
       console.log(newOutfit)
-  
+
       const response = await axios.post('/outfit/', outfitToAdd);
-  
+
       setCustomOutfits([...customOutfits, response.data]);
       setOutfitError(null);
       console.log("Created new outfit:", response.data);
@@ -282,15 +282,15 @@ function App() {
           ? updatedOutfit.occasion
           : updatedOutfit.occasion.split(',').map((s) => s.trim()),
       };
-  
+
       console.log("Updating outfit:", outfit_id);
       const response = await axios.put(`/outfit/${outfit_id}`, updatedOutfitToEdit); 
       console.log("Update response:", response.data);
-  
+
       setCustomOutfits((prevOutfits) =>
         prevOutfits.map((outfit) => (outfit.outfit_id === outfit_id ? response.data : outfit))
       );
-  
+
       setOutfitError(null);
       console.log("Outfit has been updated successfully.");
     } catch (err) {
@@ -300,8 +300,8 @@ function App() {
       setLoading(false);
     }
   };
-  
-  
+
+
   const handleDeleteOutfit = async (outfitId) => {
     console.log("Trying to delete outfit:", outfitId);
 
@@ -350,24 +350,23 @@ function App() {
                         onDelete={handleDeleteWardrobeItem}
                         loading={loading}
                         error={wardrobeError}
-
+  
                         customOutfits={customOutfits}
                         createOutfit={handleCreateOutfit}
                         updateOutfit={handleUpdateOutfit}
                         deleteOutfit={handleDeleteOutfit}
-                        openOutfitModal={openOutfitModal} // Add this line
+                        openOutfitModal={openOutfitModal}
                       />
                     </Route>
                     <Route path="/outfits">
                       <OutfitSuggestions
                         outfits={outfitSuggestions}
+                        setOutfitSuggestions={setOutfitSuggestions} // Corrected prop name
                         wardrobeItems={wardrobeItems}
-                        setOutfits={setOutfitSuggestions} // Ensure this mapping is correct
-                        setCustomOutfits={setCustomOutfits} // Check if needed
                         error={outfitError}
                         loading={loading}
-                        setLoading={setLoading} // Pass setLoading as a prop
-                        userInfo={userInfo} // Pass userInfo as a prop
+                        setLoading={setLoading}
+                        userInfo={userInfo}
                       />
                     </Route>
                     <Route path="/profile">
