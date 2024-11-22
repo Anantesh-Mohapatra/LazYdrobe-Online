@@ -2,7 +2,7 @@
 
 .outfit-suggestions {
   padding: 20px;
-  background-color: #f5f5ff; /* Very light purple hint */
+  background-color: #f5f5ff; 
   text-align: center;
 }
 
@@ -18,7 +18,7 @@
   padding: 10px 20px;
   font-size: 16px;
   color: white;
-  background-color: #8b008b; /* Dark Magenta */
+  background-color: #8b008b;
   border: none;
   border-radius: 8px;
   cursor: pointer;
