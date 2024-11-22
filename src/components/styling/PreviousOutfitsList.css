@@ -268,3 +268,77 @@
     background-color: #a64ca6;
     cursor: not-allowed;
   }
+
+  .outfit-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+
+  .outfit-image-large {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0 10px;
+  }
+  
+  .outfit-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .carousel-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6a0dad; /* Dark purple */
+  }
+
+  .outfit-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+  }
+  
+  .outfit-preview-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
+  
+  .outfit-preview-image.active,
+  .outfit-preview-image:hover {
+    opacity: 1;
+  }
+
+  .outfit-preview-placeholder {
+    width: 50px;
+    height: 50px;
+    background-color: grey;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
+  
+  .outfit-preview-placeholder.active,
+  .outfit-preview-placeholder:hover {
+    opacity: 1;
+  }

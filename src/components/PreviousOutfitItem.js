@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const PreviousOutfitItem = ({ outfit, isSelected, onSelect, onUnselect }) => {
@@ -15,7 +15,13 @@ const PreviousOutfitItem = ({ outfit, isSelected, onSelect, onUnselect }) => {
       className={`outfit-item ${isSelected ? 'selected' : ''}`}
       onClick={handleItemClick}
     >
-      <div className="outfit-header"></div>
+      <div className="outfit-header">
+        {outfit.image_url ? (
+          <img src={outfit.image_url} alt="Outfit" className="outfit-image-large" />
+        ) : (
+          <p>No images available</p>
+        )}
+      </div>
       <div className="outfit-details">
         {outfit.outfit_details.map((clothingList, outfitIndex) => (
           <div key={outfitIndex} className="clothing-list">

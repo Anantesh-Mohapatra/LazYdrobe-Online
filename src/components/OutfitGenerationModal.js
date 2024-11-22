@@ -27,29 +27,39 @@ const OutfitGenerationModal = ({ outfit, closeModal }) => {
           clothing_type.toLowerCase().includes('sweater') ||
           clothing_type.toLowerCase().includes('t-shirt')
         ) {
-          categories.Top.push(eBay_link[0]);
+          if (eBay_link && eBay_link.length > 0) {
+            categories.Top.push(eBay_link[0]);
+          }
         } else if (
           clothing_type.toLowerCase().includes('bottom') ||
           clothing_type.toLowerCase().includes('jeans') ||
           clothing_type.toLowerCase().includes('pants')
         ) {
-          categories.Bottom.push(eBay_link[0]);
+          if (eBay_link && eBay_link.length > 0) {
+            categories.Bottom.push(eBay_link[0]);
+          }
         } else if (
           clothing_type.toLowerCase().includes('shoe') ||
           clothing_type.toLowerCase().includes('boots') ||
           clothing_type.toLowerCase().includes('sneakers')
         ) {
-          categories.Shoes.push(eBay_link[0]);
+          if (eBay_link && eBay_link.length > 0) {
+            categories.Shoes.push(eBay_link[0]);
+          }
         } else if (
           clothing_type.toLowerCase().includes('jacket') ||
           clothing_type.toLowerCase().includes('coat') ||
           clothing_type.toLowerCase().includes('outerwear')
         ) {
-          categories.Outerwear.push(eBay_link[0]);
+          if (eBay_link && eBay_link.length > 0) {
+            categories.Outerwear.push(eBay_link[0]);
+          }
         } else if (
           clothing_type.toLowerCase().includes('set') // Handling Set category
         ) {
-          categories.Set.push(eBay_link[0]);
+          if (eBay_link && eBay_link.length > 0) {
+            categories.Set.push(eBay_link[0]);
+          }
         }
       });
     });
@@ -69,7 +79,7 @@ const OutfitGenerationModal = ({ outfit, closeModal }) => {
           <div className="image-section">
             <img src={outfit.image_url} alt="Generated Outfit" className="generated-image" />
             <p className="info-text">
-              *The image is AI-generated and the original clothing might not fully match what you are seeing now.*
+              The image is AI-generated and the original clothing might not fully match what you are seeing now.
             </p>
             <button
               className="buy-button-main"

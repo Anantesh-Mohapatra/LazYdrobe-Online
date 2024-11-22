@@ -1,6 +1,6 @@
 // src/components/PreviousOutfitsList.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './styling/PreviousOutfitsList.css';
 import axios from 'axios';
@@ -12,6 +12,11 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
   const [multiSelect, setMultiSelect] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteAll, setDeleteAll] = useState(false);
+  const [currentOutfitIndex, setCurrentOutfitIndex] = useState(0);
+
+  useEffect(() => {
+    console.log('Outfits:', outfits);
+  }, [outfits]);
 
   const openConfirmationModal = (deleteAll = false) => {
     setDeleteAll(deleteAll);
@@ -45,6 +50,14 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
     setMultiSelect([]);
   };
 
+  const handleNextOutfit = () => {
+    setCurrentOutfitIndex((prevIndex) => (prevIndex + 1) % outfits.length);
+  };
+
+  const handlePrevOutfit = () => {
+    setCurrentOutfitIndex((prevIndex) => (prevIndex - 1 + outfits.length) % outfits.length);
+  };
+
   if (!outfits || outfits.length === 0) {
     return (
       <div className="previous-outfits-page">
@@ -65,16 +78,36 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
           multiSelect={multiSelect}
         />
       </div>
-      <div className="outfit-list">
-        {outfits.map((outfit) => (
-          <PreviousOutfitItem
-            key={outfit.suggestion_id}
-            outfit={outfit}
-            isSelected={multiSelect.includes(outfit.suggestion_id)}
-            onSelect={() => setMultiSelect([...multiSelect, outfit.suggestion_id])}
-            onUnselect={() => setMultiSelect(multiSelect.filter(id => id !== outfit.suggestion_id))}
-          />
-        ))}
+      <div className="outfit-carousel">
+        <button onClick={handlePrevOutfit} className="carousel-button">{"<"}</button>
+        <div className="outfit-preview">
+          {outfits.map((outfit, index) => (
+            outfit.image_url ? (
+              <img
+                key={outfit.suggestion_id}
+                src={outfit.image_url}
+                alt="Outfit Preview"
+                className={`outfit-preview-image ${index === currentOutfitIndex ? 'active' : ''}`}
+                onClick={() => setCurrentOutfitIndex(index)}
+              />
+            ) : (
+              <div
+                key={outfit.suggestion_id}
+                className={`outfit-preview-placeholder ${index === currentOutfitIndex ? 'active' : ''}`}
+                onClick={() => setCurrentOutfitIndex(index)}
+              >
+                {index + 1}
+              </div>
+            )
+          ))}
+        </div>
+        <PreviousOutfitItem
+          outfit={outfits[currentOutfitIndex]}
+          isSelected={multiSelect.includes(outfits[currentOutfitIndex].suggestion_id)}
+          onSelect={() => setMultiSelect([...multiSelect, outfits[currentOutfitIndex].suggestion_id])}
+          onUnselect={() => setMultiSelect(multiSelect.filter(id => id !== outfits[currentOutfitIndex].suggestion_id))}
+        />
+        <button onClick={handleNextOutfit} className="carousel-button">{">"}</button>
       </div>
       {isModalOpen && (
         <div className="previous-outfits-modal-overlay">
