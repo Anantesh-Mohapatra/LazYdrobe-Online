@@ -6,6 +6,7 @@ import './styling/PreviousOutfitsList.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Ensure this is imported
+import PreviousOutfitModal from './PreviousOutfitModal';
 
 const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
   const history = useHistory();
@@ -62,9 +63,6 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
     );
   }
 
-  // Sort outfits by date, newest first
-  const sortedOutfits = [...outfits].sort((a, b) => new Date(b.date_suggested) - new Date(a.date_suggested));
-
   return (
     <div className="previous-outfits-page">
       <div className="previous-outfits-header">
@@ -73,38 +71,11 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
           Delete All
         </button>
       </div>
-      <ol className="outfit-list">
-        {sortedOutfits.map((suggestion, suggestionIndex) => (
-          <li key={suggestion.suggestion_id} className="outfit-item">
-            <div className="outfit-header"></div>
-            <div className="outfit-details">
-              {/* Iterate through each clothing item in the outfit */}
-              {suggestion.outfit_details.map((clothingList, outfitIndex) => (
-                <div key={outfitIndex} className="clothing-list">
-                  {clothingList.map((item) => (
-                    <div key={item.item_id} className="clothing-group">
-                      <strong>{item.clothing_type}:</strong>{' '}
-                      {item.eBay_link && item.eBay_link.length > 0 ? (
-                        <a
-                          href={item.eBay_link[0]}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="clothing-link"
-                        >
-                          {item.product_name}
-                        </a>
-                      ) : (
-                        <span className="link-unavailable">Unavailable</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </li>
+      <div className="outfit-list">
+        {outfits.map((outfit) => (
+          <PreviousOutfitModal key={outfit.suggestion_id} outfit={outfit} />
         ))}
-      </ol>
-
+      </div>
       {/* Confirmation Modal */}
       {isModalOpen && (
         <div className="previous-outfits-modal-overlay">
