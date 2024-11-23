@@ -12,7 +12,7 @@ The current goal is to develop the front-end architecture of LazyDrobe. This pro
 Before running this code, ensure you have the following installed:
 
 Node.js (version 14.x or higher)
-npm (included with Node.js) or yarn
+npm (included with Node.js) 
 
 ## Getting Started
 Follow these steps to set up and run the front-end code on your local machine.
@@ -41,9 +41,22 @@ npm install react
 npm install react-scripts
 npm install react-router-dom
 npm install react-modal
+npm install react-toastify
+npm install react-icons
 ```
 
-### 4. Start the Application
+### 4. Run the backend
+In a separate tab, navigate to the project's backend directory:
+```
+cd  path/to/LazYdrobe
+```
+
+Use the following command to start the application:
+```
+uvicorn main:app --reload
+```
+
+### 5. Start the Application
 Start the development server:
 
 #### Using npm

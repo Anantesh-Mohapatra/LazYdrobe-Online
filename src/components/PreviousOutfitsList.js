@@ -39,6 +39,12 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
         setOutfitSuggestions([]);
         toast.success("All outfit suggestions deleted successfully.");
       }
+      else{
+        await axios.delete(`/outfits/suggestions/`, { data: { suggestion_id: multiSelect } });
+        setOutfitSuggestions((previousSuggestions) => 
+          previousSuggestions.filter((suggestion) => !multiSelect.includes(suggestion.item_id))
+        );
+      }
       setMultiSelect([]);
     } catch (err) {
       console.error("Failed to delete outfit suggestions:", err);
