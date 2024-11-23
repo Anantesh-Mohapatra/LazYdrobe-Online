@@ -26,15 +26,22 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.view-previous-button {
+  background-color: #8b008b; /* Magenta background */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .create-outfit-button:hover,
 .view-previous-button:hover {
-  background-color: #a64ca6; /* Lighter Purple on hover */
+  background-color: #a64ca6; /* Lighter Magenta on hover */
   transform: translateY(-2px);
 }
 
 .create-outfit-button:active,
 .view-previous-button:active {
-  background-color: #9932cc; /* Even darker Purple on active */
+  background-color: #9932cc; /* Darker Magenta on active */
   transform: translateY(0);
 }
 

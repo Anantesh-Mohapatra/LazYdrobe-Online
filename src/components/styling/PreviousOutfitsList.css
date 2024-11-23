@@ -65,8 +65,8 @@
   
   .outfit-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     margin-bottom: 10px;
   }
   
@@ -212,9 +212,9 @@
 
   .previous-outfits-controls {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Space between for left and right alignment */
     align-items: center;
-    margin-bottom: 20px;
+    width: 100%;
   }
   
   .select-button,
@@ -234,7 +234,7 @@
   }
   
   .unselect-button {
-    background-color: #6c757d;
+    background-color: #0056b3; /* Darker shade of blue */
     color: white;
   }
   
@@ -265,7 +265,7 @@
   .unselect-button:disabled,
   .delete-button:disabled,
   .delete-all-button:disabled {
-    background-color: #a64ca6;
+    background-color: grey; /* Change to grey */
     cursor: not-allowed;
   }
 
@@ -289,6 +289,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px; /* Add gap between elements */
   }
   
   .carousel-button {
@@ -304,6 +305,9 @@
     flex-direction: column;
     align-items: center;
     margin: 0 20px;
+    max-height: 400px; /* Set a max height */
+    overflow-y: auto; /* Make it scrollable */
+    width: auto; /* Ensure it's only as wide as necessary */
   }
   
   .outfit-preview-image {
@@ -341,4 +345,75 @@
   .outfit-preview-placeholder.active,
   .outfit-preview-placeholder:hover {
     opacity: 1;
+  }
+
+  .outfit-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Round the table's corners */
+    overflow: hidden; /* Ensure rounded corners are visible */
+  }
+  
+  .outfit-details-table th,
+  .outfit-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .outfit-details-table th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+  
+  .outfit-details-table td a {
+    color: #1e90ff;
+    text-decoration: none;
+  }
+  
+  .outfit-details-table td a:hover {
+    text-decoration: underline;
+    color: #104e8b;
+  }
+  
+  .outfit-details-table td:first-child {
+    font-weight: bold; /* Bold the types */
+  }
+
+  .outfit-generation-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    color: white;
+    background-color: #8b008b; /* Magenta background */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto; /* Align to the left */
+  }
+  
+  .outfit-generation-button:hover {
+    background-color: #a64ca6; /* Lighter Magenta on hover */
+    transform: translateY(-2px);
+  }
+  
+  .outfit-generation-button:active {
+    background-color: #9932cc; /* Darker Magenta on active */
+    transform: translateY(0);
+  }
+
+  .control-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    gap: 10px; /* Add gap between buttons */
   }

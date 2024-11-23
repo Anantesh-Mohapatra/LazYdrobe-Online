@@ -6,9 +6,13 @@ import './styling/PreviousOutfitsList.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import PreviousOutfitItem from './PreviousOutfitItem';
-import PreviousOutfitsControls from './wardrobe/PreviousOutfitsControls';
+import PreviousOutfitsControls from './PreviousOutfitsControls';
+import PreviousOutfitPreviews from './PreviousOutfitPreviews';
+import { FaArrowLeft } from 'react-icons/fa'; // Import the left arrow icon
+import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 
 const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
+  const history = useHistory(); // Initialize useHistory
   const [multiSelect, setMultiSelect] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteAll, setDeleteAll] = useState(false);
@@ -61,7 +65,6 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
   if (!outfits || outfits.length === 0) {
     return (
       <div className="previous-outfits-page">
-        <h2>Previous Outfit Recommendations</h2>
         <p>No previous outfits found.</p>
       </div>
     );
@@ -70,37 +73,21 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
   return (
     <div className="previous-outfits-page">
       <div className="previous-outfits-header">
-        <h2>Previous Outfit Recommendations</h2>
         <PreviousOutfitsControls
           selectAll={selectAll}
           unselectAll={unselectAll}
           openConfirmationModal={openConfirmationModal}
           multiSelect={multiSelect}
+          outfits={outfits}
         />
       </div>
       <div className="outfit-carousel">
+        <PreviousOutfitPreviews
+          outfits={outfits}
+          currentOutfitIndex={currentOutfitIndex}
+          setCurrentOutfitIndex={setCurrentOutfitIndex}
+        />
         <button onClick={handlePrevOutfit} className="carousel-button">{"<"}</button>
-        <div className="outfit-preview">
-          {outfits.map((outfit, index) => (
-            outfit.image_url ? (
-              <img
-                key={outfit.suggestion_id}
-                src={outfit.image_url}
-                alt="Outfit Preview"
-                className={`outfit-preview-image ${index === currentOutfitIndex ? 'active' : ''}`}
-                onClick={() => setCurrentOutfitIndex(index)}
-              />
-            ) : (
-              <div
-                key={outfit.suggestion_id}
-                className={`outfit-preview-placeholder ${index === currentOutfitIndex ? 'active' : ''}`}
-                onClick={() => setCurrentOutfitIndex(index)}
-              >
-                {index + 1}
-              </div>
-            )
-          ))}
-        </div>
         <PreviousOutfitItem
           outfit={outfits[currentOutfitIndex]}
           isSelected={multiSelect.includes(outfits[currentOutfitIndex].suggestion_id)}

@@ -9,6 +9,7 @@ import OutfitGenerationModal from './OutfitGenerationModal';
 import LoadingPopup from './LoadingPopup'; // Import the LoadingPopup component
 import { useHistory } from 'react-router-dom'; 
 import { toast } from 'react-toastify'; 
+import { FaArchive } from 'react-icons/fa'; // Import the archive icon
 
 const OutfitSuggestions = ({
   outfits,
@@ -87,6 +88,7 @@ const OutfitSuggestions = ({
           className="view-previous-button"
           aria-label="View your previous outfit suggestions"
         >
+          <FaArchive />
           View Previous Recommendations
         </button>
       </div>
