@@ -83,25 +83,6 @@ function App() {
     }
   };
 
-  // Handling User Account Management
-  const handleDeleteAccount = async () => {
-    // Custom confirmation logic
-    if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-      return;
-    }
-    setLoading(true);
-    try {
-      await axios.delete(`/users/${userInfo.user_id}`);
-      handleLogout();
-      console.log("Your account has been successfully deleted.");
-    } catch (err) {
-      setUserError(err.response?.data?.detail || err.message);
-      console.error("Error deleting account:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleLogin = (user) => {
     setIsLoggedIn(true);
     setUserInfo(user);
@@ -396,9 +377,7 @@ function App() {
                             <Profile
                               userInfo={userInfo}
                               onUpdate={handleUpdateUser}
-                              onDelete={handleDeleteAccount}
-                              loading={loading}
-                              error={userError}
+                              onLogout={handleLogout}
                             />
                           ) : (
                             <p>Please log in to view your profile.</p>

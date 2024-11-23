@@ -13,9 +13,13 @@ const ProfileView = ({ userInfo, onEdit, onDelete }) => {
     <div>
       <p><strong>Username:</strong> {userInfo.username}</p>
       <p><strong>Email:</strong> {userInfo.email}</p>
-      <p><strong>Location:</strong> {userInfo.location || 'Not specified'}</p>
-      <p><strong>Gender:</strong> {userInfo.gender || 'Not specified'}</p>
-      <p><strong>Fashion Preferences:</strong> {userInfo.preferences?.length > 0 ? userInfo.preferences.join(', ') : 'Not specified'}</p>
+      {userInfo.location && <p><strong>Location:</strong> {userInfo.location}</p>}
+      {userInfo.gender && <p><strong>Gender:</strong> {userInfo.gender}</p>}
+      {userInfo.preferences && userInfo.preferences.length > 0 ? (
+        <p><strong>Fashion Preferences:</strong> {userInfo.preferences.join(', ')}</p>
+      ) : (
+        <p><strong>Fashion Preferences:</strong> No preferences provided.</p>
+      )}
       <div className="button-group">
         <button type='button' onClick={onEdit} className="edit-button">
           <FaEdit className="icon" />

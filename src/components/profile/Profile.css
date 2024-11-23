@@ -37,6 +37,12 @@ button:hover {
   margin-top: 20px;
 }
 
+.button-group button {
+  display: flex;
+  align-items: center; /* Vertically align icons with text */
+  gap: 10px; /* Add gap between icon and text */
+}
+
 .edit-button {
   background-color: #6495ed; /* Cornflower blue for a softer look */
 }
@@ -85,4 +91,83 @@ button:hover {
 
 .button-text {
   vertical-align: middle;
+}
+
+.profile-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Ensure it's above other elements */
+}
+
+.profile-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.profile-modal-glow {
+  box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5); /* Red glow */
+}
+
+.modal-message {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: center; /* Center the text */
+}
+
+.modal-submessage {
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center; /* Center the text */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+}
+
+.confirm-button,
+.cancel-button {
+  display: flex;
+  align-items: center; /* Align icons with text */
+  gap: 10px; /* Add gap between icon and text */
+  border: none;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px; /* Add border-radius for better appearance */
+  transition: background-color 0.3s;
+}
+
+.confirm-button {
+  background-color: #d9534f; /* Red */
+  color: white;
+}
+
+.confirm-button:hover {
+  background-color: #c82333;
+}
+
+.cancel-button {
+  background-color: #28a745 !important; /* Green */
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #218838 !important; /* Darker Green */
+}
+
+.no-preferences {
+  color: grey;
+  font-style: italic;
 }
