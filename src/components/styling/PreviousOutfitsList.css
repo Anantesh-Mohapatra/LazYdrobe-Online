@@ -202,12 +202,12 @@
   }
   
   .cancel-button {
-    background-color: #007bff; /* Blue */
+    background-color: #28a745 !important; /* Green */
     color: white;
   }
   
   .cancel-button:hover {
-    background-color: #0056b3;
+    background-color: #218838 !important; /* Darker Green */
   }
 
   .previous-outfits-controls {
