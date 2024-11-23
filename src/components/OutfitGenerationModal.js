@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './styling/OutfitGenerationModal.css';
-import { FaMagic, FaArchive, FaShoppingCart, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa';
+import { FaMagic, FaArchive, FaShoppingCart, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt, FaTimesCircle } from 'react-icons/fa';
 
 const OutfitGenerationModal = ({ outfit, closeModal }) => {
   const [showBuyLinks, setShowBuyLinks] = useState(false);
@@ -73,8 +73,8 @@ const OutfitGenerationModal = ({ outfit, closeModal }) => {
   return (
     <div className="outfit-modal-overlay" onClick={closeModal}>
       <div className="outfit-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="outfit-modal-close-button" onClick={closeModal}>
-          &times;
+        <button className="close-button" onClick={closeModal}>
+          <FaTimes />
         </button>
         <div className="outfit-container">
           <div className="image-section">

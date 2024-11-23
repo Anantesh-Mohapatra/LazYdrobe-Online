@@ -173,3 +173,51 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+.outfit-modal-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.close-icon {
+  color: #8b008b; /* Purple color */
+  font-size: 24px;
+  transition: transform 0.3s;
+}
+
+.close-icon:hover {
+  transform: rotate(360deg);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px; /* Ensure the button is at the top */
+  right: 10px; /* Ensure the button is on the right */
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #6a0dad; /* Purple accent for consistency */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.close-button.align-top {
+  top: 0; /* Align with the top of the outfit image */
+}
+
+.close-button:hover {
+  color: #333333;
+  transform: rotate(90deg); /* Rotate on hover for a playful effect */
+}
+
+.outfit-container {
+  position: relative; /* Ensure the close button is positioned relative to the container */
+}
+
+.outfit-modal-content {
+  position: relative; /* Ensure the close button is positioned relative to the modal content */
+}
