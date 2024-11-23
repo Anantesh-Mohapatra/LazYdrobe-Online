@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { FaTimes, FaEdit, FaTrash, FaEraser } from 'react-icons/fa'; // Import the icons
 import '../styling/WardrobeItemModal.css';
 
 Modal.setAppElement('#root');
@@ -12,6 +13,8 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
   const [tags, setTags] = useState(item?.tags?.join(', ') || '');
   const [image_url, setImageUrl] = useState(item?.image_url || '');
   const [error, setError] = useState(errorFromAbove || null);
+  const [isEdited, setIsEdited] = useState(false);
+  const [isClearable, setIsClearable] = useState(false);
 
   useEffect(() => {
     // Reset form fields when modal is opened or closed, if `item` is null
@@ -27,6 +30,28 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
       setImageUrl(item.image_url || '');
     }
   }, [isOpen, item]); 
+
+  useEffect(() => {
+    setIsEdited(
+      clothing_type !== item?.clothing_type ||
+      for_weather !== item?.for_weather ||
+      color !== item?.color?.join(', ') ||
+      size !== item?.size ||
+      tags !== item?.tags?.join(', ') ||
+      image_url !== item?.image_url
+    );
+  }, [clothing_type, for_weather, color, size, tags, image_url, item]);
+
+  useEffect(() => {
+    setIsClearable(
+      clothing_type !== '' ||
+      for_weather !== '' ||
+      color !== '' ||
+      size !== '' ||
+      tags !== '' ||
+      image_url !== ''
+    );
+  }, [clothing_type, for_weather, color, size, tags, image_url]);
 
   const handleAdd = async () => {
     if (clothing_type && for_weather && color && size && image_url) {
@@ -98,8 +123,12 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
   return (
     <Modal isOpen={isOpen} onRequestClose={handleClose} contentLabel="Wardrobe Item Modal" className="modal-overlay">
       <div className='modal-content'>
-        <button className="close-button" onClick={handleClose}>X</button>
-        <h2>{item?.item_id ? 'Edit' : 'Add'} Wardrobe Item</h2>
+        <div className="modal-header">
+          <h2>{item?.item_id ? 'Edit' : 'Add'} Wardrobe Item</h2>
+          <button className="close-button" onClick={handleClose}>
+            <FaTimes />
+          </button>
+        </div>
         {error && <p className="error">{error}</p>}
         <form>
           <label>Clothing Type</label>
@@ -167,14 +196,23 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
 
           <div className='button-group'>
             {item?.item_id ? (
-              <button type="button" className="edit-button" onClick={handleUpdate}>Edit</button>
+              <button type="button" className={`edit-button ${!isEdited ? 'greyed-out' : ''}`} onClick={handleUpdate} disabled={!isEdited}>
+                <FaEdit /> Edit
+              </button>
             ) : (
-              <button type="button" className="add-button" onClick={handleAdd}>Add</button>
-            )}<button type="button" className='clear-button' onClick={handleClear}>Clear</button>
+              <button type="button" className="add-button" onClick={handleAdd}>
+                <FaEdit /> Add
+              </button>
+            )}
+            <button type="button" className={`clear-button ${!isClearable ? 'greyed-out' : ''}`} onClick={handleClear} disabled={!isClearable}>
+              <FaEraser /> Clear
+            </button>
+            {item?.item_id && (
+              <button type="button" className="delete-button" onClick={handleDelete}>
+                <FaTrash /> Delete
+              </button>
+            )}
           </div>
-          {item?.item_id && (
-          <button type="button" className="delete-button" onClick={handleDelete}>Delete</button>
-        )}
         </form>
       </div>
     </Modal>

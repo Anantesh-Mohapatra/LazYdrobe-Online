@@ -3,20 +3,24 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw; /* Ensure overlay covers the entire viewport width */
+  height: 100vh; /* Ensure overlay covers the entire viewport height */
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 20px; /* Add padding to ensure modal content is centered properly */
 }
 
 .modal-content {
   background-color: #f5f5ff; /* Match the page background */
   padding: 30px;
   border-radius: 10px;  
-  max-width: 600px;
+  width: 70%; /* Slightly reduce width */
+  max-width: 700px; /* Slightly reduce max-width */
+  max-height: none; /* Remove max-height restriction */
+  height: auto; /* Allow height to adjust based on content */
   position: relative;
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 15px 4px rgba(106, 13, 173, 0.3); /* Add a shadow for depth and a subtle purple glow */
@@ -52,7 +56,7 @@
 }
 
 .modal-content .delete-button {
-  margin-top: 10px;
+  /* Remove margin-top to vertically center with other buttons */
   background-color: #ff4d4f;
   color: #ffffff;
   border: none;
@@ -66,10 +70,17 @@
   opacity: 0.85;
 }
 
+.modal-header {
+  display: flex;
+  justify-content: center; /* Center the header */
+  align-items: center;
+  margin-bottom: 20px; /* Add some space below the header */
+  position: relative; /* Allow absolute positioning of close button */
+}
+
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  right: 0; /* Position the close button on the right */
   background: none;
   border: none;
   font-size: 1.5em;
@@ -117,5 +128,19 @@ label {
 }
 
 .button-group {
+  display: flex; /* Ensure buttons are on the same level */
   gap: 10px;
+  justify-content: center; /* Center the buttons */
+}
+
+.modal-content .edit-button, .modal-content .add-button, .clear-button, .delete-button {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Add spacing between icon and text */
+}
+
+.greyed-out {
+  background-color: grey !important;
+  cursor: not-allowed !important; /* Ensure cursor changes to not-allowed */
+  opacity: 0.6;
 }
