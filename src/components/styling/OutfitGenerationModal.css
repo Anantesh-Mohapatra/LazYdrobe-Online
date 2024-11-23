@@ -71,6 +71,8 @@
   }
   
   .buy-button-main {
+    display: flex;
+    align-items: center;
     padding: 10px 20px;
     font-size: 16px;
     color: white;
@@ -118,4 +120,3 @@
       margin-bottom: 15px;
     }
   }
-  

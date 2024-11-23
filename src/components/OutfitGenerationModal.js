@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './styling/OutfitGenerationModal.css';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const OutfitGenerationModal = ({ outfit, closeModal }) => {
   const [showBuyLinks, setShowBuyLinks] = useState(false);
@@ -85,6 +86,7 @@ const OutfitGenerationModal = ({ outfit, closeModal }) => {
               className="buy-button-main"
               onClick={() => setShowBuyLinks(!showBuyLinks)}
             >
+              <FaShoppingCart style={{ marginRight: '8px' }} />
               {showBuyLinks ? 'Hide Purchase Links' : 'Purchase'}
             </button>
             {showBuyLinks && (

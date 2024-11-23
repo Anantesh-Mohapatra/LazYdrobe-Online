@@ -21,6 +21,8 @@ button {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, opacity 0.3s ease;
+  height: 40px; /* Fixed height for all buttons */
+  font-size: 16px;
 }
 
 button:hover {
@@ -74,4 +76,13 @@ button:hover {
 .input-field:focus {
   border-color: #6a0dad; /* Highlight input field with purple accent */
   outline: none;
+}
+
+.icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.button-text {
+  vertical-align: middle;
 }

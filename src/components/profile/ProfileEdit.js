@@ -1,6 +1,7 @@
 // ProfileEdit.js
 import React, { useState } from 'react';
 import './Profile.css';
+import { FaSave, FaTimes } from 'react-icons/fa';
 
 const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
   const [form, setForm] = useState({
@@ -131,9 +132,13 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
           className={`save-button ${isChanged ? 'active' : 'inactive'}`} 
           disabled={!isChanged}
         >
-          Save Changes
+          <FaSave className="icon" />
+          <span className="button-text">Save Changes</span>
         </button>
-        <button type="button" className="cancel-button" onClick={onCancel}>Cancel</button>
+        <button type="button" className="cancel-button" onClick={onCancel}>
+          <FaTimes className="icon" />
+          <span className="button-text">Cancel</span>
+        </button>
       </div>
     </form>
   );

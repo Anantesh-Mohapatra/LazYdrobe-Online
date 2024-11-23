@@ -226,6 +226,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 16px;
   }
   
   .select-button {
@@ -416,4 +417,14 @@
     display: flex;
     justify-content: flex-end; /* Align to the right */
     gap: 10px; /* Add gap between buttons */
+  }
+
+  .outfit-generation-button,
+  .select-button,
+  .unselect-button,
+  .delete-button,
+  .delete-all-button {
+    display: flex;
+    align-items: center; /* Vertically align icons with text */
+    gap: 10px; /* Add gap between icon and text */
   }

@@ -9,7 +9,7 @@ import OutfitGenerationModal from './OutfitGenerationModal';
 import LoadingPopup from './LoadingPopup'; // Import the LoadingPopup component
 import { useHistory } from 'react-router-dom'; 
 import { toast } from 'react-toastify'; 
-import { FaArchive } from 'react-icons/fa'; // Import the archive icon
+import { FaArchive, FaMagic } from 'react-icons/fa'; // Import the archive and magic icons
 
 const OutfitSuggestions = ({
   outfits,
@@ -81,6 +81,7 @@ const OutfitSuggestions = ({
           disabled={loading}
           aria-label="Create a new outfit suggestion"
         >
+          <FaMagic style={{ marginRight: '8px' }} />
           {loading ? 'Suggesting Outfit...' : 'Generate Outfit'}
         </button>
         <button
