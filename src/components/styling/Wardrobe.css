@@ -85,10 +85,23 @@
 }
 
 .on-top button {
-  height: fit-content;
+  height: auto;
 }
 
-.add-button, .create-button {
+.button-common {
+  height: 35px; /* Ensure consistent height */
+  padding: 5px 10px; /* Ensure consistent padding */
+  font-size: 16px;
+  border-radius: 6px;
+  box-sizing: border-box; /* Ensures padding is part of width */
+}
+
+.add-button, .create-button, .select-button, .unselect-button, .delete-button {
+  /* Apply common button styles */
+  @extend .button-common;
+}
+
+.add-button {
   background-color: #28a745; /* Green */
 }
 
