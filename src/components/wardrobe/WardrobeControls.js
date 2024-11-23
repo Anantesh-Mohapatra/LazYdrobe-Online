@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FaPlus, FaCheck, FaTimes, FaTrash } from 'react-icons/fa'; // Import the icons
 
 const WardrobeControls = ({
   openItemModal,
@@ -18,14 +19,22 @@ const WardrobeControls = ({
   return (
     <div className='on-top'>
       <div className='left-controls'>
-        <button onClick={() => openItemModal(null)} className='add-button'>Add Item</button>
+        <button onClick={() => openItemModal(null)} className='add-button'>
+          <FaPlus /> Add Item
+        </button>
         {/*<button onClick={() => openOutfitModal(null)} className={`create-button ${isDisabled ? 'greyed-out' : ''}`} disabled={isDisabled}>Create Outfit</button>*/}
         {/* This button ^ is commented out unless the custom outfits are added back */}
-        <button onClick={selectAll} className='select-button'>Select All</button>
+        <button onClick={selectAll} className='select-button'>
+          <FaCheck /> Select All
+        </button>
         {!isDisabled && (
           <>
-            <button onClick={unselectAll} className='unselect-button'>Unselect All</button>
-            <button onClick={deleteSelectedItems} className='delete-button'>Delete Selected</button>
+            <button onClick={unselectAll} className='unselect-button'>
+              <FaTimes /> Unselect All
+            </button>
+            <button onClick={deleteSelectedItems} className='delete-button'>
+              <FaTrash /> Delete Selected
+            </button>
           </>
         )}
       </div>

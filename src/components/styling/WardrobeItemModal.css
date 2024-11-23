@@ -31,8 +31,18 @@
   color: #6a0dad; /* Purple accent */
 }
 
-.modal-content .edit-button, .modal-content .add-button {
-  background-color: #6495ed; /* Softer blue for consistency */
+.modal-content .edit-button {
+  background-color: #6495ed; /* Softer blue for edit button */
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-content .add-button {
+  background-color: #28a745; /* Green for add button */
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -136,7 +146,10 @@ label {
 .modal-content .edit-button, .modal-content .add-button, .clear-button, .delete-button {
   display: flex;
   align-items: center;
+  justify-content: center; /* Center the content horizontally */
   gap: 5px; /* Add spacing between icon and text */
+  height: 40px; /* Increase height to match wardrobe controls */
+  vertical-align: middle; /* Ensure vertical alignment */
 }
 
 .greyed-out {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { FaTimes, FaEdit, FaTrash, FaEraser } from 'react-icons/fa'; // Import the icons
+import { FaTimes, FaEdit, FaTrash, FaEraser, FaPlus } from 'react-icons/fa'; // Import the new icon
 import '../styling/WardrobeItemModal.css';
 
 Modal.setAppElement('#root');
@@ -15,6 +15,7 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
   const [error, setError] = useState(errorFromAbove || null);
   const [isEdited, setIsEdited] = useState(false);
   const [isClearable, setIsClearable] = useState(false);
+  const [isAddDisabled, setIsAddDisabled] = useState(true);
 
   useEffect(() => {
     // Reset form fields when modal is opened or closed, if `item` is null
@@ -52,6 +53,12 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
       image_url !== ''
     );
   }, [clothing_type, for_weather, color, size, tags, image_url]);
+
+  useEffect(() => {
+    setIsAddDisabled(
+      !clothing_type || !for_weather || !color || !size || !image_url
+    );
+  }, [clothing_type, for_weather, color, size, image_url]);
 
   const handleAdd = async () => {
     if (clothing_type && for_weather && color && size && image_url) {
@@ -197,19 +204,19 @@ const WardrobeItemModal = ({ isOpen, onRequestClose, onAdd, onUpdate, onDelete, 
           <div className='button-group'>
             {item?.item_id ? (
               <button type="button" className={`edit-button ${!isEdited ? 'greyed-out' : ''}`} onClick={handleUpdate} disabled={!isEdited}>
-                <FaEdit /> Edit
+                <FaEdit style={{ verticalAlign: 'middle', marginRight: '5px' }} /> Edit
               </button>
             ) : (
-              <button type="button" className="add-button" onClick={handleAdd}>
-                <FaEdit /> Add
+              <button type="button" className={`add-button ${isAddDisabled ? 'greyed-out' : ''}`} onClick={handleAdd} disabled={isAddDisabled}>
+                <FaPlus style={{ verticalAlign: 'middle', marginRight: '5px' }} /> Add
               </button>
             )}
             <button type="button" className={`clear-button ${!isClearable ? 'greyed-out' : ''}`} onClick={handleClear} disabled={!isClearable}>
-              <FaEraser /> Clear
+              <FaEraser style={{ verticalAlign: 'middle', marginRight: '5px' }} /> Clear
             </button>
             {item?.item_id && (
               <button type="button" className="delete-button" onClick={handleDelete}>
-                <FaTrash /> Delete
+                <FaTrash style={{ verticalAlign: 'middle', marginRight: '5px' }} /> Delete
               </button>
             )}
           </div>

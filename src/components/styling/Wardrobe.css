@@ -99,6 +99,11 @@
 .add-button, .create-button, .select-button, .unselect-button, .delete-button {
   /* Apply common button styles */
   @extend .button-common;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content horizontally */
+  gap: 5px; /* Add spacing between icon and text */
+  vertical-align: middle; /* Ensure vertical alignment */
 }
 
 .add-button {
