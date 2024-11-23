@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './styling/OutfitGenerationModal.css';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaMagic, FaArchive, FaShoppingCart, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa';
 
 const OutfitGenerationModal = ({ outfit, closeModal }) => {
   const [showBuyLinks, setShowBuyLinks] = useState(false);

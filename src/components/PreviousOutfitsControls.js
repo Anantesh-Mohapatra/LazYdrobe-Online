@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa'; // Import icons
+import { FaShoppingCart, FaMagic, FaArchive, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 
 const PreviousOutfitsControls = ({ selectAll, unselectAll, openConfirmationModal, multiSelect, outfits }) => {

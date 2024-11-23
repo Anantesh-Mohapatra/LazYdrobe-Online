@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import PreviousOutfitItem from './PreviousOutfitItem';
 import PreviousOutfitsControls from './PreviousOutfitsControls';
 import PreviousOutfitPreviews from './PreviousOutfitPreviews';
-import { FaArrowLeft } from 'react-icons/fa'; // Import the left arrow icon
+import { FaShoppingCart, FaMagic, FaArchive, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 
 const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {

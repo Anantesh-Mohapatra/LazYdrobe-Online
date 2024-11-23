@@ -9,7 +9,7 @@ import OutfitGenerationModal from './OutfitGenerationModal';
 import LoadingPopup from './LoadingPopup'; // Import the LoadingPopup component
 import { useHistory } from 'react-router-dom'; 
 import { toast } from 'react-toastify'; 
-import { FaArchive, FaMagic } from 'react-icons/fa'; // Import the archive and magic icons
+import {FaMagic, FaArchive, FaShoppingCart, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa';
 
 const OutfitSuggestions = ({
   outfits,
