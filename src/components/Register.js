@@ -9,7 +9,8 @@ function Register() {
     username: '',
     email: '',
     password: '',
-    location: ''
+    location: '',
+    gender: ''
   });
   const [error, setError] = useState(null);
   const history = useHistory();
@@ -25,7 +26,7 @@ function Register() {
     e.preventDefault();
     setError(null);
     // Updated validation to include 'location'
-    if (!formData.username || !formData.email || !formData.password || !formData.location) {
+    if (!formData.username || !formData.email || !formData.password || !formData.location || !formData.gender) {
       setError('Please fill in all fields.');
       return;
     }
@@ -102,6 +103,19 @@ function Register() {
             onChange={handleChange}
             required
           />
+
+          <label>Gender:</label>
+          <select 
+            type="select" 
+            name="gender" 
+            value={formData.gender} 
+            onChange={handleChange} 
+            required
+          >
+            <option value="" disabled>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
 
           <button type="submit" className="button">
             Register
