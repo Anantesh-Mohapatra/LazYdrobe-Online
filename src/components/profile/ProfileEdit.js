@@ -3,6 +3,24 @@ import React, { useState } from 'react';
 import './Profile.css';
 import { FaSave, FaTimes } from 'react-icons/fa';
 
+const fetchWeather = async (location, apiKey) => {
+  try {
+    const response = await fetch(
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/next5days?key=${apiKey}&unitGroup=us&iconSet=icons2`
+    );
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error fetching weather data: ${response.statusText} - ${errorText}`);
+      throw new Error(`Error fetching weather data: ${response.statusText} - ${errorText}`);
+    }
+    const data = await response.json();
+    return data.days.slice(0, 5); // Get the next 5 days, including today
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    throw error;
+  }
+};
+
 const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
   const [form, setForm] = useState({
     username: userInfo.username || '',
@@ -14,27 +32,44 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
   });
 
   const [isChanged, setIsChanged] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value});
     setIsChanged(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Prepare updated data
-    const updatedData = {
-      username: form.username,
-      email: form.email,
-      location: form.location,
-      preferences: form.preferences.split(',').map(pref => pref.trim()),
-      gender: form.gender,
-    };
-    if (form.password) {
-      updatedData.password = form.password;
+    setError(null);
+    try {
+      const apiKey = process.env.REACT_APP_VISUAL_CROSSING_API_KEY;
+      if (!apiKey) {
+        throw new Error('API key is missing');
+      }
+
+      // Only check if the location is valid if the location has been changed
+      if (form.location !== userInfo.location) {
+        await fetchWeather(form.location, apiKey);
+      }
+
+      // Prepare updated data
+      const updatedData = {
+        username: form.username,
+        email: form.email,
+        location: form.location,
+        preferences: form.preferences.split(',').map(pref => pref.trim()),
+        gender: form.gender,
+      };
+      if (form.password) {
+        updatedData.password = form.password;
+      }
+      onUpdate(updatedData);
+      setIsChanged(false);
+    } catch (error) {
+      console.error('Error in handleSubmit:', error);
+      setError('Invalid location. Please enter a valid location.');
     }
-    onUpdate(updatedData);
-    setIsChanged(false);
   };
 
   return (
@@ -125,7 +160,7 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
         />
       </div>
 
-      {/* Rest of the form */}
+      {error && <p className="error-text">{error}</p>}
       <div className='button-group'>
         <button 
           type="submit" 
