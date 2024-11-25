@@ -122,10 +122,14 @@
   cursor: pointer;
   transition: none; /* Ensure no transition effect */
   transform: none; /* Ensure no transform effect */
+  display: flex; /* Ensure the button is as large as the icon */
+  align-items: center;
+  justify-content: center;
 }
 
 .close-button:hover {
-  transform: none; /* Ensure no transform effect on hover */
+  transform: rotate(90deg); /* Rotate the icon 90 degrees */
+  transition: transform 0.3s ease; /* Smooth transition */
 }
 
 .get-started-card h2 {

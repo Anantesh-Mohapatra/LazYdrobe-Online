@@ -22,6 +22,11 @@ const Home = ({ userInfo, weather, updateWeather }) => {
     setShowGetStarted(false);
   };
 
+  const handleResetMemory = () => {
+    localStorage.removeItem('getStartedCardClosed');
+    setShowGetStarted(true);
+  };
+
   const hasFashionPreferences = userInfo && userInfo.fashionPreferences && userInfo.fashionPreferences.length > 0;
   const hasWardrobeItems = userInfo && userInfo.wardrobeItems && userInfo.wardrobeItems.length > 0;
   const hasGeneratedOutfits = userInfo && userInfo.generatedOutfits && userInfo.generatedOutfits.length > 0;
@@ -73,6 +78,7 @@ const Home = ({ userInfo, weather, updateWeather }) => {
           weather={weather}
           updateWeather={updateWeather}
         /> {/* Pass userInfo to FiveDayWeather */}
+        <button onClick={handleResetMemory}>Reset Get Started Memory</button> {/* Temporary button */}
       </div>
     </div>
   );
