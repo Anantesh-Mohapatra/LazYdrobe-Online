@@ -21,6 +21,8 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
     console.log('Outfits:', outfits);
   }, [outfits]);
 
+  const reversedOutfits = [...outfits].reverse(); // Reverse the outfits array
+
   const openConfirmationModal = (deleteAll = false) => {
     setDeleteAll(deleteAll);
     setIsModalOpen(true);
@@ -52,7 +54,7 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
   };
 
   const selectAll = () => {
-    setMultiSelect(outfits.map(outfit => outfit.suggestion_id));
+    setMultiSelect(reversedOutfits.map(outfit => outfit.suggestion_id));
   };
 
   const unselectAll = () => {
@@ -60,14 +62,14 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
   };
 
   const handleNextOutfit = () => {
-    setCurrentOutfitIndex((prevIndex) => (prevIndex + 1) % outfits.length);
+    setCurrentOutfitIndex((prevIndex) => (prevIndex + 1) % reversedOutfits.length);
   };
 
   const handlePrevOutfit = () => {
-    setCurrentOutfitIndex((prevIndex) => (prevIndex - 1 + outfits.length) % outfits.length);
+    setCurrentOutfitIndex((prevIndex) => (prevIndex - 1 + reversedOutfits.length) % reversedOutfits.length);
   };
 
-  if (!outfits || outfits.length === 0) {
+  if (!reversedOutfits || reversedOutfits.length === 0) {
     return (
       <div className="previous-outfits-page">
         <p>No previous outfits found.</p>
@@ -83,21 +85,21 @@ const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
           unselectAll={unselectAll}
           openConfirmationModal={openConfirmationModal}
           multiSelect={multiSelect}
-          outfits={outfits}
+          outfits={reversedOutfits} // Use reversed outfits
         />
       </div>
       <div className="outfit-carousel">
         <PreviousOutfitPreviews
-          outfits={outfits}
+          outfits={reversedOutfits} // Use reversed outfits
           currentOutfitIndex={currentOutfitIndex}
           setCurrentOutfitIndex={setCurrentOutfitIndex}
         />
         <button onClick={handlePrevOutfit} className="carousel-button">{"<"}</button>
         <PreviousOutfitItem
-          outfit={outfits[currentOutfitIndex]}
-          isSelected={multiSelect.includes(outfits[currentOutfitIndex].suggestion_id)}
-          onSelect={() => setMultiSelect([...multiSelect, outfits[currentOutfitIndex].suggestion_id])}
-          onUnselect={() => setMultiSelect(multiSelect.filter(id => id !== outfits[currentOutfitIndex].suggestion_id))}
+          outfit={reversedOutfits[currentOutfitIndex]} // Use reversed outfits
+          isSelected={multiSelect.includes(reversedOutfits[currentOutfitIndex].suggestion_id)}
+          onSelect={() => setMultiSelect([...multiSelect, reversedOutfits[currentOutfitIndex].suggestion_id])}
+          onUnselect={() => setMultiSelect(multiSelect.filter(id => id !== reversedOutfits[currentOutfitIndex].suggestion_id))}
         />
         <button onClick={handleNextOutfit} className="carousel-button">{">"}</button>
       </div>
