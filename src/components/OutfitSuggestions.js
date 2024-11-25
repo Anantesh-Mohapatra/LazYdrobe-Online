@@ -122,7 +122,7 @@ const OutfitSuggestions = ({
 
       {/* User Testimonial - Positioned below the description box */}
       <blockquote className="testimonial">
-        "Bruh, have you peeped LazYdrobe yet? It's straight fire, no cap! Their Outfit Suggestions be hittin' different, deadass boosted my drip game by 200%. I'm out here lookin' like a whole snack!" -- <em>Abdur Rahman</em>
+        "Bruh, have you peeped LazYdrobe yet? It's straight fire, no cap! Their Outfit Suggestions be hittin' different, deadass boosted my drip game by 200%. I'm out here lookin' like a whole snack!" – <em>Professor Grewell</em>
       </blockquote>
 
       {/* Loading Pop-up */}
