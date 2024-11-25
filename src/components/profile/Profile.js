@@ -48,6 +48,7 @@ const Profile = ({ userInfo, onUpdate, onLogout }) => {
       await onUpdate(updatedData);
       setIsEditing(false);
       setError(null);
+      toast.success("Profile updated successfully!");
     } catch (err) {
       setError(err.response?.data?.detail || err.message);
       toast.error("Error updating profile: " + (err.response?.data?.detail || err.message));

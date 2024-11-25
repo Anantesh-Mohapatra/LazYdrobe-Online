@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './Profile.css';
 import { FaSave, FaTimes } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const fetchWeather = async (location, apiKey) => {
   try {
@@ -33,6 +34,7 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
 
   const [isChanged, setIsChanged] = useState(false);
   const [error, setError] = useState(null);
+  const [isLocationInvalid, setIsLocationInvalid] = useState(false);
 
   const handleChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value});
@@ -42,6 +44,7 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsLocationInvalid(false);
     try {
       const apiKey = process.env.REACT_APP_VISUAL_CROSSING_API_KEY;
       if (!apiKey) {
@@ -68,7 +71,8 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
       setIsChanged(false);
     } catch (error) {
       console.error('Error in handleSubmit:', error);
-      setError('Invalid location. Please enter a valid location.');
+      toast.error('Invalid location. Please enter a valid location.');
+      setIsLocationInvalid(true);
     }
   };
 
@@ -119,7 +123,7 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
       <div>
         <label>Location:</label>
         <input 
-          className='input-field'
+          className={`input-field ${isLocationInvalid ? 'input-error' : ''}`}
           type="text" 
           name="location" 
           value={form.location} 
