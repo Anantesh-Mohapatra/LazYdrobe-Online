@@ -9,10 +9,9 @@ import PreviousOutfitItem from './PreviousOutfitItem';
 import PreviousOutfitsControls from './PreviousOutfitsControls';
 import PreviousOutfitPreviews from './PreviousOutfitPreviews';
 import { FaShoppingCart, FaMagic, FaArchive, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa';
-import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
-
+import { useHistory } from 'react-router-dom'; 
 const PreviousOutfitsList = ({ outfits, setOutfitSuggestions, userId }) => {
-  const history = useHistory(); // Initialize useHistory
+  const history = useHistory(); 
   const [multiSelect, setMultiSelect] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteAll, setDeleteAll] = useState(false);
