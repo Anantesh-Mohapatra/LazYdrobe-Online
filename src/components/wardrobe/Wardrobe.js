@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import WardrobeSection from './wardrobe/WardrobeSection';
+import WardrobeSection from './WardrobeSection';
 // import CustomOutfitsSection from './wardrobe/CustomOutfitsSection'; // Custom Outfits is currently disabled, please un-comment to reenable
 import { useHistory } from 'react-router-dom';
-import '../App.css';
-import './styling/Wardrobe.css';
+import '../../App.css';
+import './Wardrobe.css';
 
 const Wardrobe = ({ items, onAdd, onUpdate, onDelete, customOutfits, createOutfit, updateOutfit, deleteOutfit, error }) => {
   const [filter, setFilter] = useState('');

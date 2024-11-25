@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './styling/CreateOutfitModal.css';
+import './CreateOutfitModal.css';
 import axios from 'axios';
 
 const CreateOutfitModal = ({ closeModal, wardrobeItems, userInfo, setOutfitSuggestions }) => {

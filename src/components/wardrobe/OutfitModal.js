@@ -1,7 +1,7 @@
 // OutfitModal.js
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import './styling/OutfitModal.css';
+import './OutfitModal.css';
 
 Modal.setAppElement('#root');
 

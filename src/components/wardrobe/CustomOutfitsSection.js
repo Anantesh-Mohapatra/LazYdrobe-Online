@@ -2,7 +2,7 @@ import React from 'react';
 import OutfitModal from '../OutfitModal';
 import { useHistory } from 'react-router-dom';
 import CustomOutfitsControls from './CustomOutfitsControls';
-import '../styling/Wardrobe.css';
+import './Wardrobe.css';
 
 const CustomOutfitsSection = ({
   customOutfits, items, outfitFilter, setOutfitFilter, weatherOutfitFilter, 

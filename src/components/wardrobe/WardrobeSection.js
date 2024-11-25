@@ -1,7 +1,7 @@
 import React from 'react';
 import WardrobeItem from './WardrobeItem';
 import WardrobeItemModal from './WardrobeItemModal';
-import '../styling/Wardrobe.css';
+import './Wardrobe.css';
 import WardrobeControls from './WardrobeControls'; // Ensure this import is present
 
 const WardrobeSection = ({

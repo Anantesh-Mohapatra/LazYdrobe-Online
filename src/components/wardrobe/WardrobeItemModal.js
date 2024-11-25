@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { FaTimes, FaEdit, FaTrash, FaEraser, FaPlus } from 'react-icons/fa'; // Import the new icon
-import '../styling/WardrobeItemModal.css';
+import './WardrobeItemModal.css';
 
 Modal.setAppElement('#root');
 

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Wardrobe from './components/Wardrobe';
+import Wardrobe from './components/wardrobe/Wardrobe';
 import OutfitSuggestions from './components/OutfitSuggestions';
 import PreviousOutfitsList from './components/PreviousOutfitsList';
 import Profile from './components/profile/Profile';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ECommerceItem from './ECommerceItem';
-import '../App.css';
+import '../../App.css';
 import './styling/ECommerce.css';
 
 const ECommerce = ({ items }) => {
