@@ -43,18 +43,47 @@ npm install react-toastify
 npm install react-icons
 ```
 
-### 4. Run the backend
+### 4. (Skip if already done) Set up the backend
+#### a. Clone the Repository
+If not already cloned:
+```
+git clone https://github.com/abd-abdur/LazYdrobe.git
+```
+#### b. Navigate to the Project Directory
 In a separate tab, navigate to the project's backend directory:
 ```
 cd  path/to/LazYdrobe
 ```
+#### c. Set Up a Virtual Environment
+(Optional) Recommended to use a virtual environment to isolate project dependencies
+```
+python -m venv .venv
+```
+
+Activate the virtual environment:
+On Windows: 
+```
+.\.venv\Scripts\activate
+```
+On macOS/Linux: source 
+```
+.venv/bin/activate
+```
+#### d. Install Required Dependencies
+Install the required packages from the requirements.txt file.
+```
+pip install -r requirements.txt
+```
+
+
+### 5. Run the backend
 
 Use the following command to start the application:
 ```
 uvicorn main:app --reload
 ```
 
-### 5. Start the Application
+### 6. Start the Application
 Start the development server:
 ```
 npm start

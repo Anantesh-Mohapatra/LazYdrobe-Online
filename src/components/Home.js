@@ -78,7 +78,6 @@ const Home = ({ userInfo, weather, updateWeather }) => {
           weather={weather}
           updateWeather={updateWeather}
         /> {/* Pass userInfo to FiveDayWeather */}
-        <button onClick={handleResetMemory}>Reset Get Started Memory</button> {/* Temporary button */}
       </div>
     </div>
   );
