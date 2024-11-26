@@ -4,6 +4,11 @@
   padding: 20px;
   background-color: #f5f5ff; /* Light Lavender */
   text-align: center;
+  
+  /* Properties to make the page unscrollable */
+  height: 100vh; /* Occupies full viewport height */
+  overflow: hidden; /* Prevents scrolling */
+  box-sizing: border-box; /* Includes padding within height */
 }
 
 .buttons-container {
@@ -11,6 +16,7 @@
   justify-content: center;
   gap: 20px;
   margin-bottom: 20px;
+  margin-top: 20px; /* Add margin to create space */
 }
 
 .create-outfit-button,
@@ -27,19 +33,19 @@
 }
 
 .create-outfit-button {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 15px rgba(138, 43, 226, 0.7), 0 0 25px rgba(138, 43, 226, 0.5), 0 0 35px rgba(138, 43, 226, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(138, 43, 226, 0.4), 0 0 24px rgba(138, 43, 226, 0.3);
   animation: pulseGlow 2s infinite;
 }
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.7), 0 0 25px rgba(138, 43, 226, 0.5), 0 0 35px rgba(138, 43, 226, 0.3);
+    box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(138, 43, 226, 0.4), 0 0 24px rgba(138, 43, 226, 0.3);
   }
   50% {
-    box-shadow: 0 0 25px rgba(138, 43, 226, 0.9), 0 0 35px rgba(138, 43, 226, 0.7), 0 0 45px rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 18px rgba(138, 43, 226, 0.8), 0 0 24px rgba(138, 43, 226, 0.6), 0 0 30px rgba(138, 43, 226, 0.4);
   }
   100% {
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.7), 0 0 25px rgba(138, 43, 226, 0.5), 0 0 35px rgba(138, 43, 226, 0.3);
+    box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(138, 43, 226, 0.4), 0 0 24px rgba(138, 43, 226, 0.3);
   }
 }
 
@@ -84,6 +90,10 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: opacity 0.3s, max-height 0.3s;
+  
+  /* Properties to manage internal content without causing page scroll */
+  max-height: 60vh; /* Adjust as needed to fit within viewport */
+  overflow-y: auto; /* Allows internal scrolling if content is too long */
 }
 
 .outfit-description.hidden {
@@ -126,6 +136,10 @@
   width: fit-content;
   max-width: 40%; /* Reduced max-width for a smaller box */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  /* Properties to manage internal content */
+  max-height: 20vh; /* Limit height */
+  overflow-y: auto; /* Enable scrolling if necessary */
 }
 
 /* Responsive Testimonial Adjustments */
@@ -133,6 +147,7 @@
   .outfit-description {
     padding: 15px;
     max-width: 95%;
+    max-height: 50vh; /* Adjusted max-height for smaller screens */
   }
   
   .outfit-description h3 {
@@ -154,12 +169,7 @@
     margin-right: 5%;
     width: 70%; /* Adjusted width for smaller screens */
     padding: 8px 12px; /* Further reduced padding */
-  }
-
-  .testimonial::before {
-    top: 8px; /* Adjusted for smaller bubble */
-    right: -8px;
-    border-width: 6px; /* Further reduced size */
+    max-height: 15vh; /* Adjusted max-height for smaller screens */
   }
 
   .loading-content {

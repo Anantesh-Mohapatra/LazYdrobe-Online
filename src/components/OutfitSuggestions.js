@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import '../App.css';
+import '../App.css'; // Ensure this imports any global styles if needed
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
 import OutfitGenerationModal from './suggestion/OutfitGenerationModal';
 import LoadingPopup from './LoadingPopup'; // Import the LoadingPopup component
 import { useHistory } from 'react-router-dom'; 
 import { toast } from 'react-toastify'; 
-import {FaMagic, FaArchive, FaShoppingCart, FaArrowLeft, FaCheckSquare, FaTimes, FaTrashAlt } from 'react-icons/fa';
+import { FaMagic, FaArchive } from 'react-icons/fa';
 
 const OutfitSuggestions = ({
   outfits,
@@ -27,7 +27,7 @@ const OutfitSuggestions = ({
   
   const history = useHistory();
 
-  // Effect to handle the countdown timer
+  // Effect to handle the countdown timer and open modal when countdown finishes
   useEffect(() => {
     let timer;
     if (isGenerating && timeLeft > 0) {
@@ -35,28 +35,37 @@ const OutfitSuggestions = ({
     }
     if (isGenerating && timeLeft === 0) {
       setIsGenerating(false);
+      // Open the modal after countdown finishes
+      if (currentOutfit) {
+        setIsGenerationModalOpen(true);
+        // Display Success Toast Here
+        toast.success('Outfit suggested successfully!', { autoClose: 1000 });
+      }
     }
     return () => clearTimeout(timer);
-  }, [isGenerating, timeLeft]);
+  }, [isGenerating, timeLeft, currentOutfit]);
 
   // Handler for creating a new outfit
   const handleCreateOutfit = async () => {
+    // Prevent multiple generations
+    if (isGenerating) return;
+
     setIsGenerating(true);
-    setTimeLeft(5); // Set countdown to 5 seconds (adjust as needed)
+    setTimeLeft(7); // Set countdown to 7 seconds
     setLoading(true);
     try {
       const response = await axios.post('/outfits/suggest', { user_id: userInfo.user_id });
       setOutfitSuggestions([response.data, ...outfits]);
       setCurrentOutfit(response.data);
-      setIsGenerationModalOpen(true);
-      toast.success('Outfit suggested successfully!');
+      // Do not open the modal here; wait for countdown to finish
     } catch (err) {
       console.error("Error suggesting outfit:", err);
-      toast.error("Failed to suggest outfit.");
+      toast.error("Failed to suggest outfit.", { autoClose: 3000 }); // Display error toast for 3 seconds
+      setIsGenerating(false); // Stop generating if there's an error
+      setTimeLeft(0); // Reset the countdown
     } finally {
       setLoading(false);
-      setIsGenerating(false);
-      setTimeLeft(0);
+      // Do not set isGenerating(false) and setTimeLeft(0) here to allow countdown to proceed
     }
   };
 
@@ -71,6 +80,20 @@ const OutfitSuggestions = ({
     setCurrentOutfit(null);
   };
 
+  // Effect to directly manipulate the body's overflow style
+  useEffect(() => {
+    // Store the original overflow style
+    const originalOverflow = document.body.style.overflow;
+
+    // Prevent scrolling
+    document.body.style.overflow = 'hidden';
+
+    // Cleanup: Restore original overflow when component unmounts
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   return (
     <div className="outfit-suggestions">
       {/* Buttons Above the Description */}
@@ -78,11 +101,11 @@ const OutfitSuggestions = ({
         <button
           onClick={handleCreateOutfit}
           className="create-outfit-button"
-          disabled={loading}
+          disabled={loading || isGenerating}
           aria-label="Create a new outfit suggestion"
         >
           <FaMagic style={{ marginRight: '8px' }} />
-          {loading ? 'Suggesting Outfit...' : 'Generate Outfit'}
+          {loading || isGenerating ? 'Suggesting Outfit...' : 'Generate Outfit'}
         </button>
         <button
           onClick={handleViewPreviousOutfits}
@@ -113,7 +136,7 @@ const OutfitSuggestions = ({
 
       {/* User Testimonial - Positioned below the description box */}
       <blockquote className="testimonial">
-        "Bruh, have you peeped LazYdrobe yet? It's straight fire, no cap! Their Outfit Suggestions be hittin' different, deadass boosted my drip game by 200%. I'm out here lookin' like a whole snack!" -- <em>Abdur Rahman</em>
+        "Bruh, have you peeped LazYdrobe yet? It's straight fire, no cap! Their Outfit Suggestions be hittin' different, deadass boosted my drip game by 200%. I'm out here lookin' like a whole snack!" – <em>Professor Grewell</em>
       </blockquote>
 
       {/* Loading Pop-up */}
