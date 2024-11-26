@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import './styling/OutfitSuggestions.css';
 import axios from 'axios';
-import OutfitGenerationModal from './OutfitGenerationModal';
+import OutfitGenerationModal from './suggestion/OutfitGenerationModal';
 import LoadingPopup from './LoadingPopup'; // Import the LoadingPopup component
 import { useHistory } from 'react-router-dom'; 
 import { toast } from 'react-toastify'; 

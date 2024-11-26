@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Wardrobe from './components/wardrobe/Wardrobe';
+import Wardrobe from './components/Wardrobe';
 import OutfitSuggestions from './components/OutfitSuggestions';
-import PreviousOutfitsList from './components/PreviousOutfitsList';
+import PreviousOutfit from './components/PreviousOutfit';
 import Profile from './components/profile/Profile';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -365,7 +365,7 @@ function App() {
                         />
                       </Route>
                       <Route path="/previous-outfits">
-                        <PreviousOutfitsList
+                        <PreviousOutfit
                           outfits={outfitSuggestions} // Pass outfitSuggestions as outfits
                           setOutfitSuggestions={setOutfitSuggestions}
                           userId={userInfo.user_id} // Pass userId as a separate prop
