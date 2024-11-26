@@ -7,6 +7,7 @@ The current goal is to develop the front-end architecture of LazyDrobe. This pro
 ## Wireframe
 
 ![LazYdrobe Wireframe](wireframe.png)
+[Figma](https://www.figma.com/design/9YrdLFshQqQMIgmeGvPYMK/Figma-basics?node-id=825-2&t=loE2LRUpFeCN9x6I-1)
 
 ## Prerequisites
 Before running this code, ensure you have the following installed:
@@ -32,9 +33,6 @@ cd  path/to/LazYdrobe-Online
 ```
 ### 3. Install Dependencies
 Install the necessary packages using npm:
-
-
-#### Using npm
 ```
 npm install
 npm install react
@@ -58,8 +56,6 @@ uvicorn main:app --reload
 
 ### 5. Start the Application
 Start the development server:
-
-#### Using npm
 ```
 npm start
 ```
@@ -71,60 +67,72 @@ Here's an overview of the project directory structure:
 ```
 lazydrobe/
 ├── public/
-│   └── index.html                   # Main HTML file for the React app
+│   └── index.html                       # Main HTML file for the React app
 ├── src/  
-│   ├── components/                  # All React components
-│   │   ├── profile/                 # Profile components and css
-│   │   │   ├── Profile.js           # Profile page screen
-│   │   │   ├── ProfileEdit.js       # Profile page segment 
-│   │   │   ├── ProfileView.js       # Profile page segment
-│   │   ├── styling/                 # All React components' CSS files
-│   │   ├── Login.js                 # Login page screen
-│   │   ├── Register.js              # Register page screen
-│   │   ├── Home.js                  # Home page screen
-│   │   ├── Navbar.js                # Navigation bar component
-│   │   ├── Footer.js                # Footer component
-│   │   ├── Wardrobe.js              # Main wardrobe screen
-│   │   ├── WardrobeItem.js          # Individual wardrobe item component
-│   │   ├── WardrobeModal.js         # Modal component for adding/editing wardrobe items
-│   │   ├── ECommerce.js             # Old shopping screen
-│   │   ├── ECommerceItem.js         # Individual ecommerce item component
-│   │   ├── OutfitSuggestions.js     # Outfit suggestion screen
-│   │   ├── OutfitModal.js           # Modal component for adding/editing custom outfits 
-│   │   ├── FiveDayWeather.jsx       # Weather component
-│   ├── App.js                       # Main app component with routes and functions
-│   ├── index.js                     # Entry point to render the app
-│   └── App.css                      # Unified styling for all components
-├── .gitignore                       # Excludes unnecessary files from Git
-├── README.md                        # General project overview and instructions
-├── package.json                     # Lists dependencies and scripts
-├── package-lock.json                # Locks dependencies to specific versions
+│   ├── components/                        # All React components
+│   │   ├── profile/                       # Profile components and relevant css
+│   │   │   ├── Profile.js                 # Profile page screen
+│   │   │   ├── ProfileEdit.js             # Profile page segment 
+│   │   │   ├── ProfileView.js             # Profile page segment
+│   │   ├── styling/                       # All React components' CSS files
+│   │   ├── suggestion/                    # Outfit suggestion components and relevant css
+│   │   │   ├── OutfitGenerationModal.js   # Component to view new generated outfit
+│   │   │   ├── PreviousOutfitControls.js  # Component for deleting custom outfits
+│   │   │   ├── PreviousOutfitItem.js      # Individual outfit suggestion items
+│   │   │   ├── PreviousOutfitPreviews.js  # Suggestion outfit preview image
+│   │   ├── wardrobe/                      # Wardrobe components and relevant css
+│   │   │   ├── CustomOutfitControl.js     # Component for adding, filtering, and deleting custom outfits
+│   │   │   ├── CustomOutfitModal.js       # Modal component for adding/editing custom outfits
+│   │   │   ├── CustomOutfitSection.js     # Custom Outfits display component
+│   │   │   ├── OutfitModal.js             # Old modal component for adding/editing custom outfits
+│   │   │   ├── WardrobeControls.js        # Component for adding, filtering, and deleting wardrobe items
+│   │   │   ├── WardrobeItem.js            # Individual wardrobe item component
+│   │   │   ├── WardrobeItemModal.js       # Modal component for adding/editing wardrobe items
+│   │   │   ├── WardrobeSection.js         # Wardrobe item display component
+│                                          
+│                                          # Main components:
+│                                          
+│   │   ├── Login.js                       # Login page screen
+│   │   ├── Register.js                    # Register page screen
+│   │   ├── Navbar.js                      # Navigation bar component
+│   │   ├── Home.js                        # Home page screen
+│   │   ├── FiveDayWeather.jsx             # Weather component
+│   │   ├── Wardrobe.js                    # Main wardrobe page screen
+│   │   ├── OutfitSuggestions.js           # Main DressMeUp page screen
+│   │   ├── PreviousOutfit.js              # View previous outfit suggestion screen
+│   │   ├── Footer.js                      # Footer component
+│   │   ├── LoadingPopup.js                # Component for showing loading
+│   │   ├── ErrorBoundary.js               # Component for showing error
+│   ├── App.js                             # Main app component with routes and functions
+│   ├── index.js                           # Entry point to render the app
+│   └── App.css                            # Unified styling for all components
+├── .gitignore                             # Excludes unnecessary files from Git
+├── README.md                              # General project overview and instructions
+├── package.json                           # Lists dependencies and scripts
+├── package-lock.json                      # Locks dependencies to specific versions
 ```
 ## Key Components
 The following core components were identified in the wireframe and are implemented in this prototype:
 
  - **Login** (`Login.js`): Displays the login screen for the app.  
  - **Home** (`Home.js`): Displays the home screen for the app.  
+    - **FiveDayWeather** (`FiveDayWeather.jsx`): Shows a five-day weather forecast.
  - **Navbar** (`Navbar.js`): Displays the navigation links for the app.  
  - **Footer** (`Footer.js`): Shows copyright information.  
  - **Wardrobe** (`Wardrobe.js`): Displays wardrobe items with filtering functionality.  
-                                 Also displays custom made outfits
-   - **WardrobeItem** (`WardrobeItem.js`): Represents individual wardrobe items.  
    - **WardrobeModal** (`WardrobeModal.js`): Modal for adding/editing wardrobe items.
-   - **OutfitModal** (`OutfitModal.js`): Modal for adding/editing custom outfits.
- - **ECommerce** (`ECommerce.js`): Displays e-commerce items with filtering functionality.  
-   - **ECommerceItem** (`ECommerceItem.js`): Represents individual e-commerce items.  
- - **OutfitSuggestions** (`OutfitSuggestions.js`): Displays outfit recommendations based on weather.  
- - **FiveDayWeather** (`FiveDayWeather.jsx`): Shows a five-day weather forecast.
+ - **OutfitSuggestions** (`OutfitSuggestions.js`): Page to access outfit suggestion and viewing previous suggestions. 
+   - **OutfitGenerationModal** (`OutfitGenerationModal.js`): Displays newly generated outfit suggestion.
+   - **PreviousOutfit** (`PreviousOutfit.js`): Page to show and manage previously generated outfits.
  - **Profile** (`Profile.js`): Allows users to view and edit their profile information.
-   - **ProfileEdit** (`ProfileEdit.js`): Component for editing user information
-   - **ProfileView** (`ProfileView.js`): Component for viewing user information
+   - **ProfileEdit** (`ProfileEdit.js`): Component for editing user information.
+   - **ProfileView** (`ProfileView.js`): Component for viewing user information.
    
 
 These components are designed based on the hierarchy and interaction flows from the wireframe.
 
 ## Styling
-All component styles have their own css files, located in the src/components/styling folder or in separate folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
+All component styles have their own css files, located in the src/components/styling folder or in respective folder. The styling is focused on layout rather than aesthetics, using a clean and minimal design to emphasize functionality over appearance.
 
 ## API Integration
 
@@ -149,10 +157,6 @@ The frontend interacts with the backend API to perform CRUD operations and fetch
 #### Weather Data
 - **POST** `/weather/`: Fetch weather data for a given location from API or database.
 
-#### Fashion Trends
-- **POST** `/fashion_trends/update`: Fetching and updating a new fashion trend.
-- **GET** `/fashion_trends/`: Retrieve fashion trend.
-
 #### Custom Outfit Management
 - **POST** `/outfit/`: Register a new outfit.
 - **GET** `/outfit/user/{user_id}`: Retrieve outfits of an user.
@@ -162,7 +166,8 @@ The frontend interacts with the backend API to perform CRUD operations and fetch
 #### Outfit Suggestion Management
 - **POST** `/outfits/suggest`: Register a new outfit suggestion.
 - **GET** `/outfits/suggestions/{user_id}`: Retrieve outfit suggestions of an user.
-- **DELETE** `/outfits/suggestions/{suggestion_id}`: Delete an outfit suggestion.
+- **DELETE** `/outfits/suggestions/all`: Delete all outfit suggestions.
+- **DELETE** `/outfits/suggestions/`: Delete a list of outfit suggestion(s).
 
 ### Handling API Calls
 
