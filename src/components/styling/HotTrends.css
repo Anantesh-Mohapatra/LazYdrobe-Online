@@ -1,0 +1,30 @@
+.hot-trends {
+  margin: 20px 0;
+  text-align: center; /* Center the Hot Trends section */
+}
+
+.hot-trends h2 {
+  color: #FF4500; /* Darker shade of orange */
+  text-align: center;
+}
+
+.trends-container {
+  display: flex;
+  justify-content: center; /* Center the pills */
+  gap: 20px; /* Increase the spacing between the pills */
+}
+
+.trend-pill {
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 10px rgba(255, 69, 0, 0.5); /* Darker shade of orange */
+}
+
+.trend-pill:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 69, 0, 1); /* Darker shade of orange */
+}

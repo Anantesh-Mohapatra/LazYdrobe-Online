@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom'; // Ensure you have react-router-dom ins
 import '../App.css'; // Ensure this import is present
 import './styling/Home.css';
 import FiveDayWeather from './FiveDayWeather';
+import HotTrends from './HotTrends';
+import HotTrendsExplanation from './HotTrendsExplanation';
 
 const Home = ({ userInfo, weather, updateWeather }) => {
   const [showGetStarted, setShowGetStarted] = useState(true);
+  const [selectedTrend, setSelectedTrend] = useState(null);
 
   useEffect(() => {
     const isCardClosed = localStorage.getItem('getStartedCardClosed');
@@ -25,6 +28,14 @@ const Home = ({ userInfo, weather, updateWeather }) => {
   const handleResetMemory = () => {
     localStorage.removeItem('getStartedCardClosed');
     setShowGetStarted(true);
+  };
+
+  const handleTrendClick = (trend) => {
+    setSelectedTrend(trend);
+  };
+
+  const handleCloseTrendExplanation = () => {
+    setSelectedTrend(null);
   };
 
   const hasFashionPreferences = userInfo && userInfo.fashionPreferences && userInfo.fashionPreferences.length > 0;
@@ -73,11 +84,20 @@ const Home = ({ userInfo, weather, updateWeather }) => {
             </ul>
           </div>
         )}
+        <div className="hot-trends-container">
+          <HotTrends onTrendClick={handleTrendClick} />
+        </div>
         <FiveDayWeather 
           userInfo={userInfo} 
           weather={weather}
           updateWeather={updateWeather}
-        /> {/* Pass userInfo to FiveDayWeather */}
+        />
+        {selectedTrend && (
+          <HotTrendsExplanation 
+            trend={selectedTrend} 
+            onClose={handleCloseTrendExplanation} 
+          />
+        )}
       </div>
     </div>
   );
