@@ -2,12 +2,24 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const PreviousOutfitItem = ({ outfit, isSelected, onSelect, onUnselect }) => {
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
+
   const handleItemClick = () => {
     if (isSelected) {
       onUnselect();
     } else {
       onSelect();
     }
+  };
+
+  const handleMouseEnter = (item, event) => {
+    setHoveredItem(item);
+    setHoverPosition({ x: event.clientX, y: event.clientY });
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
   };
 
   return (
@@ -35,11 +47,21 @@ const PreviousOutfitItem = ({ outfit, isSelected, onSelect, onUnselect }) => {
                         href={item.eBay_link[0]}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onMouseEnter={(e) => handleMouseEnter(item, e)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         {item.product_name}
                       </a>
                     ) : (
                       <span className="link-unavailable">Unavailable</span>
+                    )}
+                    {hoveredItem === item && (
+                      <div
+                        className="hover-overlay"
+                        style={{ top: hoverPosition.y - 10, left: hoverPosition.x + 10 }}
+                      >
+                        <img src={item.image_url} alt={item.product_name} />
+                      </div>
                     )}
                   </td>
                 </tr>

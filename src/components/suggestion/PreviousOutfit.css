@@ -428,3 +428,19 @@
     align-items: center; /* Vertically align icons with text */
     gap: 10px; /* Add gap between icon and text */
   }
+
+  .hover-overlay {
+    position: fixed;
+    transform: translate(10px, -100px); /* Offset to position bottom left corner at top right of mouse */
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    border-radius: 5px; /* Keep corners rounded */
+  }
+  
+  .hover-overlay img {
+    max-width: 400px !important; /* Increased size */
+    max-height: 400px !important; /* Increased size */
+    object-fit: cover !important;
+  }

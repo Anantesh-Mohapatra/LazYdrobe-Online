@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PreviousOutfitPreviews = ({ outfits, currentOutfitIndex, setCurrentOutfitIndex }) => {
-  const reversedOutfits = [...outfits].reverse(); // Reverse the outfits array
-
   return (
     <div className="outfit-preview">
-      {reversedOutfits.map((outfit, index) => (
+      {outfits.map((outfit, index) => (
         outfit.image_url ? (
           <img
             key={outfit.suggestion_id}

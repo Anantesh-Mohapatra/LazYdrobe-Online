@@ -36,11 +36,10 @@ input {
     color: red; 
 }
 
-img {
-    width: 40px;
-    height: 40px;
+.five-day-component img {
+  width: 40px;
+  height: 40px;
 }
-
 
   
   .forecast-component {

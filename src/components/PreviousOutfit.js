@@ -19,6 +19,7 @@ const PreviousOutfit = ({ outfits, setOutfitSuggestions, userId }) => {
 
   useEffect(() => {
     console.log('Outfits:', outfits);
+    setCurrentOutfitIndex(0); // Ensure the most recent outfit is shown first
   }, [outfits]);
 
   const reversedOutfits = [...outfits].reverse(); // Reverse the outfits array
