@@ -13,8 +13,8 @@ const HotTrendsExplanation = ({ trend, onClose }) => {
             {/* Placeholder for image */}
           </div>
           <div className="trend-details">
-            <h2>{trend.name}</h2>
-            <p>{trend.description}</p>
+            <h2>{trend.trend_name}</h2>
+            <p>{trend.trend_description}</p>
           </div>
         </div>
       </div>
