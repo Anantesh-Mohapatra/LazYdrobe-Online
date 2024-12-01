@@ -36,7 +36,7 @@ const HotTrends = ({ onTrendClick }) => {
             className="trend-pill" 
             onClick={() => onTrendClick(trend)}
           >
-            {trend.trend_name}
+            {trend.trend_name.replace(/^\d+\.\s*/, '')}
           </div>
         ))}
       </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styling/HotTrendsExplanation.css';
@@ -13,7 +12,7 @@ const HotTrendsExplanation = ({ trend, onClose }) => {
             {/* Placeholder for image */}
           </div>
           <div className="trend-details">
-            <h2>{trend.trend_name}</h2>
+            <h2>{trend.trend_name.replace(/^\d+\.\s*/, '')}</h2>
             <p>{trend.trend_description}</p>
           </div>
         </div>
