@@ -29,7 +29,9 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
     location: userInfo.location || '',
     preferences: userInfo.preferences ? userInfo.preferences.join(', ') : '',
     gender: userInfo.gender || '',
-    password: ''
+    password: '',
+    height: userInfo.height || '',
+    weight: userInfo.weight || '',
   });
 
   const [isChanged, setIsChanged] = useState(false);
@@ -63,6 +65,8 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
         location: form.location,
         preferences: form.preferences.split(',').map(pref => pref.trim()),
         gender: form.gender,
+        height: form.height,
+        weight: form.weight,
       };
       if (form.password) {
         updatedData.password = form.password;
@@ -148,6 +152,34 @@ const ProfileEdit = ({ userInfo, onUpdate, onCancel }) => {
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
+      </div>
+
+      <div>
+        <label>Height:</label>
+        <input 
+          className='input-field'
+          type="text" 
+          name="height" 
+          value={form.height} 
+          onChange={handleChange} 
+          placeholder="e.g., 6'0 ft" 
+          minLength={1}
+          maxLength={10}
+        />
+      </div>
+
+      <div>
+        <label>Weight:</label>
+        <input 
+          className='input-field'
+          type="text" 
+          name="weight" 
+          value={form.weight} 
+          onChange={handleChange} 
+          placeholder="e.g., 200 lbs" 
+          minLength={1}
+          maxLength={10}
+        />
       </div>
 
       {/* Fashion Preference */}

@@ -15,6 +15,8 @@ const ProfileView = ({ userInfo, onEdit, onDelete }) => {
       <p><strong>Email:</strong> {userInfo.email}</p>
       {userInfo.location && <p><strong>Location:</strong> {userInfo.location}</p>}
       {userInfo.gender && <p><strong>Gender:</strong> {userInfo.gender}</p>}
+      {userInfo.height && <p><strong>Height:</strong> {userInfo.height}</p>}
+      {userInfo.weight && <p><strong>Weight:</strong> {userInfo.weight}</p>}
       {userInfo.preferences && userInfo.preferences.length > 0 ? (
         <p><strong>Fashion Preferences:</strong> {userInfo.preferences.join(', ')}</p>
       ) : (
