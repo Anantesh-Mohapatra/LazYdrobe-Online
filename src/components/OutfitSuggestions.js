@@ -51,7 +51,7 @@ const OutfitSuggestions = ({
     if (isGenerating) return;
 
     setIsGenerating(true);
-    setTimeLeft(7); // Set countdown to 7 seconds
+    setTimeLeft(10); // Set countdown to 7 seconds
     setLoading(true);
     try {
       const response = await axios.post('/outfits/suggest', { user_id: userInfo.user_id });

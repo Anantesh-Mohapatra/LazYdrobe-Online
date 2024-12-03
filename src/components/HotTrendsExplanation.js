@@ -8,9 +8,9 @@ const HotTrendsExplanation = ({ trend, onClose }) => {
       <div className="hot-trends-explanation">
         <button className="close-button" onClick={onClose}>✖</button>
         <div className="trend-content">
-          <div className="trend-image">
-            {/* Placeholder for image */}
-          </div>
+          {/* <div className="trend-image">
+            Placeholder for image
+          </div> */}
           <div className="trend-details">
             <h2>{trend.trend_name.replace(/^\d+\.\s*/, '')}</h2>
             <p>{trend.trend_description}</p>
