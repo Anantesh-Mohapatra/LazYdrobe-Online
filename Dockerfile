@@ -1,5 +1,5 @@
 # Build stage
-FROM node:16-alpine as builder
+FROM node:16-alpine AS builder
 
 # Set working directory
 WORKDIR /app
@@ -22,15 +22,11 @@ FROM nginx:alpine
 # Copy built files from builder stage to Nginx directory
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Create nginx.conf that reads PORT environment variable from Cloud Run
-RUN printf 'server {\n\
-    listen 80;\n\
-    location / {\n\
-    root /usr/share/nginx/html;\n\
-    index index.html index.htm;\n\
-    try_files $uri $uri/ /index.html;\n\
-    }\n\
-    }\n' > /etc/nginx/conf.d/default.conf.template
+# Create a custom nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Use shell to substitute PORT value in nginx.conf
-CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+# Expose port 80
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
