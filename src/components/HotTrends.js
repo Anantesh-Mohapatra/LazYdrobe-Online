@@ -11,8 +11,11 @@ const HotTrends = ({ onTrendClick }) => {
     const fetchTrends = async () => {
       try {
         const response = await axios.get('/fashion-trends/latest');
-        setTrends(response.data);
-        console.log(response)
+        if (Array.isArray(response.data)) {
+          setTrends(response.data);
+        } else {
+          setError('Data is not in the expected format.');
+        }
       } catch (err) {
         console.error('Error fetching trends:', err);
         setError('Unable to fetch trends. Please try again later.');
@@ -30,15 +33,19 @@ const HotTrends = ({ onTrendClick }) => {
     <div className="hot-trends">
       <h2>Hot Trends</h2>
       <div className="trends-container">
-        {trends.map(trend => (
-          <div 
-            key={trend.trend_id} 
-            className="trend-pill" 
-            onClick={() => onTrendClick(trend)}
-          >
-            {trend.trend_name.replace(/^\d+\.\s*/, '')}
-          </div>
-        ))}
+        {trends.length > 0 ? (
+          trends.map((trend) => (
+            <div 
+              key={trend.trend_id} 
+              className="trend-pill" 
+              onClick={() => onTrendClick(trend)}
+            >
+              {trend.trend_name.replace(/^\d+\.\s*/, '')}
+            </div>
+          ))
+        ) : (
+          <p>No trends available</p>
+        )}
       </div>
     </div>
   );

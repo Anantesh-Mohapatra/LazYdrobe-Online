@@ -23,9 +23,9 @@ const HotTrendsExplanation = ({ trend, onClose }) => {
 
 HotTrendsExplanation.propTypes = {
   trend: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    trend_id: PropTypes.number.isRequired,    // Updated to match the actual prop
+    trend_name: PropTypes.string.isRequired,  // Updated to match the actual prop
+    trend_description: PropTypes.string.isRequired,  // Updated to match the actual prop
   }).isRequired,
   onClose: PropTypes.func.isRequired,
 };
